@@ -1,5 +1,5 @@
-import EquipmentWearPage from '@/components/pages/EquipmentWear';
+import ToolProcessingPage from '@/components/pages/ToolProcessingPage';
 
 export default function HomeScreen() {
-  return <EquipmentWearPage />;
+  return <ToolProcessingPage />;
 }
