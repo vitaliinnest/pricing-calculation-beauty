@@ -1,18 +1,29 @@
-import { StyleSheet } from 'react-native';
+import { ListRenderItem, StyleSheet } from 'react-native';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 import ThemedPage from "../ThemedPage";
 import ThemedAppendableList from '../ThemedAppendableList';
-import { useToolProcessingStore } from '@/stores/toolProcessingStore';
+import { ToolProcessing, useToolProcessingStore } from '@/stores/toolProcessingStore';
+import ListItem from '../ListItem';
+import { useRouter } from 'expo-router';
 
 export default function ToolProcessingPage() {
   const { tools, addTool, updateTool, deleteTool, getToolById } = useToolProcessingStore();
+  const router = useRouter();
+
+  const renderItem: ListRenderItem<ToolProcessing> = ({ item }) => {
+    return (
+      <ListItem onPress={() => router.push('/(tabs)/explore')}>
+
+      </ListItem>
+    );
+  }
 
   return (
     <ThemedPage title="Знос обладнання">
       <ThemedAppendableList
         data={tools}
-        renderItem={() => null}
+        renderItem={renderItem}
         onAddItem={() => null}
       />
     </ThemedPage>

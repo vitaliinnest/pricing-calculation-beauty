@@ -2,7 +2,7 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { buildStorage } from "./store";
 
-interface ToolProcessing {
+export interface ToolProcessing {
   id: string;
   price: number; // вартість / Preis
   volume: number; // обсяг / Volumen

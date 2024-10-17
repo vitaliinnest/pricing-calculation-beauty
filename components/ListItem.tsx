@@ -11,7 +11,7 @@ export interface IWithStyle {
 }
 
 type Props = IWithStyle & {
-  onPress?: () => void;
+  onPress: () => void;
 };
 
 const ListItem = (props: React.PropsWithChildren<Props>) => {
