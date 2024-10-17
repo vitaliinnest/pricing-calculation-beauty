@@ -1,9 +1,7 @@
 import type { PropsWithChildren } from "react";
 import { ScrollView, StyleSheet } from "react-native";
 
-type Props = PropsWithChildren<{
-  title: string;
-}>;
+type Props = PropsWithChildren;
 
 export default function ThemedPage(props: Props) {
   return (

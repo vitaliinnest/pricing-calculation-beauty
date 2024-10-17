@@ -7,7 +7,7 @@ import { ToolProcessing, useToolProcessingStore } from '@/stores/toolProcessingS
 import ListItem from '../ListItem';
 import { useRouter } from 'expo-router';
 
-export default function ToolProcessingPage() {
+export default function ToolsProcessingPage() {
   const { tools, addTool, updateTool, deleteTool, getToolById } = useToolProcessingStore();
   const router = useRouter();
 
@@ -20,7 +20,7 @@ export default function ToolProcessingPage() {
   }
 
   return (
-    <ThemedPage title="Знос обладнання">
+    <ThemedPage>
       <ThemedAppendableList
         data={tools}
         renderItem={renderItem}
