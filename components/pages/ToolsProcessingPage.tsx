@@ -13,20 +13,18 @@ export default function ToolsProcessingPage() {
 
   const renderItem: ListRenderItem<ToolProcessing> = ({ item }) => {
     return (
-      <ListItem onPress={() => router.push('/(tabs)/explore')}>
+      <ListItem onPress={() => router.push('/tool-processing/123')}>
 
       </ListItem>
     );
   }
 
   return (
-    <ThemedPage>
-      <ThemedAppendableList
-        data={tools}
-        renderItem={renderItem}
-        onAddItem={() => null}
-      />
-    </ThemedPage>
+    <ThemedAppendableList
+      data={tools}
+      renderItem={renderItem}
+      onAddItem={() => router.push('/tool-processing/add')}
+    />
   );
 }
 

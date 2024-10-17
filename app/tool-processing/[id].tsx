@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 
 type ToolProcessingFormValues = Omit<ToolProcessing, "id">;
 
-export function ToolProcessingDetails() {
+export default function ToolProcessingDetails() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const { addTool, updateTool, deleteTool, getToolById } = useToolProcessingStore();
   const tool = getToolById(id);

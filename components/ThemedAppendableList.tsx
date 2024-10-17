@@ -1,27 +1,38 @@
-import { FlatList } from "react-native-reanimated/lib/typescript/Animated";
 import { ThemedView } from "./ThemedView";
 import {
+  FlatList,
   FlatListProps,
   SafeAreaView,
   StatusBar,
   StyleSheet,
 } from "react-native";
 import Button from "./Button";
+import { ThemedText } from "./ThemedText";
 
 type Props = Pick<FlatListProps<any>, "data" | "renderItem"> & {
   onAddItem: () => void;
 };
 
 export default function ThemedAppendableList(props: Props) {
-  return (
-    <ThemedView>
-      <SafeAreaView style={styles.container}>
-        <FlatList {...props} />
-      </SafeAreaView>
-      {/* <ThemedView>
+  if (props.data?.length === 0) {
+    return (
+      <ThemedView>
+        <ThemedText>Список пустий</ThemedText>
         <Button title="Додати" onPress={props.onAddItem} />
-      </ThemedView> */}
-    </ThemedView>
+      </ThemedView>
+    );
+  }
+
+  return (
+    <SafeAreaView style={styles.container}>
+      <FlatList
+        {...props}
+        ListHeaderComponent={<ThemedView></ThemedView>}
+        ListFooterComponent={<ThemedView>
+          <Button title="Додати" onPress={props.onAddItem} />
+        </ThemedView>}
+      />
+    </SafeAreaView>
   );
 }
 
