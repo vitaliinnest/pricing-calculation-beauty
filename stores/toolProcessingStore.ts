@@ -4,10 +4,11 @@ import { buildStorage } from "./store";
 
 export interface ToolProcessing {
   id: string;
-  price: number; // вартість / Preis
-  volume: number; // обсяг / Volumen
-  expenditurePerDay: number; // витрати на день / Verbrauch pro Tag
-  clientsPerDay: number; // кількість клієнтів на день / Kundenzahl oro Tag
+  name: string; // назва
+  price: number; // вартість
+  volume: number; // обсяг
+  expenditurePerDay: number; // витрати на день
+  clientsPerDay: number; // кількість клієнтів на день
 }
 
 interface ToolProcessingStore {

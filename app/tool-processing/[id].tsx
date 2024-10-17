@@ -14,7 +14,7 @@ export function ToolProcessingDetails() {
 
   return (
     <ThemedPage>
-      <TextInput label="Вартість" name="price" control={control} />
+      <TextInput label="Назва" name="name" control={control} />
     </ThemedPage>
   );
 }
