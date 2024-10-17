@@ -12,7 +12,7 @@ export default function NumberInput({ label, name, control }: InputProps) {
 
   const handleChangeText = (text: string) => {
     const value = parseInt(text);
-    if (!isNaN(value) && 0 <= value && value <= 100000) {
+    if (!isNaN(value)) {
       field.onChange(value);
     }
   };
