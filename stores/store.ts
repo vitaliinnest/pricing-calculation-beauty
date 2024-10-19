@@ -1,7 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { PersistStorage } from "zustand/middleware";
 
-export function buildStorage<PersistedState>(): PersistStorage<PersistedState> {
+export function buildStorage<TState>(): PersistStorage<TState> {
   return {
     getItem: async (name) => {
       const jsonValue = await AsyncStorage.getItem(name);
