@@ -11,10 +11,12 @@ export interface ToolProcessing {
   clientsPerDay: number; // кількість клієнтів на день
 }
 
+export type ToolProcessingFormValues = Omit<ToolProcessing, "id">;
+
 interface ToolProcessingStore {
   tools: ToolProcessing[];
   addTool: (tool: ToolProcessing) => void;
-  updateTool: (id: string, updatedTool: Partial<ToolProcessing>) => void;
+  updateTool: (id: string, updatedTool: ToolProcessingFormValues) => void;
   deleteTool: (id: string) => void;
   getToolById: (id: string) => ToolProcessing | undefined;
   setTools: (tools: ToolProcessing[]) => void;

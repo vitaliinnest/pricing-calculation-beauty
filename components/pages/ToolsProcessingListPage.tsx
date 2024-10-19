@@ -7,7 +7,7 @@ import { ToolProcessing, useToolProcessingStore } from '@/stores/toolProcessingS
 import ListItem from '../ListItem';
 import { useRouter } from 'expo-router';
 
-export default function ToolsProcessingPage() {
+export default function ToolsProcessingListPage() {
   const { tools, addTool, updateTool, deleteTool, getToolById } = useToolProcessingStore();
   const router = useRouter();
 
