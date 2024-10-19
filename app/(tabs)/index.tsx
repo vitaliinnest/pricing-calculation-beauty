@@ -1,5 +1,5 @@
-import ToolsProcessingListPage from '@/components/pages/ToolsProcessingListPage';
+import ToolProcessingsListPage from '@/components/pages/ToolProcessingsListPage';
 
 export default function HomeScreen() {
-  return <ToolsProcessingListPage />;
+  return <ToolProcessingsListPage />;
 }
