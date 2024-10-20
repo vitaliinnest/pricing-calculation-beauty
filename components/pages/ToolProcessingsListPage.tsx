@@ -13,7 +13,7 @@ export default function ToolProcessingsListPage() {
 
   const renderItem: ListRenderItem<ToolProcessing> = ({ item }) => {
     return (
-      <ListItem onPress={() => router.push('/tool-processing/123')}>
+      <ListItem onPress={() => router.push(`/tool-processing/${item.id}`)}>
         <ThemedText>{JSON.stringify(item)}</ThemedText>
       </ListItem>
     );

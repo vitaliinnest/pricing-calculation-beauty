@@ -6,7 +6,7 @@ export default function EditToolProcessingDetails() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const { updateTool, deleteTool, getToolById } = useToolProcessingStore();
   const tool = getToolById(id);
-  
+
   return (
     <ToolsProcessingDetailsPage
       toolProcessing={tool}

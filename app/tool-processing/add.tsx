@@ -3,16 +3,20 @@ import {
   ToolProcessingFormValues,
   useToolProcessingStore,
 } from "@/stores/toolProcessingStore";
+import { useRouter } from "expo-router";
 import Toast from "react-native-toast-message";
 
 export default function AddToolProcessing() {
   const { addTool } = useToolProcessingStore();
+  const router = useRouter();
 
-  const onAddTool = (formValues: ToolProcessingFormValues) => {
+  const onAddTool = (tool: ToolProcessingFormValues) => {
+    addTool(tool);
+    router.replace('/(tabs)/')
     Toast.show({
       type: "success",
-      text1: "Hello",
-      text2: "This is some something 👋",
+      text1: tool.name,
+      text2: "Інструмент додано",
     });
   };
 
