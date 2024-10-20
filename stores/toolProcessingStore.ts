@@ -31,8 +31,7 @@ export const useToolProcessingStore = create<ToolProcessingStore>()(
       tools: [],
 
       addTool: (tool) => {
-        const newTool = { ...tool, id: uuidv4() };
-        return set((state) => ({ tools: [...state.tools, newTool] }));
+        console.log(tool);
       },
 
       updateTool: (id, updatedTool) =>
