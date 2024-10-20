@@ -1,10 +1,10 @@
-import { ThemedText } from "@/components/ThemedText";
-import { ThemedView } from "@/components/ThemedView";
+import ToolsProcessingDetailsPage from "@/components/pages/ToolProcessingDetailsPage";
+import { useToolProcessingStore } from "@/stores/toolProcessingStore";
 
 export default function AddToolProcessing() {
+  const { addTool } = useToolProcessingStore();
+  
   return (
-    <ThemedView>
-      <ThemedText>Додавання обробки інструменту</ThemedText>
-    </ThemedView>
+    <ToolsProcessingDetailsPage onSubmit={addTool} />
   );
 }

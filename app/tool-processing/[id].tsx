@@ -10,7 +10,7 @@ export default function EditToolProcessingDetails() {
   return (
     <ToolsProcessingDetailsPage
       toolProcessing={tool}
-      onSave={(formValues) => updateTool(id, formValues)}
+      onSubmit={(formValues) => updateTool(id, formValues)}
       onDelete={() => deleteTool(id)}
     />
   );

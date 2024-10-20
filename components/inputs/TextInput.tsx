@@ -1,13 +1,13 @@
 import { TextInput as TextInputNative, StyleSheet } from "react-native";
 import { useController } from "react-hook-form"
-import { InputProps } from "./common"
+import { InputProps, inputStyles } from "./common"
 import { LabellableInput } from "./LabellableInput";
 
 export default function TextInput({ label, name, control }: InputProps) {
   const { field } = useController({
     name,
     control,
-    defaultValue: '',
+    defaultValue: "",
   });
 
   return (
@@ -15,7 +15,7 @@ export default function TextInput({ label, name, control }: InputProps) {
       <TextInputNative
         value={field.value}
         onChangeText={field.onChange}
-        style={styles.input}
+        style={[inputStyles.input, styles.input]}
       />
     </LabellableInput>
   );

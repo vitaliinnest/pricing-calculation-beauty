@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { buildStorage } from "./store";
+import { v4 as uuidv4 } from 'uuid';
 
 export interface ToolProcessing {
   id: string;
@@ -15,7 +16,7 @@ export type ToolProcessingFormValues = Omit<ToolProcessing, "id">;
 
 interface ToolProcessingStore {
   tools: ToolProcessing[];
-  addTool: (tool: ToolProcessing) => void;
+  addTool: (tool: ToolProcessingFormValues) => void;
   updateTool: (id: string, updatedTool: ToolProcessingFormValues) => void;
   deleteTool: (id: string) => void;
   getToolById: (id: string) => ToolProcessing | undefined;
@@ -29,7 +30,10 @@ export const useToolProcessingStore = create<ToolProcessingStore>()(
     (set, get) => ({
       tools: [],
 
-      addTool: (tool) => set((state) => ({ tools: [...state.tools, tool] })),
+      addTool: (tool) => {
+        const newTool = { ...tool, id: uuidv4() };
+        return set((state) => ({ tools: [...state.tools, newTool] }));
+      },
 
       updateTool: (id, updatedTool) =>
         set((state) => ({

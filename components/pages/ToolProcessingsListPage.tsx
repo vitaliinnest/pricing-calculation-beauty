@@ -1,7 +1,7 @@
 import { ListRenderItem, StyleSheet } from 'react-native';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
-import ThemedPage from "../ThemedPage";
+import ScrollPage from "../ScrollPage";
 import ThemedAppendableList from '../ThemedAppendableList';
 import { ToolProcessing, useToolProcessingStore } from '@/stores/toolProcessingStore';
 import ListItem from '../ListItem';
@@ -14,17 +14,23 @@ export default function ToolProcessingsListPage() {
   const renderItem: ListRenderItem<ToolProcessing> = ({ item }) => {
     return (
       <ListItem onPress={() => router.push('/tool-processing/123')}>
-
+        <ThemedText>{JSON.stringify(item)}</ThemedText>
       </ListItem>
     );
   }
 
   return (
-    <ThemedAppendableList
-      data={tools}
-      renderItem={renderItem}
-      onAddItem={() => router.push('/tool-processing/add')}
-    />
+    <ThemedView>
+      <ThemedAppendableList
+        data={tools}
+        renderItem={renderItem}
+        onAddItem={() => router.push('/tool-processing/add')}
+      >
+        <ThemedView>
+          <ThemedText>test text</ThemedText>
+        </ThemedView>
+      </ThemedAppendableList>
+    </ThemedView>
   );
 }
 

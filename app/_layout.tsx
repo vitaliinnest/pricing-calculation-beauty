@@ -1,7 +1,4 @@
-import {
-  DefaultTheme,
-  ThemeProvider,
-} from "@react-navigation/native";
+import { DefaultTheme, ThemeProvider } from "@react-navigation/native";
 import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
@@ -33,11 +30,17 @@ export default function RootLayout() {
 
         <Stack.Screen
           name="tool-processing/[id]"
-          options={{ presentation: "modal", headerShown: false }}
+          options={{
+            presentation: "modal",
+            title: "Обробка інструменту",
+           }}
         />
         <Stack.Screen
           name="tool-processing/add"
-          options={{ presentation: "modal", headerShown: false }}
+          options={{
+            presentation: "modal",
+            title: "Додавання обробки інструменту",
+          }}
         />
 
         <Stack.Screen name="+not-found" />

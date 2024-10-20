@@ -1,6 +1,6 @@
 import { TextInput as TextInputNative, StyleSheet } from "react-native";
 import { useController } from "react-hook-form";
-import { InputProps } from "./common";
+import { InputProps, inputStyles } from "./common";
 import { LabellableInput } from "./LabellableInput";
 
 export default function NumberInput({ label, name, control }: InputProps) {
@@ -23,7 +23,7 @@ export default function NumberInput({ label, name, control }: InputProps) {
         keyboardType="numeric"
         value={field.value.toString()}
         onChangeText={handleChangeText}
-        style={styles.input}
+        style={[inputStyles.input, styles.input]}
       />
     </LabellableInput>
   );

@@ -1,17 +1,23 @@
 import { PropsWithChildren } from "react";
 import { ThemedView } from "../ThemedView";
 import { ThemedText } from "../ThemedText";
+import { StyleSheet } from "react-native";
 
 type Props = PropsWithChildren<{
   label: string;
 }>;
 
-// todo: fix styles probably
 export function LabellableInput({ label, children }: Props) {
   return (
-    <ThemedView>
+    <ThemedView style={styles.container}>
       <ThemedText>{label}</ThemedText>
       {children}
     </ThemedView>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    marginBottom: 10,
+  },
+});
