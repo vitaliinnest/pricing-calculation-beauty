@@ -3,13 +3,14 @@ import { Text, StyleSheet, Pressable } from "react-native";
 
 type Props = {
   title?: string;
+  disabled?: boolean;
   onPress: () => void;
 };
 
 export default function Button(props: Props) {
-  const { onPress, title = "Save" } = props;
+  const { title = "Save", disabled, onPress } = props;
   return (
-    <Pressable style={styles.button} onPress={onPress}>
+    <Pressable disabled={disabled} style={styles.button} onPress={onPress}>
       <Text style={styles.text}>{title}</Text>
     </Pressable>
   );
