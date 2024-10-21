@@ -31,6 +31,5 @@ export default function NumberInput({ label, name, control }: InputProps) {
 
 const styles = StyleSheet.create({
   input: {
-    // Add your styles here
   },
 });
