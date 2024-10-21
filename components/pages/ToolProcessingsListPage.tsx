@@ -5,9 +5,10 @@ import ThemedAppendableList from '../ThemedAppendableList';
 import { ToolProcessing, useToolProcessingStore } from '@/stores/toolProcessingStore';
 import ListItem from '../ListItem';
 import { useRouter } from 'expo-router';
+import { calculateTotalPricePerClient } from '@/calculators/toolProcessingCalculators';
 
 export default function ToolProcessingsListPage() {
-  const { tools, addTool, updateTool, deleteTool, getToolById } = useToolProcessingStore();
+  const { tools } = useToolProcessingStore();
   const router = useRouter();
 
   const renderItem: ListRenderItem<ToolProcessing> = ({ item }) => {
@@ -26,7 +27,7 @@ export default function ToolProcessingsListPage() {
         onAddItem={() => router.push('/tool-processing/add')}
       >
         <ThemedView>
-          <ThemedText>test text</ThemedText>
+          <ThemedText>{`Сумарна ціна обробки інструментів на одного клієнта: ${calculateTotalPricePerClient(tools)} €`}</ThemedText>
         </ThemedView>
       </ThemedAppendableList>
     </ThemedView>
