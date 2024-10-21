@@ -17,7 +17,7 @@ type Props = {
 };
 
 export default function ToolsProcessingDetailsPage({ toolProcessing, onSubmit, onDelete }: Props) {
-  const { control, handleSubmit, getValues } = useForm<ToolProcessingFormValues>({
+  const { control, handleSubmit, watch } = useForm<ToolProcessingFormValues>({
     defaultValues: {
       name: toolProcessing?.name,
       price: toolProcessing?.price,
@@ -26,6 +26,8 @@ export default function ToolsProcessingDetailsPage({ toolProcessing, onSubmit, o
       clientsPerDay: toolProcessing?.clientsPerDay,
     },
   });
+
+  const formValues = watch();
 
   return (
     <ScrollPage>
@@ -38,7 +40,7 @@ export default function ToolsProcessingDetailsPage({ toolProcessing, onSubmit, o
       <LabellableInput label="Кількість днів">
         <TextInputNative
           readOnly
-          value={calculateDaysAmount(getValues()).toString()}
+          value={calculateDaysAmount(formValues).toString()}
           style={[inputStyles.input]}
         />
       </LabellableInput>
@@ -46,7 +48,7 @@ export default function ToolsProcessingDetailsPage({ toolProcessing, onSubmit, o
       <LabellableInput label="Ціна в день, €">
         <TextInputNative
           readOnly
-          value={calculatePricePerDay(getValues()).toString()}
+          value={calculatePricePerDay(formValues).toString()}
           style={[inputStyles.input]}
         />
       </LabellableInput>
@@ -54,7 +56,7 @@ export default function ToolsProcessingDetailsPage({ toolProcessing, onSubmit, o
       <LabellableInput label="Витрата на одного клієнта, €">
         <TextInputNative
           readOnly
-          value={calculateExpenditurePerClient(getValues()).toString()}
+          value={calculateExpenditurePerClient(formValues).toString()}
           style={[inputStyles.input]}
         />
       </LabellableInput>
