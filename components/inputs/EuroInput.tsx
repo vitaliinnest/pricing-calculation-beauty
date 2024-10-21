@@ -1,11 +1,35 @@
-import { InputProps } from "./common"
-import NumberInput from "./NumberInput";
+import { TextInput as TextInputNative, StyleSheet } from "react-native";
+import { useController } from "react-hook-form";
+import { InputProps, inputStyles } from "./common";
+import { LabellableInput } from "./LabellableInput";
 
-export default function EuroInput(props: InputProps) {
+export default function EuroInput({ label, name, control }: InputProps) {
+  const { field } = useController({
+    name,
+    control,
+    defaultValue: 0,
+  });
+
+  const handleChangeText = (text: string) => {
+    const value = parseFloat(text);
+    if (!isNaN(value)) {
+      field.onChange(value);
+    }
+  };
+
   return (
-    <NumberInput
-      {...props}
-      label={props.label + ", €"}
-    />
+    <LabellableInput label={label + ", €"}>
+      <TextInputNative
+        keyboardType="decimal-pad"
+        value={field.value.toString()}
+        onChangeText={handleChangeText}
+        style={[inputStyles.input, styles.input]}
+      />
+    </LabellableInput>
   );
 }
+
+const styles = StyleSheet.create({
+  input: {
+  },
+});
