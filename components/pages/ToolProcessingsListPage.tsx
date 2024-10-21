@@ -1,7 +1,6 @@
 import { ListRenderItem, StyleSheet } from 'react-native';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
-import ScrollPage from "../ScrollPage";
 import ThemedAppendableList from '../ThemedAppendableList';
 import { ToolProcessing, useToolProcessingStore } from '@/stores/toolProcessingStore';
 import ListItem from '../ListItem';

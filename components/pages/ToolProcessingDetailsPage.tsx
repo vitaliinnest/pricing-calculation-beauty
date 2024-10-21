@@ -2,13 +2,13 @@ import { ToolProcessing, ToolProcessingFormValues } from "@/stores/toolProcessin
 import { TextInput as TextInputNative, StyleSheet } from "react-native";
 import { inputStyles } from "../inputs/common";
 import { LabellableInput } from "../inputs/LabellableInput";
-import ScrollPage from "../ScrollPage";
 import TextInput from "../inputs/TextInput";
 import { useForm } from "react-hook-form";
 import EuroInput from "../inputs/EuroInput";
 import NumberInput from "../inputs/NumberInput";
 import Button from "../Button";
 import { calculateDaysAmount, calculateExpenditurePerClient, calculatePricePerDay } from "@/calculators/toolProcessingCalculators";
+import EntityDetailsPage from "../EntityDetailsPage";
 
 type Props = {
   toolProcessing?: ToolProcessing;
@@ -30,7 +30,10 @@ export default function ToolsProcessingDetailsPage({ toolProcessing, onSubmit, o
   const formValues = watch();
 
   return (
-    <ScrollPage>
+    <EntityDetailsPage
+      onSubmit={() => handleSubmit(onSubmit)}
+      onDelete={onDelete}
+    >
       <TextInput label="Назва" name="name" control={control} />
       <EuroInput label="Вартість" name="price" control={control} />
       <NumberInput label="Обсяг" name="volume" control={control} />
@@ -60,9 +63,6 @@ export default function ToolsProcessingDetailsPage({ toolProcessing, onSubmit, o
           style={[inputStyles.input]}
         />
       </LabellableInput>
-
-      <Button title="Зберегти" onPress={handleSubmit(onSubmit)} />
-      {onDelete && <Button title="Видалити" onPress={onDelete} />}
-    </ScrollPage>
+    </EntityDetailsPage>
   );
 }

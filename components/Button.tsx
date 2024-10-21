@@ -1,16 +1,17 @@
 import React from "react";
-import { Text, StyleSheet, Pressable } from "react-native";
+import { Text, StyleSheet, Pressable, StyleProp, ViewStyle } from "react-native";
 
 type Props = {
   title?: string;
   disabled?: boolean;
+  style?: StyleProp<ViewStyle>
   onPress: () => void;
 };
 
 export default function Button(props: Props) {
-  const { title = "Save", disabled, onPress } = props;
+  const { title = "Save", disabled, onPress, style } = props;
   return (
-    <Pressable disabled={disabled} style={styles.button} onPress={onPress}>
+    <Pressable disabled={disabled} style={[styles.button, style]} onPress={onPress}>
       <Text style={styles.text}>{title}</Text>
     </Pressable>
   );
