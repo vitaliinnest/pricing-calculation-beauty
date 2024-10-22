@@ -1,7 +1,5 @@
 import { PropsWithChildren } from "react";
-import { ThemedView } from "../ThemedView";
-import { ThemedText } from "../ThemedText";
-import { StyleSheet } from "react-native";
+import { StyleSheet, View, Text } from "react-native";
 
 type Props = PropsWithChildren<{
   label: string;
@@ -9,10 +7,10 @@ type Props = PropsWithChildren<{
 
 export function LabellableInput({ label, children }: Props) {
   return (
-    <ThemedView style={styles.container}>
-      <ThemedText>{label}</ThemedText>
+    <View style={styles.container}>
+      <Text>{label}</Text>
       {children}
-    </ThemedView>
+    </View>
   );
 }
 

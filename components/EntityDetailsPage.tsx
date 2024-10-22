@@ -1,4 +1,4 @@
-import { StyleSheet, View, ScrollView } from "react-native";
+import { StyleSheet, View, ScrollView, StatusBar } from "react-native";
 import { PropsWithChildren } from "react";
 import Button from "./Button";
 
@@ -30,6 +30,7 @@ export default function EntityDetailsPage({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    marginTop: StatusBar.currentHeight || 0,
   },
   scrollContent: {
     padding: 10,
