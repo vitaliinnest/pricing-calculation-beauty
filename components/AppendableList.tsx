@@ -18,7 +18,7 @@ type Props = PropsWithChildren<
 export default function AppendableList(props: Props) {
   return (
     <SafeAreaView style={styles.container}>
-      <FlatList {...props} />
+      <FlatList contentContainerStyle={styles.scrollContent} {...props} />
       <View style={styles.buttonsContainer}>
         {props.children}
         <Button title="Додати" onPress={props.onAddItem} />
@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
     marginTop: StatusBar.currentHeight || 0,
   },
   scrollContent: {
-    padding: 10,
+    paddingRight: 10,
     paddingBottom: 130,
   },
   button: {
