@@ -57,6 +57,8 @@ const styles = StyleSheet.create({
     right: 0,
     backgroundColor: '#fff',
     padding: 10,
+    borderTopColor: 'lightgrey',
+    borderTopWidth: 1,
   },
   emptyContainer: {
     flex: 1,

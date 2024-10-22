@@ -6,20 +6,29 @@ import {
 } from "@/stores/toolProcessingStore";
 import ListItem from "../ListItem";
 import { useRouter } from "expo-router";
-import { calculateTotalPricePerClient } from "@/calculators/toolProcessingCalculators";
+import { calculateDaysAmount, calculateExpenditurePerClient, calculatePricePerDay, calculateTotalPricePerClient } from "@/calculators/toolProcessingCalculators";
 
 export default function ToolProcessingsListPage() {
   const { tools } = useToolProcessingStore();
   const router = useRouter();
 
-  const renderItem: ListRenderItem<ToolProcessing> = ({ index, item }) => {
+  const renderItem: ListRenderItem<ToolProcessing> = ({ item, index }) => {
     return (
       <ListItem index={index} onPress={() => router.push(`/tool-processing/${item.id}`)}>
         <View style={styles.itemContainer}>
           <Text style={styles.itemTitle}>{item.name}</Text>
-          <Text style={styles.itemDetail}>{`Вартість: ${item.price} €`}</Text>
-          <Text style={styles.itemDetail}>{`Обсяг: ${item.volume}`}</Text>
-          <Text style={styles.itemDetail}>{`Витрати на день: ${item.expenditurePerDay}`}</Text>
+          <View style={styles.columnsContainer}>
+            <View style={styles.column}>
+              <Text style={styles.itemDetail}>{`Вартість: ${item.price} €`}</Text>
+              <Text style={styles.itemDetail}>{`Обсяг: ${item.volume}`}</Text>
+              <Text style={styles.itemDetail}>{`Витрати на день: ${item.expenditurePerDay}`}</Text>
+            </View>
+            <View style={styles.column}>
+              <Text style={styles.itemDetail}>{`Дні: ${calculateDaysAmount(item)}`}</Text>
+              <Text style={styles.itemDetail}>{`Ціна в день: ${calculatePricePerDay(item)}`}</Text>
+              <Text style={styles.itemDetail}>{`Витрата на одного клієнта: ${calculateExpenditurePerClient(item)} €`}</Text>
+            </View>
+          </View>
         </View>
       </ListItem>
     );
@@ -31,25 +40,30 @@ export default function ToolProcessingsListPage() {
       renderItem={renderItem}
       onAddItem={() => router.push("/tool-processing/add")}
     >
-      {tools.length > 0 && (
-        <Text style={styles.totalPrice}>
-          {`Ціна обробки інструментів для одного клієнта: ${calculateTotalPricePerClient(tools)} €`}
-        </Text>
-      )}
+      <Text style={styles.totalPrice}>
+        {`Сумарна ціна обробки інструментів на одного клієнта: ${calculateTotalPricePerClient(tools)} €`}
+      </Text>
     </AppendableList>
   );
 }
 
 const styles = StyleSheet.create({
   itemContainer: {
-    backgroundColor: '#f9f9f9',
+    paddingLeft: 10,
     borderRadius: 5,
-    marginBottom: 10,
   },
   itemTitle: {
     fontSize: 18,
     fontWeight: 'bold',
-    marginBottom: 5,
+    marginBottom: 10,
+  },
+  columnsContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  column: {
+    flex: 1,
+    // marginHorizontal: 5,
   },
   itemDetail: {
     fontSize: 14,
@@ -58,6 +72,6 @@ const styles = StyleSheet.create({
   totalPrice: {
     fontSize: 16,
     fontWeight: 'bold',
-    paddingBottom: 20,
+    marginBottom: 20,
   },
 });
