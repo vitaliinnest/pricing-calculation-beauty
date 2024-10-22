@@ -1,4 +1,4 @@
-import { StyleSheet, View, ScrollView, StatusBar } from "react-native";
+import { StyleSheet, View, ScrollView, StatusBar, Alert } from "react-native";
 import { PropsWithChildren } from "react";
 import Button from "./Button";
 
@@ -12,6 +12,25 @@ export default function EntityDetailsPage({
   onSubmit,
   onDelete,
 }: Props) {
+  const handleDeletePress = () => {
+    Alert.alert(
+      "Confirm Deletion",
+      "Are you sure you want to delete this item?",
+      [
+        {
+          text: "Cancel",
+          style: "cancel",
+        },
+        {
+          text: "Delete",
+          onPress: onDelete,
+          style: "destructive",
+        },
+      ],
+      { cancelable: true }
+    );
+  };
+
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollContent}>
@@ -20,7 +39,7 @@ export default function EntityDetailsPage({
       <View style={styles.buttonsContainer}>
         <Button title="Зберегти" onPress={onSubmit} style={styles.button} />
         {onDelete && (
-          <Button title="Видалити" onPress={onDelete} />
+          <Button title="Видалити" onPress={handleDeletePress} />
         )}
       </View>
     </View>

@@ -11,6 +11,7 @@ export default function AddToolProcessing() {
   const router = useRouter();
 
   const onAddTool = (tool: ToolProcessingFormValues) => {
+    console.log(tool);
     addTool(tool);
     router.replace('/(tabs)/')
     Toast.show({

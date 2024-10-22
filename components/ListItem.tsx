@@ -4,6 +4,8 @@ import {
   TouchableOpacity,
   StyleProp,
   ViewStyle,
+  Text,
+  View,
 } from "react-native";
 
 export interface IWithStyle {
@@ -11,19 +13,23 @@ export interface IWithStyle {
 }
 
 type Props = IWithStyle & {
+  index: number;
   onPress: () => void;
 };
 
-const ListItem = (props: React.PropsWithChildren<Props>) => {
+export default function ListItem(props: React.PropsWithChildren<Props>) {
   return (
     <TouchableOpacity
       style={[styles.listItem, props.style]}
       onPress={props.onPress}
     >
+      <View style={styles.indexContainer}>
+        <Text style={styles.indexText}>{props.index + 1}</Text>
+      </View>
       {props.children}
     </TouchableOpacity>
   );
-};
+}
 
 const styles = StyleSheet.create({
   listItem: {
@@ -40,7 +46,17 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 5,
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  indexContainer: {
+    marginRight: 10,
+    backgroundColor: "#f0f0f0",
+    borderRadius: 8,
+    padding: 8,
+  },
+  indexText: {
+    fontSize: 16,
+    fontWeight: "bold",
   },
 });
-
-export default ListItem;

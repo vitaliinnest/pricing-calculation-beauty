@@ -1,12 +1,11 @@
 import { ToolProcessing, ToolProcessingFormValues } from "@/stores/toolProcessingStore";
-import { TextInput as TextInputNative, StyleSheet } from "react-native";
+import { TextInput as TextInputNative } from "react-native";
 import { inputStyles } from "../inputs/common";
 import { LabellableInput } from "../inputs/LabellableInput";
 import TextInput from "../inputs/TextInput";
 import { useForm } from "react-hook-form";
 import EuroInput from "../inputs/EuroInput";
 import NumberInput from "../inputs/NumberInput";
-import Button from "../Button";
 import { calculateDaysAmount, calculateExpenditurePerClient, calculatePricePerDay } from "@/calculators/toolProcessingCalculators";
 import EntityDetailsPage from "../EntityDetailsPage";
 
@@ -17,13 +16,13 @@ type Props = {
 };
 
 export default function ToolsProcessingDetailsPage({ toolProcessing, onSubmit, onDelete }: Props) {
-  const { control, handleSubmit, watch } = useForm<ToolProcessingFormValues>({
+  const { control, watch } = useForm<ToolProcessingFormValues>({
     defaultValues: {
-      name: toolProcessing?.name,
-      price: toolProcessing?.price,
-      volume: toolProcessing?.volume,
-      expenditurePerDay: toolProcessing?.expenditurePerDay,
-      clientsPerDay: toolProcessing?.clientsPerDay,
+      name: toolProcessing?.name ?? "",
+      price: toolProcessing?.price ?? 0,
+      volume: toolProcessing?.volume ?? 0,
+      expenditurePerDay: toolProcessing?.expenditurePerDay ?? 0,
+      clientsPerDay: toolProcessing?.clientsPerDay ?? 0,
     },
   });
 
@@ -31,7 +30,7 @@ export default function ToolsProcessingDetailsPage({ toolProcessing, onSubmit, o
 
   return (
     <EntityDetailsPage
-      onSubmit={() => handleSubmit(onSubmit)}
+      onSubmit={() => onSubmit(formValues)}
       onDelete={onDelete}
     >
       <TextInput label="Назва" name="name" control={control} />

@@ -5,9 +5,11 @@ import {
   StatusBar,
   StyleSheet,
   View,
+  Text,
 } from "react-native";
 import Button from "./Button";
 import { PropsWithChildren } from "react";
+import Ionicons from "@expo/vector-icons/Ionicons";
 
 type Props = PropsWithChildren<
   Pick<FlatListProps<any>, "data" | "renderItem"> & {
@@ -16,9 +18,18 @@ type Props = PropsWithChildren<
 >;
 
 export default function AppendableList(props: Props) {
+  const isEmpty = !props.data || props.data.length === 0;
+
   return (
     <SafeAreaView style={styles.container}>
-      <FlatList contentContainerStyle={styles.scrollContent} {...props} />
+      {isEmpty ? (
+        <View style={styles.emptyContainer}>
+          <Ionicons name="search" size={80} color="#333" />
+          <Text style={styles.emptyMessage}>Список порожній</Text>
+        </View>
+      ) : (
+        <FlatList contentContainerStyle={styles.scrollContent} {...props} />
+      )}
       <View style={styles.buttonsContainer}>
         {props.children}
         <Button title="Додати" onPress={props.onAddItem} />
@@ -46,5 +57,16 @@ const styles = StyleSheet.create({
     right: 0,
     backgroundColor: '#fff',
     padding: 10,
+  },
+  emptyContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  emptyMessage: {
+    fontSize: 18,
+    color: '#333',
+    textAlign: 'center',
+    marginTop: 10,
   },
 });
