@@ -28,7 +28,6 @@ export default function ToolsProcessingDetailsPage({ toolProcessing, onSubmit, o
   });
 
   const formValues = watch();
-  console.log(formValues);
 
   return (
     <EntityDetailsPage
