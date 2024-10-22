@@ -17,5 +17,6 @@ export function LabellableInput({ label, children }: Props) {
 const styles = StyleSheet.create({
   container: {
     marginBottom: 10,
+    backgroundColor: 'white'
   },
 });

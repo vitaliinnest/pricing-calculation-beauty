@@ -3,7 +3,7 @@ import { roundUpTo2 } from "@/utils";
 
 /** Кількість днів */
 export function calculateDaysAmount(tool: ToolProcessingFormValues): number {
-  if (tool.expenditurePerDay === 0) {
+  if (!tool?.expenditurePerDay) {
     return 0;
   }
   return roundUpTo2(tool.volume / tool.expenditurePerDay);
@@ -20,7 +20,7 @@ export function calculatePricePerDay(tool: ToolProcessingFormValues): number {
 
 /** Витрата на одного клієнта */
 export function calculateExpenditurePerClient(tool: ToolProcessingFormValues): number {
-  if (tool.clientsPerDay === 0) {
+  if (!tool?.clientsPerDay) {
     return 0;
   }
   return roundUpTo2(calculatePricePerDay(tool) / tool.clientsPerDay);
@@ -28,7 +28,7 @@ export function calculateExpenditurePerClient(tool: ToolProcessingFormValues): n
 
 /** Сумарна ціна обробки інструментів на одного клієнта */
 export function calculateTotalPricePerClient(tools: ToolProcessingFormValues[]): number {
-  if (tools.length === 0) {
+  if (!tools?.length) {
     return 0;
   }
 
