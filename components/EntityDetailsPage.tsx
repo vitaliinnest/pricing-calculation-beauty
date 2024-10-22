@@ -1,6 +1,7 @@
-import { StyleSheet, View, ScrollView, StatusBar, Alert } from "react-native";
+import { StyleSheet, View, ScrollView, StatusBar } from "react-native";
 import { PropsWithChildren } from "react";
 import Button from "./Button";
+import alert from '../alert'
 
 type Props = PropsWithChildren<{
   onSubmit: () => void;
@@ -13,18 +14,18 @@ export default function EntityDetailsPage({
   onDelete,
 }: Props) {
   const handleDeletePress = () => {
-    Alert.alert(
-      "Confirm Deletion",
-      "Are you sure you want to delete this item?",
+    alert(
+      "Видалення",
+      "Ви впеврені, що хочете видалити?",
       [
         {
-          text: "Cancel",
+          text: "Скасувати",
           style: "cancel",
         },
         {
-          text: "Delete",
-          onPress: onDelete,
+          text: "Видалити",
           style: "destructive",
+          onPress: onDelete,
         },
       ],
       { cancelable: true }
