@@ -1,8 +1,6 @@
 import { ToolProcessingFormValues } from "@/stores/toolProcessingStore";
 import { roundUpTo2 } from "@/utils";
 
-// todo: move to store
-
 /** Кількість днів */
 export function calculateDaysAmount(tool: ToolProcessingFormValues): number {
   if (!tool?.expenditurePerDay) {
@@ -30,6 +28,7 @@ export function calculateExpenditurePerClient(
   return roundUpTo2(calculatePricePerDay(tool) / tool.clientsPerDay);
 }
 
+// todo: move to store
 /** Сумарна ціна обробки інструментів на одного клієнта */
 export function calculateTotalPricePerClient(
   tools: ToolProcessingFormValues[]

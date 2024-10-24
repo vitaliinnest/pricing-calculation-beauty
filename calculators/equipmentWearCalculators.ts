@@ -1,8 +1,6 @@
 import { EquipmentWearFormValues } from "@/stores/equipmentWearStore";
 import { roundUpTo2 } from "@/utils";
 
-// todo: move to store
-
 /** Ціна в день */
 export function calculatePricePerDay(
   equipment: EquipmentWearFormValues
@@ -24,6 +22,7 @@ export function calculatePricePerClient(
   return roundUpTo2(calculatePricePerDay(equipment) / averageClientsPerDay);
 }
 
+// todo: move to store
 /** Сумарна ціна зносу обладнання */
 export function calculateTotalPricePerClient(
   equipmentWears: EquipmentWearFormValues[],
