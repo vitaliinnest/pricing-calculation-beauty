@@ -2,6 +2,8 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { buildStorage } from "./store";
 import { v4 as uuidv4 } from "uuid";
+import { calculatePricePerClient } from "@/calculators/equipmentWearCalculators";
+import { roundUpTo2 } from "@/utils";
 
 export interface EquipmentWear {
   id: string;
@@ -14,7 +16,7 @@ export type EquipmentWearFormValues = Omit<EquipmentWear, "id">;
 
 interface EquipmentWearStore {
   equipmentWears: EquipmentWear[];
-  averageCustomersPerDay: number;
+  averageClientsNumberPerDay: number;
   addEquipmentWear: (equipmentWear: EquipmentWearFormValues) => void;
   updateEquipmentWear: (
     id: string,
@@ -23,15 +25,16 @@ interface EquipmentWearStore {
   deleteEquipmentWear: (id: string) => void;
   getEquipmentWearById: (id: string) => EquipmentWear | undefined;
   setAverageCustomersPerDay: (average: number) => void;
+  getTotalForOneClient: () => number;
 }
 
 const storage = buildStorage<EquipmentWearStore>();
 
-export const useToolProcessingStore = create<EquipmentWearStore>()(
+export const useEquipmentWearStore = create<EquipmentWearStore>()(
   persist(
     (set, get) => ({
       equipmentWears: [],
-      averageCustomersPerDay: 0,
+      averageClientsNumberPerDay: 0,
 
       addEquipmentWear: (equipmentWear) => {
         const newEquipmentWear = { ...equipmentWear, id: uuidv4() };
@@ -60,7 +63,20 @@ export const useToolProcessingStore = create<EquipmentWearStore>()(
         get().equipmentWears.find((equipmentWear) => equipmentWear.id === id),
 
       setAverageCustomersPerDay: (average) =>
-        set(() => ({ averageCustomersPerDay: average })),
+        set(() => ({ averageClientsNumberPerDay: average })),
+
+      getTotalForOneClient: () =>
+        roundUpTo2(
+          get().equipmentWears.reduce(
+            (acc, equipmentWear) =>
+              acc +
+              calculatePricePerClient(
+                equipmentWear,
+                get().averageClientsNumberPerDay
+              ),
+            0
+          )
+        ),
     }),
     {
       name: "equipment-wear-storage",

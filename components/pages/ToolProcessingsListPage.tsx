@@ -6,10 +6,10 @@ import {
 } from "@/stores/toolProcessingStore";
 import ListItem from "../ListItem";
 import { useRouter } from "expo-router";
-import { calculateDaysAmount, calculateExpenditurePerClient, calculatePricePerDay, calculateTotalPricePerClient } from "@/calculators/toolProcessingCalculators";
+import { calculateDaysAmount, calculateExpenditurePerClient, calculatePricePerDay } from "@/calculators/toolProcessingCalculators";
 
 export default function ToolProcessingsListPage() {
-  const { tools } = useToolProcessingStore();
+  const { tools, getTotalForOneClient } = useToolProcessingStore();
   const router = useRouter();
 
   const renderItem: ListRenderItem<ToolProcessing> = ({ item, index }) => {
@@ -41,7 +41,7 @@ export default function ToolProcessingsListPage() {
       onAddItem={() => router.push("/tool-processing/add")}
     >
       <Text style={styles.totalPrice}>
-        {`Сумарна ціна обробки інструментів на одного клієнта: ${calculateTotalPricePerClient(tools)} €`}
+        {`Сумарна ціна обробки інструментів на одного клієнта: ${getTotalForOneClient()} €`}
       </Text>
     </AppendableList>
   );

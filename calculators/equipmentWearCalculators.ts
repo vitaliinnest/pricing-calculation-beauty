@@ -14,27 +14,10 @@ export function calculatePricePerDay(
 /** Ціна на одного клієнта */
 export function calculatePricePerClient(
   equipment: EquipmentWearFormValues,
-  averageClientsPerDay: number
+  averageClientsNumberPerDay: number
 ): number {
-  if (averageClientsPerDay === 0) {
+  if (averageClientsNumberPerDay === 0) {
     return 0;
   }
-  return roundUpTo2(calculatePricePerDay(equipment) / averageClientsPerDay);
-}
-
-// todo: move to store
-/** Сумарна ціна зносу обладнання */
-export function calculateTotalPricePerClient(
-  equipmentWears: EquipmentWearFormValues[],
-  averageClientsPerDay: number
-): number {
-  if (!equipmentWears?.length) {
-    return 0;
-  }
-
-  return equipmentWears.reduce(
-    (acc, equipmentWear) =>
-      acc + calculatePricePerClient(equipmentWear, averageClientsPerDay),
-    0
-  );
+  return roundUpTo2(calculatePricePerDay(equipment) / averageClientsNumberPerDay);
 }

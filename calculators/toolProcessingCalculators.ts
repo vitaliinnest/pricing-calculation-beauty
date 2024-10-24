@@ -27,18 +27,3 @@ export function calculateExpenditurePerClient(
   }
   return roundUpTo2(calculatePricePerDay(tool) / tool.clientsPerDay);
 }
-
-// todo: move to store
-/** Сумарна ціна обробки інструментів на одного клієнта */
-export function calculateTotalPricePerClient(
-  tools: ToolProcessingFormValues[]
-): number {
-  if (!tools?.length) {
-    return 0;
-  }
-
-  return tools.reduce(
-    (acc, tool) => acc + calculateExpenditurePerClient(tool),
-    0
-  );
-}

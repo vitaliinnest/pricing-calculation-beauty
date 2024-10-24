@@ -2,6 +2,8 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { buildStorage } from "./store";
 import { v4 as uuidv4 } from "uuid";
+import { calculateExpenditurePerClient } from "@/calculators/toolProcessingCalculators";
+import { roundUpTo2 } from "@/utils";
 
 export interface ToolProcessing {
   id: string;
@@ -20,6 +22,7 @@ interface ToolProcessingStore {
   updateTool: (id: string, updatedTool: ToolProcessingFormValues) => void;
   deleteTool: (id: string) => void;
   getToolById: (id: string) => ToolProcessing | undefined;
+  getTotalForOneClient: () => number;
 }
 
 const storage = buildStorage<ToolProcessingStore>();
@@ -47,6 +50,14 @@ export const useToolProcessingStore = create<ToolProcessingStore>()(
         })),
 
       getToolById: (id) => get().tools.find((tool) => tool.id === id),
+
+      getTotalForOneClient: () =>
+        roundUpTo2(
+          get().tools.reduce(
+            (acc, tool) => acc + calculateExpenditurePerClient(tool),
+            0
+          )
+        ),
     }),
     {
       name: "tool-processing-storage",
