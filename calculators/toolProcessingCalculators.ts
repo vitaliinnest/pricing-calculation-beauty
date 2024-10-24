@@ -19,7 +19,9 @@ export function calculatePricePerDay(tool: ToolProcessingFormValues): number {
 }
 
 /** Витрата на одного клієнта */
-export function calculateExpenditurePerClient(tool: ToolProcessingFormValues): number {
+export function calculateExpenditurePerClient(
+  tool: ToolProcessingFormValues
+): number {
   if (!tool?.clientsPerDay) {
     return 0;
   }
@@ -27,10 +29,15 @@ export function calculateExpenditurePerClient(tool: ToolProcessingFormValues): n
 }
 
 /** Сумарна ціна обробки інструментів на одного клієнта */
-export function calculateTotalPricePerClient(tools: ToolProcessingFormValues[]): number {
+export function calculateTotalPricePerClient(
+  tools: ToolProcessingFormValues[]
+): number {
   if (!tools?.length) {
     return 0;
   }
 
-  return tools.reduce((acc, tool) => acc + calculateExpenditurePerClient(tool), 0);
+  return tools.reduce(
+    (acc, tool) => acc + calculateExpenditurePerClient(tool),
+    0
+  );
 }
