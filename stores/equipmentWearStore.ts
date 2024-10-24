@@ -22,7 +22,6 @@ interface EquipmentWearStore {
   ) => void;
   deleteEquipmentWear: (id: string) => void;
   getEquipmentWearById: (id: string) => EquipmentWear | undefined;
-  setEquipmentWears: (equipmentWears: EquipmentWear[]) => void;
   setAverageCustomersPerDay: (average: number) => void;
 }
 
@@ -59,8 +58,6 @@ export const useToolProcessingStore = create<EquipmentWearStore>()(
 
       getEquipmentWearById: (id) =>
         get().equipmentWears.find((equipmentWear) => equipmentWear.id === id),
-
-      setEquipmentWears: (equipmentWears) => set(() => ({ equipmentWears })),
 
       setAverageCustomersPerDay: (average) =>
         set(() => ({ averageCustomersPerDay: average })),

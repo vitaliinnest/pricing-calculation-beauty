@@ -20,7 +20,6 @@ interface ToolProcessingStore {
   updateTool: (id: string, updatedTool: ToolProcessingFormValues) => void;
   deleteTool: (id: string) => void;
   getToolById: (id: string) => ToolProcessing | undefined;
-  setTools: (tools: ToolProcessing[]) => void;
 }
 
 const storage = buildStorage<ToolProcessingStore>();
@@ -48,8 +47,6 @@ export const useToolProcessingStore = create<ToolProcessingStore>()(
         })),
 
       getToolById: (id) => get().tools.find((tool) => tool.id === id),
-
-      setTools: (tools) => set(() => ({ tools })),
     }),
     {
       name: "tool-processing-storage",
