@@ -7,6 +7,7 @@ export interface CostPrice {
   id: string;
   name: string; // назва
   price: number; // вартість
+  volume: number; // обсяг
   expenditurePerClient: number; // витрата на одного клієнта
 }
 
