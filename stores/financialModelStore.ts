@@ -1,3 +1,8 @@
+import { create } from "zustand";
+import { persist } from "zustand/middleware";
+import { buildStorage } from "./store";
+import { v4 as uuidv4 } from "uuid";
+
 export enum Month {
   January = 1,
   February,
@@ -36,3 +41,56 @@ export interface MonthlyFinancialData {
   clientsNumberPerDay: number; // кількість клієнтів на день
   hoursPerClient: number; // кількість годин на одного клієнта
 }
+
+export type MonthlyFinancialDataFormValues = Omit<MonthlyFinancialData, "id">;
+
+interface FinancialModelStore {
+  financialData: MonthlyFinancialData[];
+  addFinancialData: (financialData: MonthlyFinancialDataFormValues) => void;
+  updateFinancialData: (
+    id: string,
+    updatedFinancialData: MonthlyFinancialDataFormValues
+  ) => void;
+  deleteFinancialData: (id: string) => void;
+  getFinancialDataById: (id: string) => MonthlyFinancialData | undefined;
+}
+
+const storage = buildStorage<FinancialModelStore>();
+
+export const useFinancialModelStore = create<FinancialModelStore>()(
+  persist(
+    (set, get) => ({
+      financialData: [],
+
+      addFinancialData: (financialData) => {
+        const newFinancialData = { ...financialData, id: uuidv4() };
+        return set((state) => ({
+          financialData: [...state.financialData, newFinancialData],
+        }));
+      },
+
+      updateFinancialData: (id, updatedFinancialData) =>
+        set((state) => ({
+          financialData: state.financialData.map((financialData) =>
+            financialData.id === id
+              ? { ...financialData, ...updatedFinancialData }
+              : financialData
+          ),
+        })),
+
+      deleteFinancialData: (id) =>
+        set((state) => ({
+          financialData: state.financialData.filter(
+            (financialData) => financialData.id !== id
+          ),
+        })),
+
+      getFinancialDataById: (id) =>
+        get().financialData.find((financialData) => financialData.id === id),
+    }),
+    {
+      name: "financial-model-storage",
+      storage,
+    }
+  )
+);

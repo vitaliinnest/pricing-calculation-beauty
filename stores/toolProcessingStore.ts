@@ -61,7 +61,7 @@ export const useToolProcessingStore = create<ToolProcessingStore>()(
     }),
     {
       name: "tool-processing-storage",
-      storage: storage,
+      storage,
     }
   )
 );

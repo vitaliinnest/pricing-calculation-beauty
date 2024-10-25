@@ -80,7 +80,7 @@ export const useEquipmentWearStore = create<EquipmentWearStore>()(
     }),
     {
       name: "equipment-wear-storage",
-      storage: storage,
+      storage,
     }
   )
 );

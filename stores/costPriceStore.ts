@@ -80,7 +80,7 @@ export const useCostPriceStore = create<CostPriceStore>()(
     }),
     {
       name: "cost-price-storage",
-      storage: storage,
+      storage,
     }
   )
 );
