@@ -3,6 +3,12 @@ import { persist } from "zustand/middleware";
 import { buildStorage } from "./store";
 import { v4 as uuidv4 } from "uuid";
 import { roundUpTo2 } from "@/utils";
+import {
+  calculateClientsNumberPerMonth,
+  calculateClientsNumberPerWeek,
+  calculateDailyClientHours,
+  calculateMonthlyClientHours,
+} from "@/calculators/financialModelCalculators";
 
 export enum Month {
   January = 1,
@@ -56,10 +62,16 @@ interface FinancialModelStore {
   deleteFinancialData: (id: string) => void;
   getFinancialDataById: (id: string) => MonthlyFinancialData | undefined;
   deleteExpense: (expenseId: string) => void;
+
   calculateTotalWorkingDays: () => number;
   calculateAverageWorkingDaysPerWeek: () => number;
   calculateAverageClientsNumberPerDay: () => number;
   calculateAverageHoursNumberPerClient: () => number;
+
+  calculateAverageDailyClientHours: () => number;
+  calculateAverageClientsNumberPerWeek: () => number;
+  calculateTotalClientsNumberPerMonth: () => number;
+  calculateTotalMonthlyClientHours: () => number;
 }
 
 const storage = buildStorage<FinancialModelStore>();
@@ -176,6 +188,42 @@ export const useFinancialModelStore = create<FinancialModelStore>()(
             ) / financialData.length
         );
       },
+
+      calculateAverageDailyClientHours: () =>
+        roundUpTo2(
+          get().financialData.reduce(
+            (acc, financialData) =>
+              acc + calculateDailyClientHours(financialData),
+            0
+          ) / get().financialData.length
+        ),
+
+      calculateAverageClientsNumberPerWeek: () =>
+        roundUpTo2(
+          get().financialData.reduce(
+            (acc, financialData) =>
+              acc + calculateClientsNumberPerWeek(financialData),
+            0
+          ) / get().financialData.length
+        ),
+
+      calculateTotalClientsNumberPerMonth: () =>
+        roundUpTo2(
+          get().financialData.reduce(
+            (acc, financialData) =>
+              acc + calculateClientsNumberPerMonth(financialData),
+            0
+          )
+        ),
+
+      calculateTotalMonthlyClientHours: () =>
+        roundUpTo2(
+          get().financialData.reduce(
+            (acc, financialData) =>
+              acc + calculateMonthlyClientHours(financialData),
+            0
+          )
+        ),
     }),
     {
       name: "financial-model-storage",
