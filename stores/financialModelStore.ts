@@ -2,6 +2,7 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { buildStorage } from "./store";
 import { v4 as uuidv4 } from "uuid";
+import { roundUpTo2 } from "@/utils";
 
 export enum Month {
   January = 1,
@@ -36,10 +37,10 @@ export const MonthMap: Record<Month, string> = {
 export interface MonthlyFinancialData {
   id: string;
   month: Month;
-  workingDaysPerMonth: number; // рабочі дні в місяць
-  workingDaysPerWeek: number; // рабочі дні в тиждень
-  clientsNumberPerDay: number; // кількість клієнтів на день
-  hoursPerClient: number; // кількість годин на одного клієнта
+  workingDaysPerMonth: number | undefined; // рабочі дні в місяць
+  workingDaysPerWeek: number | undefined; // рабочі дні в тиждень
+  clientsNumberPerDay: number | undefined; // кількість клієнтів на день
+  hoursNumberPerClient: number | undefined; // кількість годин на одного клієнта
   expensesMap: Record<string, number>; // витрати
 }
 
@@ -55,14 +56,31 @@ interface FinancialModelStore {
   deleteFinancialData: (id: string) => void;
   getFinancialDataById: (id: string) => MonthlyFinancialData | undefined;
   deleteExpense: (expenseId: string) => void;
+  calculateTotalWorkingDays: () => number;
+  calculateAverageWorkingDaysPerWeek: () => number;
+  calculateAverageClientsNumberPerDay: () => number;
+  calculateAverageHoursNumberPerClient: () => number;
 }
 
 const storage = buildStorage<FinancialModelStore>();
 
+const initializeFinancialData = (): MonthlyFinancialData[] =>
+  Object.values(Month)
+    .filter((value) => typeof value === "number")
+    .map<MonthlyFinancialData>((month) => ({
+      id: uuidv4(),
+      month: month as Month,
+      workingDaysPerMonth: undefined,
+      workingDaysPerWeek: undefined,
+      clientsNumberPerDay: undefined,
+      hoursNumberPerClient: undefined,
+      expensesMap: {},
+    }));
+
 export const useFinancialModelStore = create<FinancialModelStore>()(
   persist(
     (set, get) => ({
-      financialData: [],
+      financialData: initializeFinancialData(),
 
       addFinancialData: (financialData) => {
         const newFinancialData = { ...financialData, id: uuidv4() };
@@ -103,6 +121,61 @@ export const useFinancialModelStore = create<FinancialModelStore>()(
             })
           ),
         })),
+
+      calculateTotalWorkingDays: () =>
+        roundUpTo2(
+          get()
+            .financialData.filter(
+              (financialData) => financialData.workingDaysPerMonth !== undefined
+            )
+            .reduce(
+              (acc, financialData) => acc + financialData.workingDaysPerMonth!,
+              0
+            )
+        ),
+
+      calculateAverageWorkingDaysPerWeek: () => {
+        const financialData = get().financialData;
+        return roundUpTo2(
+          financialData
+            .filter(
+              (financialData) => financialData.workingDaysPerWeek !== undefined
+            )
+            .reduce(
+              (acc, financialData) => acc + financialData.workingDaysPerWeek!,
+              0
+            ) / financialData.length
+        );
+      },
+
+      calculateAverageClientsNumberPerDay: () => {
+        const financialData = get().financialData;
+        return roundUpTo2(
+          financialData
+            .filter(
+              (financialData) => financialData.clientsNumberPerDay !== undefined
+            )
+            .reduce(
+              (acc, financialData) => acc + financialData.clientsNumberPerDay!,
+              0
+            ) / financialData.length
+        );
+      },
+
+      calculateAverageHoursNumberPerClient: () => {
+        const financialData = get().financialData;
+        return roundUpTo2(
+          financialData
+            .filter(
+              (financialData) =>
+                financialData.hoursNumberPerClient !== undefined
+            )
+            .reduce(
+              (acc, financialData) => acc + financialData.hoursNumberPerClient!,
+              0
+            ) / financialData.length
+        );
+      },
     }),
     {
       name: "financial-model-storage",

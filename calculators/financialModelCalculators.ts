@@ -4,7 +4,8 @@ import { roundUpTo2 } from "@/utils";
 /** загальна кількість годин в день */
 export function calculateDailyClientHours(financialData: MonthlyFinancialData) {
   return roundUpTo2(
-    financialData.clientsNumberPerDay * financialData.hoursPerClient
+    (financialData?.clientsNumberPerDay ?? 0) *
+      (financialData?.hoursNumberPerClient ?? 0)
   );
 }
 
@@ -13,7 +14,8 @@ export function calculateClientsNumberPerWeek(
   financialData: MonthlyFinancialData
 ) {
   return roundUpTo2(
-    financialData.workingDaysPerWeek * financialData.clientsNumberPerDay
+    (financialData?.workingDaysPerWeek ?? 0) *
+      (financialData?.clientsNumberPerDay ?? 0)
   );
 }
 
@@ -22,7 +24,8 @@ export function calculateClientsNumberPerMonth(
   financialData: MonthlyFinancialData
 ) {
   return roundUpTo2(
-    financialData.workingDaysPerMonth * financialData.clientsNumberPerDay
+    (financialData?.workingDaysPerMonth ?? 0) *
+      (financialData?.clientsNumberPerDay ?? 0)
   );
 }
 
@@ -31,7 +34,8 @@ export function calculateMonthlyClientHours(
   financialData: MonthlyFinancialData
 ) {
   return roundUpTo2(
-    calculateClientsNumberPerMonth(financialData) * financialData.hoursPerClient
+    calculateClientsNumberPerMonth(financialData) *
+      (financialData?.hoursNumberPerClient ?? 0)
   );
 }
 
