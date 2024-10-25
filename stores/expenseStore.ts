@@ -17,6 +17,8 @@ interface ExpenseStore {
   updateExpense: (id: string, updatedExpense: ExpenseFormValues) => void;
   deleteExpense: (id: string) => void;
   getExpenseById: (id: string) => Expense | undefined;
+  // порахувати середню ціню за всі місяці
+  computeTotalYearlyExpense: (id: string) => number;
 }
 
 const storage = buildStorage<ExpenseStore>();
@@ -49,6 +51,15 @@ export const useExpenseStore = create<ExpenseStore>()(
 
       getExpenseById: (id) =>
         get().expenses.find((expense) => expense.id === id),
+
+      computeTotalYearlyExpense: (id) => {
+        return useFinancialModelStore
+          .getState()
+          .financialData.reduce(
+            (acc, data) => acc + (data.expensesMap[id] ?? 0),
+            0
+          );
+      },
     }),
     {
       name: "expense-storage",

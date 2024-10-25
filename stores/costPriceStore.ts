@@ -23,7 +23,7 @@ interface CostPriceStore {
   updateCostPrice: (id: string, updatedCostPrice: CostPriceFormValues) => void;
   deleteCostPrice: (id: string) => void;
   getCostPriceById: (id: string) => CostPrice | undefined;
-  getTotalForOneClient: () => number;
+  calculateTotalForOneClient: () => number;
 }
 
 const storage = buildStorage<CostPriceStore>();
@@ -59,7 +59,7 @@ export const useCostPriceStore = create<CostPriceStore>()(
       getCostPriceById: (id) =>
         get().costPrices.find((costPrice) => costPrice.id === id),
 
-      getTotalForOneClient: () => {
+      calculateTotalForOneClient: () => {
         const costPriceTotal = get().costPrices.reduce(
           (acc, costPrice) => acc + calculatePricePerClient(costPrice),
           0

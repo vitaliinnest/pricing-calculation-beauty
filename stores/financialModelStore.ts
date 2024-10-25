@@ -9,6 +9,7 @@ import {
   calculateDailyClientHours,
   calculateMonthlyClientHours,
 } from "@/calculators/financialModelCalculators";
+import { useCostPriceStore } from "./costPriceStore";
 
 export enum Month {
   January = 1,
@@ -72,6 +73,11 @@ interface FinancialModelStore {
   calculateAverageClientsNumberPerWeek: () => number;
   calculateTotalClientsNumberPerMonth: () => number;
   calculateTotalMonthlyClientHours: () => number;
+
+  calculateMonthlyCostPrice: (id: string) => number;
+  calculateAverageMonthlyCostPrice: () => number;
+
+  calculateTotalExpenses: (id: string) => number;
 }
 
 const storage = buildStorage<FinancialModelStore>();
@@ -224,6 +230,37 @@ export const useFinancialModelStore = create<FinancialModelStore>()(
             0
           )
         ),
+
+      calculateMonthlyCostPrice: (id: string) => {
+        const financialData = get().getFinancialDataById(id)!;
+        const totalCostForOneClient = useCostPriceStore
+          .getState()
+          .calculateTotalForOneClient();
+        return roundUpTo2(
+          calculateClientsNumberPerMonth(financialData) * totalCostForOneClient
+        );
+      },
+
+      calculateAverageMonthlyCostPrice: () => {
+        const financialData = get().financialData;
+        return roundUpTo2(
+          financialData.reduce(
+            (acc, financialData) =>
+              acc + get().calculateMonthlyCostPrice(financialData.id),
+            0
+          ) / financialData.length
+        );
+      },
+
+      calculateTotalExpenses: (id: string) => {
+        const financialData = get().getFinancialDataById(id)!;
+        return roundUpTo2(
+          Object.values(financialData.expensesMap).reduce(
+            (acc, expense) => acc + expense,
+            0
+          )
+        );
+      },
     }),
     {
       name: "financial-model-storage",
