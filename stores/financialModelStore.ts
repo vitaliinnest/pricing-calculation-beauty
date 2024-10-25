@@ -40,6 +40,7 @@ export interface MonthlyFinancialData {
   workingDaysPerWeek: number; // рабочі дні в тиждень
   clientsNumberPerDay: number; // кількість клієнтів на день
   hoursPerClient: number; // кількість годин на одного клієнта
+  expensesMap: Record<string, number>; // витрати
 }
 
 export type MonthlyFinancialDataFormValues = Omit<MonthlyFinancialData, "id">;
@@ -53,6 +54,7 @@ interface FinancialModelStore {
   ) => void;
   deleteFinancialData: (id: string) => void;
   getFinancialDataById: (id: string) => MonthlyFinancialData | undefined;
+  deleteExpense: (expenseId: string) => void;
 }
 
 const storage = buildStorage<FinancialModelStore>();
@@ -87,6 +89,20 @@ export const useFinancialModelStore = create<FinancialModelStore>()(
 
       getFinancialDataById: (id) =>
         get().financialData.find((financialData) => financialData.id === id),
+
+      deleteExpense: (expenseId) =>
+        set((state) => ({
+          financialData: state.financialData.map<MonthlyFinancialData>(
+            (financialData) => ({
+              ...financialData,
+              expensesMap: Object.fromEntries(
+                Object.entries(financialData.expensesMap).filter(
+                  ([id]) => id !== expenseId
+                )
+              ),
+            })
+          ),
+        })),
     }),
     {
       name: "financial-model-storage",

@@ -34,3 +34,12 @@ export function calculateMonthlyClientHours(
     calculateClientsNumberPerMonth(financialData) * financialData.hoursPerClient
   );
 }
+
+export function calculateExpenses(financialData: MonthlyFinancialData) {
+  return roundUpTo2(
+    Object.values(financialData.expensesMap).reduce(
+      (acc, expense) => acc + expense,
+      0
+    )
+  );
+}

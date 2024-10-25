@@ -2,6 +2,7 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { buildStorage } from "./store";
 import { v4 as uuidv4 } from "uuid";
+import { useFinancialModelStore } from "./financialModelStore";
 
 export interface Expense {
   id: string;
@@ -35,18 +36,16 @@ export const useExpenseStore = create<ExpenseStore>()(
       updateExpense: (id, updatedExpense) =>
         set((state) => ({
           expenses: state.expenses.map((expense) =>
-            expense.id === id
-              ? { ...expense, ...updatedExpense }
-              : expense
+            expense.id === id ? { ...expense, ...updatedExpense } : expense
           ),
         })),
 
-      deleteExpense: (id) =>
+      deleteExpense: (id) => {
+        useFinancialModelStore.getState().deleteExpense(id);
         set((state) => ({
-          expenses: state.expenses.filter(
-            (expense) => expense.id !== id
-          ),
-        })),
+          expenses: state.expenses.filter((expense) => expense.id !== id),
+        }));
+      },
 
       getExpenseById: (id) =>
         get().expenses.find((expense) => expense.id === id),
