@@ -30,7 +30,7 @@ export function calculateClientsNumberPerMonth(
 }
 
 /** кількість годин в місяць */
-export function calculateMonthlyClientHours(
+export function calculateHoursNumberPerMonth(
   financialData: MonthlyFinancialData
 ) {
   return roundUpTo2(

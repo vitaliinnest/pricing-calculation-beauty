@@ -7,7 +7,7 @@ import {
   calculateClientsNumberPerMonth,
   calculateClientsNumberPerWeek,
   calculateDailyClientHours,
-  calculateMonthlyClientHours,
+  calculateHoursNumberPerMonth,
 } from "@/calculators/financialModelCalculators";
 import { useCostPriceStore } from "./costPriceStore";
 
@@ -78,6 +78,9 @@ interface FinancialModelStore {
   calculateAverageMonthlyCostPrice: () => number;
 
   calculateTotalExpenses: (id: string) => number;
+  calculateTotalExpensesPerClient: (id: string) => number;
+  calculateTotalDailyExpenses: (id: string) => number;
+  calculateTotalHourlyExpenses: (id: string) => number;
 }
 
 const storage = buildStorage<FinancialModelStore>();
@@ -226,7 +229,7 @@ export const useFinancialModelStore = create<FinancialModelStore>()(
         roundUpTo2(
           get().financialData.reduce(
             (acc, financialData) =>
-              acc + calculateMonthlyClientHours(financialData),
+              acc + calculateHoursNumberPerMonth(financialData),
             0
           )
         ),
@@ -259,6 +262,39 @@ export const useFinancialModelStore = create<FinancialModelStore>()(
             (acc, expense) => acc + expense,
             0
           )
+        );
+      },
+
+      calculateTotalExpensesPerClient: (id: string) => {
+        const financialData = get().getFinancialDataById(id)!;
+        return roundUpTo2(
+          get().calculateTotalExpenses(id) /
+            calculateClientsNumberPerMonth(financialData)
+        );
+      },
+
+      calculateTotalDailyExpenses: (id: string) => {
+        const financialData = get().getFinancialDataById(id)!;
+        if (!financialData?.workingDaysPerMonth) {
+          return 0;
+        }
+        return roundUpTo2(
+          get().calculateTotalExpenses(id) /
+            calculateClientsNumberPerMonth(financialData) /
+            financialData.workingDaysPerMonth
+        );
+      },
+
+      calculateTotalHourlyExpenses: (id: string) => {
+        const financialData = get().getFinancialDataById(id)!;
+        const hoursNumberPerMonth = calculateHoursNumberPerMonth(financialData);
+        if (!hoursNumberPerMonth) {
+          return 0;
+        }
+        return roundUpTo2(
+          get().calculateTotalExpenses(id) /
+            calculateClientsNumberPerMonth(financialData) /
+            hoursNumberPerMonth
         );
       },
     }),
