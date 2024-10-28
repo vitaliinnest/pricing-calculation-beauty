@@ -7,7 +7,7 @@ export default function TabLayout() {
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: Colors['light'].tabIconDefault,
+        tabBarActiveTintColor: Colors.tabIconDefault,
       }}>
       <Tabs.Screen
         name="index"
