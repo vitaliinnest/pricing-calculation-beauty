@@ -1,13 +1,16 @@
 import {
   EquipmentWear,
   EquipmentWearFormValues,
+  useEquipmentWearStore,
 } from "@/stores/equipmentWearStore";
 import { useForm } from "react-hook-form";
 import EntityDetailsPage from "../EntityDetailsPage";
 import TextInput from "../inputs/TextInput";
 import EuroInput from "../inputs/EuroInput";
 import NumberInput from "../inputs/NumberInput";
-import { LabellableInput } from "../inputs/LabellableInput";
+import InputsSeparator from "../InputsSeparator";
+import CalculatedEuroField from "../calculatedFields/CalculatedEuroField";
+import { calculatePricePerClient, calculatePricePerDay } from "@/calculators/equipmentWearCalculators";
 
 type Props = {
   equipmentWear?: EquipmentWear;
@@ -28,6 +31,8 @@ export default function EquipmentWearDetailsPage({
     },
   });
 
+  const { averageClientsNumberPerDay } = useEquipmentWearStore();
+
   const formValues = watch();
 
   return (
@@ -43,7 +48,16 @@ export default function EquipmentWearDetailsPage({
         control={control}
       />
 
-      <LabellableInput label="Some label"></LabellableInput>
+      <InputsSeparator />
+
+      <CalculatedEuroField
+        label="Ціна на день"
+        value={calculatePricePerDay(formValues)}
+      />
+      <CalculatedEuroField
+        label="Ціна на одного клієнта"
+        value={calculatePricePerClient(formValues, averageClientsNumberPerDay)}
+      />
     </EntityDetailsPage>
   );
 }
