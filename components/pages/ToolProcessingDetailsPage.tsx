@@ -1,4 +1,7 @@
-import { ToolProcessing, ToolProcessingFormValues } from "@/stores/toolProcessingStore";
+import {
+  ToolProcessing,
+  ToolProcessingFormValues,
+} from "@/stores/toolProcessingStore";
 import { TextInput as TextInputNative } from "react-native";
 import { inputStyles } from "../inputs/common";
 import { LabellableInput } from "../inputs/LabellableInput";
@@ -6,8 +9,13 @@ import TextInput from "../inputs/TextInput";
 import { useForm } from "react-hook-form";
 import EuroInput from "../inputs/EuroInput";
 import NumberInput from "../inputs/NumberInput";
-import { calculateDaysAmount, calculateExpenditurePerClient, calculatePricePerDay } from "@/calculators/toolProcessingCalculators";
+import {
+  calculateDaysAmount,
+  calculateExpenditurePerClient,
+  calculatePricePerDay,
+} from "@/calculators/toolProcessingCalculators";
 import EntityDetailsPage from "../EntityDetailsPage";
+import InputsSeparator from "../InputsSeparator";
 
 type Props = {
   toolProcessing?: ToolProcessing;
@@ -15,7 +23,11 @@ type Props = {
   onDelete?: () => void;
 };
 
-export default function ToolsProcessingDetailsPage({ toolProcessing, onSubmit, onDelete }: Props) {
+export default function ToolsProcessingDetailsPage({
+  toolProcessing,
+  onSubmit,
+  onDelete,
+}: Props) {
   const { control, watch } = useForm<ToolProcessingFormValues>({
     defaultValues: {
       name: toolProcessing?.name ?? "",
@@ -36,9 +48,19 @@ export default function ToolsProcessingDetailsPage({ toolProcessing, onSubmit, o
       <TextInput label="Назва" name="name" control={control} />
       <EuroInput label="Вартість" name="price" control={control} />
       <NumberInput label="Обсяг" name="volume" control={control} />
-      <NumberInput label="Витрати на день" name="expenditurePerDay" control={control} />
-      <NumberInput label="Кількість клієнтів на день" name="clientsPerDay" control={control} />
-        
+      <NumberInput
+        label="Витрати на день"
+        name="expenditurePerDay"
+        control={control}
+      />
+      <NumberInput
+        label="Кількість клієнтів на день"
+        name="clientsPerDay"
+        control={control}
+      />
+
+      <InputsSeparator />
+
       <LabellableInput label="Кількість днів">
         <TextInputNative
           readOnly
@@ -46,7 +68,7 @@ export default function ToolsProcessingDetailsPage({ toolProcessing, onSubmit, o
           style={[inputStyles.input]}
         />
       </LabellableInput>
-      
+
       <LabellableInput label="Ціна в день, €">
         <TextInputNative
           readOnly
@@ -54,7 +76,7 @@ export default function ToolsProcessingDetailsPage({ toolProcessing, onSubmit, o
           style={[inputStyles.input]}
         />
       </LabellableInput>
-      
+
       <LabellableInput label="Витрата на одного клієнта, €">
         <TextInputNative
           readOnly
