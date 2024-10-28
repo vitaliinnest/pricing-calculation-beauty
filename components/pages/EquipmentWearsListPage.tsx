@@ -26,10 +26,10 @@ export default function EquipmentWearsListPage() {
     <AppendableList
       data={equipmentWears}
       renderItem={renderItem}
-      onAddItem={() => router.push("/tool-processing/add")}
+      onAddItem={() => router.push("/equipment-wear/add")}
     >
       <Text style={styles.totalPrice}>
-        {`Сумарна ціна обробки інструментів на одного клієнта: ${getTotalForOneClient()} €`}
+        {`Сумарна ціна зносу обладнання на одного клієнта: ${getTotalForOneClient()} €`}
       </Text>
     </AppendableList>
   );
