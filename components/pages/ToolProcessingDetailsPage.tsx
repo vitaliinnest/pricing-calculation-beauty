@@ -16,6 +16,8 @@ import {
 } from "@/calculators/toolProcessingCalculators";
 import EntityDetailsPage from "../EntityDetailsPage";
 import InputsSeparator from "../InputsSeparator";
+import CalculatedNumberField from "../calculatedFields/CalculatedNumberField";
+import CalculatedEuroField from "../calculatedFields/CalculatedEuroField";
 
 type Props = {
   toolProcessing?: ToolProcessing;
@@ -61,29 +63,18 @@ export default function ToolsProcessingDetailsPage({
 
       <InputsSeparator />
 
-      <LabellableInput label="Кількість днів">
-        <TextInputNative
-          readOnly
-          value={calculateDaysAmount(formValues).toString()}
-          style={[inputStyles.input]}
-        />
-      </LabellableInput>
-
-      <LabellableInput label="Ціна в день, €">
-        <TextInputNative
-          readOnly
-          value={calculatePricePerDay(formValues).toString()}
-          style={[inputStyles.input]}
-        />
-      </LabellableInput>
-
-      <LabellableInput label="Витрата на одного клієнта, €">
-        <TextInputNative
-          readOnly
-          value={calculateExpenditurePerClient(formValues).toString()}
-          style={[inputStyles.input]}
-        />
-      </LabellableInput>
+      <CalculatedNumberField
+        label="Кількість днів"
+        value={calculateDaysAmount(formValues)}
+      />
+      <CalculatedEuroField
+        label="Ціна в день"
+        value={calculatePricePerDay(formValues)}
+      />
+      <CalculatedEuroField
+        label="Витрата на одного клієнта"
+        value={calculateExpenditurePerClient(formValues)}
+      />
     </EntityDetailsPage>
   );
 }
