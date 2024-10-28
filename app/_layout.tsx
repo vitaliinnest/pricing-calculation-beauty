@@ -35,13 +35,28 @@ export default function RootLayout() {
           options={{
             presentation: "modal",
             title: "Обробка інструменту",
-           }}
+          }}
         />
         <Stack.Screen
           name="tool-processing/add"
           options={{
             presentation: "modal",
             title: "Додавання обробки інструменту",
+          }}
+        />
+
+        <Stack.Screen
+          name="equipment-wear/[id]"
+          options={{
+            presentation: "modal",
+            title: "Знос обладнання",
+          }}
+        />
+        <Stack.Screen
+          name="equipment-wear/add"
+          options={{
+            presentation: "modal",
+            title: "Додавання зносу обладнання",
           }}
         />
 
