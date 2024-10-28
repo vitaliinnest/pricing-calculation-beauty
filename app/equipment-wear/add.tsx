@@ -9,7 +9,7 @@ export default function AddEquipmentWear() {
 
   const onAddEquipmentWear = (equipmentWear: EquipmentWearFormValues) => {
     addEquipmentWear(equipmentWear);
-    router.replace('/(tabs)/');
+    router.replace('/(tabs)/equipment-wear');
     Toast.show({
       type: "success",
       text1: equipmentWear.name,

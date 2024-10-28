@@ -19,7 +19,7 @@ export default function EditEquipmentWearDetails() {
 
   const onUpdateEquipmentWear = (equipmentWear: EquipmentWearFormValues) => {
     updateEquipmentWear(id, equipmentWear);
-    router.replace("/(tabs)/");
+    router.replace("/(tabs)/equipment-wear");
     Toast.show({
       type: "success",
       text1: equipmentWear.name,
@@ -29,7 +29,7 @@ export default function EditEquipmentWearDetails() {
 
   const onDeleteEquipmentWear = () => {
     deleteEquipmentWear(id);
-    router.replace("/(tabs)/");
+    router.replace("/(tabs)/equipment-wear");
     Toast.show({
       type: "success",
       text1: equipmentWear.name,
