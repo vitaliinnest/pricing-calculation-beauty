@@ -51,7 +51,7 @@ export default function EquipmentWearDetailsPage({
       <InputsSeparator />
 
       <CalculatedEuroField
-        label="Ціна на день"
+        label="Ціна в день"
         value={calculatePricePerDay(formValues)}
       />
       <CalculatedEuroField

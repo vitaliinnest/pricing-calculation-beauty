@@ -1,7 +1,7 @@
 import { EquipmentWearFormValues } from "@/stores/equipmentWearStore";
 import { roundUpTo2 } from "@/utils";
 
-/** Ціна на день */
+/** Ціна в день */
 export function calculatePricePerDay(
   equipment: EquipmentWearFormValues
 ): number {
