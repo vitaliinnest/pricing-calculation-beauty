@@ -13,14 +13,15 @@ import {
 import ListItem from "../ListItem";
 import { useRouter } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
+import { useState } from "react";
+import AverageClientsNumberModal from "./AverageClientsNumberModal";
 
 export default function EquipmentWearsListPage() {
-  const {
-    equipmentWears,
-    getTotalForOneClient,
-    averageClientsNumberPerDay,
-    setAverageCustomersPerDay,
-  } = useEquipmentWearStore();
+  const { equipmentWears, getTotalForOneClient, averageClientsNumberPerDay } =
+    useEquipmentWearStore();
+
+  const [avgClientsNumberModalVisible, setAvgClientsNumberModalVisible] =
+    useState(false);
 
   const router = useRouter();
 
@@ -35,10 +36,6 @@ export default function EquipmentWearsListPage() {
     </ListItem>
   );
 
-  const onChangeAverageClientsNumber = () => {
-    
-  };
-
   return (
     <AppendableList
       data={equipmentWears}
@@ -49,13 +46,21 @@ export default function EquipmentWearsListPage() {
         <Text style={styles.totalPrice}>
           {`Сумарна ціна на одного клієнта: ${getTotalForOneClient()} €`}
         </Text>
-        <Pressable style={styles.averageClientsNumberBtn} onPress={onChangeAverageClientsNumber}>
+        <Pressable
+          style={styles.averageClientsNumberBtn}
+          onPress={() => setAvgClientsNumberModalVisible(true)}
+        >
           <Text style={styles.averageClientsNumber}>
             {averageClientsNumberPerDay}
           </Text>
           <Ionicons name="people" size={25} color="black" />
         </Pressable>
       </View>
+
+      <AverageClientsNumberModal
+        visible={avgClientsNumberModalVisible}
+        onClose={() => setAvgClientsNumberModalVisible(false)}
+      />
     </AppendableList>
   );
 }
