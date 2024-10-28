@@ -56,7 +56,7 @@ export default function ToolProcessingsListPage() {
       onAddItem={() => router.push("/tool-processing/add")}
     >
       <Text style={styles.totalPrice}>
-        {`Сумарна ціна обробки інструментів на одного клієнта: ${getTotalForOneClient()} €`}
+        {`Сумарна ціна на одного клієнта: ${getTotalForOneClient()} €`}
       </Text>
     </AppendableList>
   );
@@ -87,6 +87,7 @@ const styles = StyleSheet.create({
   totalPrice: {
     fontSize: 16,
     fontWeight: "bold",
-    marginBottom: 20,
+    paddingHorizontal: 10,
+    paddingBottom: 20,
   },
 });
