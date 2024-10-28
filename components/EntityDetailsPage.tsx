@@ -40,7 +40,7 @@ export default function EntityDetailsPage({
       <View style={styles.buttonsContainer}>
         <Button title="Зберегти" onPress={onSubmit} style={styles.button} />
         {onDelete && (
-          <Button title="Видалити" onPress={handleDeletePress} />
+          <Button title="Видалити" onPress={handleDeletePress} style={styles.button} />
         )}
       </View>
     </View>
@@ -54,10 +54,10 @@ const styles = StyleSheet.create({
   },
   scrollContent: {
     padding: 10,
-    paddingBottom: 130,
+    paddingBottom: 65,
   },
   button: {
-    marginBottom: 10,
+    flexGrow: 1,
   },
   buttonsContainer: {
     position: "absolute",
@@ -66,5 +66,10 @@ const styles = StyleSheet.create({
     right: 0,
     backgroundColor: '#fff',
     padding: 10,
+    display: 'flex',
+    flexDirection: 'row',
+    gap: 10,
+    borderTopColor: 'lightgrey',
+    borderTopWidth: 1,
   },
 });
