@@ -10,6 +10,5 @@ export type InputProps = {
 export const inputStyles = StyleSheet.create({
   input: {
     fontSize: 16,
-    marginBottom: 10,
   }
 });
