@@ -1,5 +1,5 @@
-import FinancialModelsListPage from "@/components/pages/FinancialModelsListPage";
+import FinancialModelListPage from "@/components/pages/FinancialModelListPage";
 
 export default function FinancialModelPage() {
-  return <FinancialModelsListPage />;
+  return <FinancialModelListPage />;
 }
