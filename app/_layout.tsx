@@ -76,6 +76,14 @@ export default function RootLayout() {
           }}
         />
 
+        <Stack.Screen
+          name="financial-model/[id]"
+          options={{
+            presentation: "modal",
+            title: "Фінансова модель",
+          }}
+        />
+
         <Stack.Screen name="+not-found" />
       </Stack>
       <Toast config={toastConfig} />
