@@ -60,6 +60,22 @@ export default function RootLayout() {
           }}
         />
 
+        <Stack.Screen
+          name="cost-price/[id]"
+          options={{
+            presentation: "modal",
+            title: "Собівартість",
+          }}
+        />
+
+        <Stack.Screen
+          name="cost-price/add"
+          options={{
+            presentation: "modal",
+            title: "Додавання собівартості",
+          }}
+        />
+
         <Stack.Screen name="+not-found" />
       </Stack>
       <Toast config={toastConfig} />

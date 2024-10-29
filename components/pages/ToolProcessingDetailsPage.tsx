@@ -2,11 +2,8 @@ import {
   ToolProcessing,
   ToolProcessingFormValues,
 } from "@/stores/toolProcessingStore";
-import { TextInput as TextInputNative } from "react-native";
-import { inputStyles } from "../inputs/common";
-import { LabellableInput } from "../inputs/LabellableInput";
-import TextInput from "../inputs/TextInput";
 import { useForm } from "react-hook-form";
+import TextInput from "../inputs/TextInput";
 import EuroInput from "../inputs/EuroInput";
 import NumberInput from "../inputs/NumberInput";
 import {
