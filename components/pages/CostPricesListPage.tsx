@@ -7,7 +7,7 @@ import ListItem from "../ListItem";
 import { Ionicons } from "@expo/vector-icons";
 
 export default function CostPricesListPage() {
-  const { costPrices } = useCostPriceStore();
+  const { costPrices, calculateTotalForOneClient } = useCostPriceStore();
   const router = useRouter();
 
   const renderItem: ListRenderItem<CostPrice> = ({ item, index }) => (
@@ -26,7 +26,11 @@ export default function CostPricesListPage() {
       data={costPrices}
       renderItem={renderItem}
       onAddItem={() => router.push("/cost-price/add")}
-    ></AppendableList>
+    >
+      <Text style={styles.totalPrice}>
+        {`Сумарна ціна на одного клієнта: ${calculateTotalForOneClient()} €`}
+      </Text>
+    </AppendableList>
   );
 }
 
@@ -52,26 +56,10 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: "#555",
   },
-  summary: {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginBottom: 20,
-    marginHorizontal: 10,
-  },
   totalPrice: {
     fontSize: 16,
     fontWeight: "bold",
-  },
-  averageClientsNumberBtn: {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
-    gap: 5,
-  },
-  averageClientsNumber: {
-    fontSize: 16,
-    fontWeight: "bold",
+    paddingHorizontal: 10,
+    paddingBottom: 20,
   },
 });
