@@ -7,13 +7,13 @@ import {
 } from "react-native";
 import {
   MonthlyFinancialData,
-  MonthMap,
   useFinancialModelStore,
 } from "@/stores/financialModelStore";
 import { useRouter } from "expo-router";
 import ListItem from "../ListItem";
 import { Ionicons } from "@expo/vector-icons";
 import BottomSheetList from "../BottomSheetList";
+import { MonthMap } from "@/stores/common";
 
 export default function FinancialModelsListPage() {
   const { financialData } = useFinancialModelStore();

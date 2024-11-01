@@ -2,6 +2,7 @@ import { Expense, ExpenseFormValues } from "@/stores/expenseStore";
 import { useForm } from "react-hook-form";
 import EntityDetailsPage from "../EntityDetailsPage";
 import TextInput from "../inputs/TextInput";
+import { Month, MonthMap } from "@/stores/common";
 
 type Props = {
   expense?: Expense;
@@ -17,6 +18,7 @@ export default function ExpenseDetailsPage({
   const { control, watch } = useForm<ExpenseFormValues>({
     defaultValues: {
       name: expense?.name ?? "",
+      priceMap: expense?.priceMap ?? initializePriceMap(),
     },
   });
 
@@ -28,6 +30,23 @@ export default function ExpenseDetailsPage({
       onDelete={onDelete}
     >
       <TextInput label="Назва" name="name" control={control} />
+      {Object.keys(formValues.priceMap).map((month) => (
+        <TextInput
+          key={month}
+          label={MonthMap[month as unknown as Month]}
+          name={`priceMap.${month}`}
+          control={control}
+        />
+      ))}
     </EntityDetailsPage>
   );
 }
+
+const initializePriceMap = (): Record<Month, number> => {
+  return Object.values(Month).reduce((acc, month) => {
+    if (typeof month === "number") {
+      acc[month] = 0;
+    }
+    return acc;
+  }, {} as Record<Month, number>);
+};
