@@ -74,6 +74,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     gap: 10,
     borderTopColor: "lightgrey",
-    borderTopWidth: 1,
+    borderTopWidth: 3,
   },
 });

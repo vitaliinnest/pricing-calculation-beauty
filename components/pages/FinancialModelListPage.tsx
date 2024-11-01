@@ -34,8 +34,13 @@ export default function FinancialModelsListPage() {
   );
 
   return (
-    <BottomSheetList data={financialData} renderItem={renderItem}>
-      
+    <BottomSheetList
+      data={financialData}
+      renderItem={renderItem}
+    >
+      <Text style={styles.totalPrice}>
+        test
+      </Text>
     </BottomSheetList>
   );
 }
