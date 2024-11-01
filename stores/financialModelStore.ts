@@ -20,7 +20,6 @@ export interface MonthlyFinancialData {
   workingDaysPerWeek: number | undefined; // рабочі дні в тиждень
   clientsNumberPerDay: number | undefined; // кількість клієнтів на день
   hoursNumberPerClient: number | undefined; // кількість годин на одного клієнта
-  expensesMap: Record<string, number>; // витрати
 }
 
 export type MonthlyFinancialDataFormValues = Omit<MonthlyFinancialData, "id">;
@@ -66,7 +65,6 @@ const initializeFinancialData = (): MonthlyFinancialData[] =>
       workingDaysPerWeek: undefined,
       clientsNumberPerDay: undefined,
       hoursNumberPerClient: undefined,
-      expensesMap: {},
     }));
 
 export const useFinancialModelStore = create<FinancialModelStore>()(
