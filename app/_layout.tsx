@@ -77,6 +77,22 @@ export default function RootLayout() {
         />
 
         <Stack.Screen
+          name="expense/[id]"
+          options={{
+            presentation: "modal",
+            title: "Витрати",
+          }}
+        />
+
+        <Stack.Screen
+          name="expense/add"
+          options={{
+            presentation: "modal",
+            title: "Додавання витрат",
+          }}
+        />
+
+        <Stack.Screen
           name="financial-model/[id]"
           options={{
             presentation: "modal",

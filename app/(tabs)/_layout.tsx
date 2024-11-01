@@ -58,6 +58,18 @@ export default function TabLayout() {
           ),
         }}
       />
+      <Tabs.Screen
+        name="expenses"
+        options={{
+          title: "Витрати",
+          tabBarIcon: ({ color, focused }) => (
+            <TabBarIcon
+              name={focused ? "receipt" : "receipt-outline"}
+              color={color}
+            />
+          ),
+        }}
+      />
     </Tabs>
   );
 }

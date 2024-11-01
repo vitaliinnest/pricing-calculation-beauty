@@ -1,42 +1,31 @@
-import {
-  ListRenderItem,
-  Pressable,
-  StyleSheet,
-  Text,
-  View,
-} from "react-native";
-import {
-  MonthlyFinancialData,
-  MonthMap,
-  useFinancialModelStore,
-} from "@/stores/financialModelStore";
+import { View, ListRenderItem, StyleSheet } from "react-native";
+import { Text } from "@/components/Text";
+import { Expense, useExpenseStore } from "@/stores/expenseStore";
 import { useRouter } from "expo-router";
+import AppendableList from "../AppendableList";
 import ListItem from "../ListItem";
-import { Ionicons } from "@expo/vector-icons";
-import BottomSheetList from "../BottomSheetList";
 
-export default function FinancialModelsListPage() {
-  const { financialData } = useFinancialModelStore();
+export default function ExpensesListPage() {
+  const { expenses, computeTotalYearlyExpense } = useExpenseStore();
   const router = useRouter();
 
-  const renderItem: ListRenderItem<MonthlyFinancialData> = ({
-    item,
-    index,
-  }) => (
+  const renderItem: ListRenderItem<Expense> = ({ item, index }) => (
     <ListItem
       index={index}
-      onPress={() => router.push(`/financial-model/${item.id}`)}
+      onPress={() => router.push(`/expense/${item.id}`)}
     >
       <View style={styles.itemContainer}>
-        <Text style={styles.itemTitle}>{MonthMap[item.month]}</Text>
+        <Text style={styles.itemTitle}>{item.name}</Text>
       </View>
     </ListItem>
   );
 
   return (
-    <BottomSheetList data={financialData} renderItem={renderItem}>
-      
-    </BottomSheetList>
+    <AppendableList
+      data={expenses}
+      renderItem={renderItem}
+      onAddItem={() => router.push("/expense/add")}
+    />
   );
 }
 
