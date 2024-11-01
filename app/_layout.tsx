@@ -93,7 +93,7 @@ export default function RootLayout() {
         />
 
         <Stack.Screen
-          name="financial-model/[id]"
+          name="financial-model-month/[id]"
           options={{
             presentation: "modal",
             title: "Фінансова модель",

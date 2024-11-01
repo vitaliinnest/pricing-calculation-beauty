@@ -25,7 +25,7 @@ export default function FinancialModelsListPage() {
   }) => (
     <ListItem
       index={index}
-      onPress={() => router.push(`/financial-model/${item.id}`)}
+      onPress={() => router.push(`/financial-model-month/${item.id}`)}
     >
       <View style={styles.itemContainer}>
         <Text style={styles.itemTitle}>{MonthMap[item.month]}</Text>
