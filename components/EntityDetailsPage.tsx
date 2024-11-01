@@ -1,7 +1,7 @@
 import { StyleSheet, View, ScrollView, StatusBar } from "react-native";
 import { PropsWithChildren } from "react";
 import Button from "./Button";
-import alert from '../alert'
+import alert from "../alert";
 
 type Props = PropsWithChildren<{
   onSubmit: () => void;
@@ -40,7 +40,11 @@ export default function EntityDetailsPage({
       <View style={styles.buttonsContainer}>
         <Button title="Зберегти" onPress={onSubmit} style={styles.button} />
         {onDelete && (
-          <Button title="Видалити" onPress={handleDeletePress} style={styles.button} />
+          <Button
+            title="Видалити"
+            onPress={handleDeletePress}
+            style={styles.button}
+          />
         )}
       </View>
     </View>
@@ -64,12 +68,12 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     right: 0,
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
     padding: 10,
-    display: 'flex',
-    flexDirection: 'row',
+    display: "flex",
+    flexDirection: "row",
     gap: 10,
-    borderTopColor: 'lightgrey',
+    borderTopColor: "lightgrey",
     borderTopWidth: 1,
   },
 });
