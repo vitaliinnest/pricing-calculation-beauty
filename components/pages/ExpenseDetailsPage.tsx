@@ -6,7 +6,7 @@ import { Month, MonthMap } from "@/stores/common";
 import InputsSeparator from "../InputsSeparator";
 import EuroInput from "../inputs/EuroInput";
 import CalculatedEuroField from "../calculatedFields/CalculatedEuroField";
-import { calculateAveragePrice } from "@/calculators/expenseCalculators";
+import { calculateTotalPrice } from "@/calculators/expenseCalculators";
 
 type Props = {
   expense?: Expense;
@@ -38,7 +38,7 @@ export default function ExpenseDetailsPage({
       {Object.keys(formValues.priceMap).map((month) => (
         <EuroInput
           key={month}
-          label={`Ціна за ${MonthMap[month as unknown as Month]}`}
+          label={MonthMap[month as unknown as Month]}
           name={`priceMap.${month}`}
           control={control}
         />
@@ -47,8 +47,8 @@ export default function ExpenseDetailsPage({
       <InputsSeparator />
       
       <CalculatedEuroField
-        label="Середня ціна"
-        value={calculateAveragePrice(formValues)}
+        label="Сумарна ціна за рік"
+        value={calculateTotalPrice(formValues)}
       />
     </EntityDetailsPage>
   );

@@ -11,6 +11,7 @@ import {
 } from "@/calculators/financialModelCalculators";
 import { useCostPriceStore } from "./costPriceStore";
 import { Month } from "./common";
+import { useExpenseStore } from "./expenseStore";
 
 export interface MonthlyFinancialData {
   id: string;
@@ -33,7 +34,6 @@ interface FinancialModelStore {
   ) => void;
   deleteFinancialData: (id: string) => void;
   getFinancialDataById: (id: string) => MonthlyFinancialData | undefined;
-  deleteExpense: (expenseId: string) => void;
 
   calculateTotalWorkingDays: () => number;
   calculateAverageWorkingDaysPerWeek: () => number;
@@ -99,20 +99,6 @@ export const useFinancialModelStore = create<FinancialModelStore>()(
 
       getFinancialDataById: (id) =>
         get().financialData.find((financialData) => financialData.id === id),
-
-      deleteExpense: (expenseId) =>
-        set((state) => ({
-          financialData: state.financialData.map<MonthlyFinancialData>(
-            (financialData) => ({
-              ...financialData,
-              expensesMap: Object.fromEntries(
-                Object.entries(financialData.expensesMap).filter(
-                  ([id]) => id !== expenseId
-                )
-              ),
-            })
-          ),
-        })),
 
       calculateTotalWorkingDays: () =>
         roundUpTo2(
@@ -228,9 +214,10 @@ export const useFinancialModelStore = create<FinancialModelStore>()(
 
       calculateTotalExpenses: (id: string) => {
         const financialData = get().getFinancialDataById(id)!;
+        const expenses = useExpenseStore.getState().expenses;
         return roundUpTo2(
-          Object.values(financialData.expensesMap).reduce(
-            (acc, expense) => acc + expense,
+          Object.values(expenses).reduce(
+            (acc, expense) => acc + expense.priceMap[financialData.month],
             0
           )
         );

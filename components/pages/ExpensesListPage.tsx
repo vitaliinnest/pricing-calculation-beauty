@@ -6,7 +6,7 @@ import AppendableList from "../AppendableList";
 import ListItem from "../ListItem";
 
 export default function ExpensesListPage() {
-  const { expenses, computeTotalYearlyExpense } = useExpenseStore();
+  const { expenses } = useExpenseStore();
   const router = useRouter();
 
   const renderItem: ListRenderItem<Expense> = ({ item, index }) => (

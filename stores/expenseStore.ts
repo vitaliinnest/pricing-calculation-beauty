@@ -2,7 +2,6 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { buildStorage } from "./store";
 import { v4 as uuidv4 } from "uuid";
-import { useFinancialModelStore } from "./financialModelStore";
 import { Month } from "./common";
 
 export interface Expense {
@@ -19,8 +18,6 @@ interface ExpenseStore {
   updateExpense: (id: string, updatedExpense: ExpenseFormValues) => void;
   deleteExpense: (id: string) => void;
   getExpenseById: (id: string) => Expense | undefined;
-  // порахувати середню ціню за всі місяці
-  computeTotalYearlyExpense: (id: string) => number;
 }
 
 const storage = buildStorage<ExpenseStore>();
@@ -55,24 +52,13 @@ export const useExpenseStore = create<ExpenseStore>()(
           };
         }),
 
-      deleteExpense: (id) => {
-        useFinancialModelStore.getState().deleteExpense(id);
+      deleteExpense: (id) =>
         set((state) => ({
           expenses: state.expenses.filter((expense) => expense.id !== id),
-        }));
-      },
+        })),
 
       getExpenseById: (id) =>
         get().expenses.find((expense) => expense.id === id),
-
-      computeTotalYearlyExpense: (id) => {
-        return useFinancialModelStore
-          .getState()
-          .financialData.reduce(
-            (acc, data) => acc + (data.expensesMap[id] ?? 0),
-            0
-          );
-      },
     }),
     {
       name: "expense-storage",
