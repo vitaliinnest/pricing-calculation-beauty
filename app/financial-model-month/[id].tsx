@@ -1,9 +1,9 @@
-import MonthlyFinancialDataDetailsPage from "@/components/pages/MonthlyFinancialDataDetailsPage";
+import MonthlyFinancialDataDetailsPage, {
+  MonthlyFinancialDataWithExpenses,
+} from "@/components/pages/MonthlyFinancialDataDetailsPage";
 import { MonthMap } from "@/stores/common";
-import {
-  MonthlyFinancialDataFormValues,
-  useFinancialModelStore,
-} from "@/stores/financialModelStore";
+import { useExpenseStore } from "@/stores/expenseStore";
+import { useFinancialModelStore } from "@/stores/financialModelStore";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import Toast from "react-native-toast-message";
 
@@ -12,6 +12,7 @@ export default function EditFinancialModelDetails() {
   const router = useRouter();
   const { updateFinancialData, getFinancialDataById } =
     useFinancialModelStore();
+  const { updateExpensesPrices } = useExpenseStore();
   const financialData = getFinancialDataById(id);
 
   if (!financialData) {
@@ -19,9 +20,10 @@ export default function EditFinancialModelDetails() {
   }
 
   const onUpdateFinancialData = (
-    financialData: MonthlyFinancialDataFormValues
+    financialData: MonthlyFinancialDataWithExpenses
   ) => {
     updateFinancialData(id, financialData);
+    updateExpensesPrices(financialData.month, financialData.expensesMap);
     router.replace("/(tabs)/financial-model");
     Toast.show({
       type: "success",

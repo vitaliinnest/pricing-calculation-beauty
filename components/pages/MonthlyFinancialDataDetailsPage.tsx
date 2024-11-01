@@ -15,23 +15,38 @@ import {
   calculateDailyClientHours,
   calculateHoursNumberPerMonth,
 } from "@/calculators/financialModelCalculators";
+import { useExpenseStore } from "@/stores/expenseStore";
+import CalculatedEuroField from "../calculatedFields/CalculatedEuroField";
+import EuroInput from "../inputs/EuroInput";
 
 type Props = {
   financialData: MonthlyFinancialData;
-  onSubmit: (formValues: MonthlyFinancialDataFormValues) => void;
+  onSubmit: (formValues: MonthlyFinancialDataWithExpenses) => void;
+};
+
+export type MonthlyFinancialDataWithExpenses = MonthlyFinancialDataFormValues & {
+  expensesMap: Record<string, number>;
 };
 
 export default function MonthlyFinancialDataDetailsPage({
   financialData,
   onSubmit,
 }: Props) {
-  const { control, watch } = useForm<MonthlyFinancialDataFormValues>({
+  const { expenses } = useExpenseStore();
+  const { control, watch } = useForm<MonthlyFinancialDataWithExpenses>({
     defaultValues: {
       month: financialData.month,
       workingDaysPerWeek: financialData.workingDaysPerWeek,
       workingDaysPerMonth: financialData.workingDaysPerMonth,
       clientsNumberPerDay: financialData.clientsNumberPerDay,
       hoursNumberPerClient: financialData.hoursNumberPerClient,
+      expensesMap: expenses.reduce(
+        (acc, expense) => ({
+          ...acc,
+          [expense.id]: expense.priceMap[financialData.month],
+        }),
+        {}
+      ),
     },
   });
 
@@ -79,6 +94,17 @@ export default function MonthlyFinancialDataDetailsPage({
         label="Кількість годин на місяць"
         value={calculateHoursNumberPerMonth(formValues)}
       />
+
+      <InputsSeparator title="Витрати" />
+
+      {expenses.map((expense) => (
+        <EuroInput
+          key={expense.id}
+          label={expense.name}
+          name={`expensesMap.${expense.id}`}
+          control={control}
+        />
+      ))}
     </EntityDetailsPage>
   );
 }

@@ -16,6 +16,10 @@ interface ExpenseStore {
   expenses: Expense[];
   addExpense: (expense: ExpenseFormValues) => void;
   updateExpense: (id: string, updatedExpense: ExpenseFormValues) => void;
+  updateExpensesPrices: (
+    month: Month,
+    priceMap: Record<string, number>
+  ) => void;
   deleteExpense: (id: string) => void;
   getExpenseById: (id: string) => Expense | undefined;
 }
@@ -51,6 +55,17 @@ export const useExpenseStore = create<ExpenseStore>()(
             ),
           };
         }),
+
+      updateExpensesPrices: (month, priceMap) =>
+        set((state) => ({
+          expenses: state.expenses.map((expense) => ({
+            ...expense,
+            priceMap: {
+              ...expense.priceMap,
+              [month]: priceMap[expense.id],
+            },
+          })),
+        })),
 
       deleteExpense: (id) =>
         set((state) => ({
