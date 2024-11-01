@@ -1,7 +1,10 @@
 import { useRouter } from "expo-router";
 import EquipmentWearDetailsPage from "@/components/pages/EquipmentWearDetailsPage";
 import Toast from "react-native-toast-message";
-import { EquipmentWearFormValues, useEquipmentWearStore } from "@/stores/equipmentWearStore";
+import {
+  EquipmentWearFormValues,
+  useEquipmentWearStore,
+} from "@/stores/equipmentWearStore";
 
 export default function AddEquipmentWear() {
   const { addEquipmentWear } = useEquipmentWearStore();
@@ -9,7 +12,7 @@ export default function AddEquipmentWear() {
 
   const onAddEquipmentWear = (equipmentWear: EquipmentWearFormValues) => {
     addEquipmentWear(equipmentWear);
-    router.replace('/(tabs)/equipment-wear');
+    router.replace("/(tabs)/equipment-wear");
     Toast.show({
       type: "success",
       text1: equipmentWear.name,
