@@ -1,8 +1,10 @@
-import { MonthlyFinancialData } from "@/stores/financialModelStore";
+import { MonthlyFinancialDataFormValues } from "@/stores/financialModelStore";
 import { roundUpTo2 } from "@/utils";
 
 /** загальна кількість годин в день */
-export function calculateDailyClientHours(financialData: MonthlyFinancialData) {
+export function calculateDailyClientHours(
+  financialData: MonthlyFinancialDataFormValues
+) {
   return roundUpTo2(
     (financialData?.clientsNumberPerDay ?? 0) *
       (financialData?.hoursNumberPerClient ?? 0)
@@ -11,7 +13,7 @@ export function calculateDailyClientHours(financialData: MonthlyFinancialData) {
 
 /** кількість клієнтів в тиждень */
 export function calculateClientsNumberPerWeek(
-  financialData: MonthlyFinancialData
+  financialData: MonthlyFinancialDataFormValues
 ) {
   return roundUpTo2(
     (financialData?.workingDaysPerWeek ?? 0) *
@@ -21,7 +23,7 @@ export function calculateClientsNumberPerWeek(
 
 /** кількість клієнтів в місяць */
 export function calculateClientsNumberPerMonth(
-  financialData: MonthlyFinancialData
+  financialData: MonthlyFinancialDataFormValues
 ) {
   return roundUpTo2(
     (financialData?.workingDaysPerMonth ?? 0) *
@@ -31,7 +33,7 @@ export function calculateClientsNumberPerMonth(
 
 /** кількість годин в місяць */
 export function calculateHoursNumberPerMonth(
-  financialData: MonthlyFinancialData
+  financialData: MonthlyFinancialDataFormValues
 ) {
   return roundUpTo2(
     calculateClientsNumberPerMonth(financialData) *
