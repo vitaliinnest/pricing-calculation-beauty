@@ -1,4 +1,4 @@
-import { ListRenderItem, StyleSheet, Text } from "react-native";
+import { ListRenderItem, StyleSheet } from "react-native";
 import {
   MonthlyFinancialData,
   useFinancialModelStore,
@@ -10,7 +10,19 @@ import { MonthMap } from "@/stores/common";
 import KeyValueTable from "../KeyValueTable";
 
 export default function FinancialModelsListPage() {
-  const { financialData } = useFinancialModelStore();
+  const {
+    financialData,
+    calculateTotalWorkingDays,
+    calculateAverageWorkingDaysPerWeek,
+    calculateAverageClientsNumberPerDay,
+    calculateAverageHoursNumberPerClient,
+    calculateAverageDailyClientHours,
+    calculateAverageClientsNumberPerWeek,
+    calculateTotalClientsNumberPerMonth,
+    calculateTotalMonthlyClientHours,
+    calculateAverageMonthlyCostPrice,
+  } = useFinancialModelStore();
+
   const router = useRouter();
 
   const renderItem: ListRenderItem<MonthlyFinancialData> = ({
@@ -35,7 +47,43 @@ export default function FinancialModelsListPage() {
 
   return (
     <BottomSheetList data={financialData} renderItem={renderItem}>
-      <Text style={styles.totalPrice}>test</Text>
+      <KeyValueTable
+        data={[
+          ["Загальна кількість робочих днів", calculateTotalWorkingDays()],
+          [
+            "Середня кількість робочих днів на тиждень",
+            calculateAverageWorkingDaysPerWeek(),
+          ],
+          [
+            "Середня кількість клієнтів на день",
+            calculateAverageClientsNumberPerDay(),
+          ],
+          [
+            "Середня кількість годин на одного клієнта",
+            calculateAverageHoursNumberPerClient(),
+          ],
+          [
+            "Середня кількість годин на одного клієнта в день",
+            calculateAverageDailyClientHours(),
+          ],
+          [
+            "Середня кількість клієнтів на тиждень",
+            calculateAverageClientsNumberPerWeek(),
+          ],
+          [
+            "Загальна кількість клієнтів в місяць",
+            calculateTotalClientsNumberPerMonth(),
+          ],
+          [
+            "Загальна кількість годин в місяць",
+            calculateTotalMonthlyClientHours(),
+          ],
+          [
+            "Середня собівартість матеріалу в місяць",
+            `${calculateAverageMonthlyCostPrice()} €`,
+          ],
+        ]}
+      />
     </BottomSheetList>
   );
 }
