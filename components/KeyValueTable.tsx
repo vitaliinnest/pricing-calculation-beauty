@@ -29,9 +29,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
   },
   cellContainer: {
-    width: "45%", // Adjust width to control number of columns
-    paddingVertical: 8,
-    marginHorizontal: "2.5%", // Margin to create space between columns
+    width: "45%",
+    marginHorizontal: "2.5%",
     marginBottom: 12,
     borderBottomWidth: 1,
     borderBottomColor: "#e0e0e0",
