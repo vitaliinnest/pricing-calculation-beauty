@@ -12,6 +12,7 @@ import EuroInput from "../inputs/EuroInput";
 import CalculatedEuroField from "../calculatedFields/CalculatedEuroField";
 import CalculatedTextField from "../calculatedFields/CalculatedTextField";
 import { useExpenseStore } from "@/stores/expenseStore";
+import Text from "@/components/Text";
 
 export default function FinancialModelsListPage() {
   const { expenses } = useExpenseStore();
@@ -70,6 +71,7 @@ export default function FinancialModelsListPage() {
 
   return (
     <BottomSheetList data={financialData} renderItem={renderItem}>
+      <Text></Text>
       <KeyValueTable
         data={[
           ["Загальна кількість робочих днів", calculateTotalWorkingDays()],

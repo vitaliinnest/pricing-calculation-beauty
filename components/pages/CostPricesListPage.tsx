@@ -1,5 +1,5 @@
 import { View, ListRenderItem, Pressable, StyleSheet } from "react-native";
-import { Text } from "@/components/Text";
+import Text from "@/components/Text";
 import { CostPrice, useCostPriceStore } from "@/stores/costPriceStore";
 import { useRouter } from "expo-router";
 import AppendableList from "../AppendableList";
