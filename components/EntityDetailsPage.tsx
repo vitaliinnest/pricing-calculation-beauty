@@ -38,7 +38,6 @@ export default function EntityDetailsPage({
         {children}
       </ScrollView>
       <View style={styles.buttonsContainer}>
-        <Button title="Зберегти" onPress={onSubmit} style={styles.button} />
         {onDelete && (
           <Button
             title="Видалити"
@@ -46,6 +45,7 @@ export default function EntityDetailsPage({
             style={styles.button}
           />
         )}
+        <Button title="Зберегти" onPress={onSubmit} style={styles.button} />
       </View>
     </View>
   );

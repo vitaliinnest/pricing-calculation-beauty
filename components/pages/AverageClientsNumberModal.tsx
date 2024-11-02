@@ -44,8 +44,8 @@ export default function AverageClientsNumberModal({ visible, onClose }: Props) {
             label="Введіть число"
           />
           <View style={styles.buttonContainer}>
-            <Button title="Зберегти" onPress={onSubmit} />
             <Button title="Скасувати" onPress={onClose} />
+            <Button title="Зберегти" onPress={onSubmit} />
           </View>
         </View>
       </View>
