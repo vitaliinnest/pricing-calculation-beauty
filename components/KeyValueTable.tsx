@@ -1,6 +1,6 @@
 import React from "react";
 import { View, StyleSheet } from "react-native";
-import { Text } from "@/components/Text"; // Custom Text component
+import { Text } from "@/components/Text";
 
 type KeyValue = [string, number | string];
 
@@ -9,12 +9,25 @@ type Props = {
 };
 
 export default function KeyValueTable({ data }: Props) {
+  const rows = React.useMemo(() => {
+    const result = [];
+    for (let i = 0; i < data.length; i += 2) {
+      result.push(data.slice(i, i + 2));
+    }
+    return result;
+  }, [data]);
+
   return (
     <View style={styles.tableContainer}>
-      {data.map(([key, value], index) => (
-        <View key={index} style={styles.cellContainer}>
-          <Text style={styles.cellKey}>{key}</Text>
-          <Text style={styles.cellValue}>{value}</Text>
+      {rows.map((row, rowIndex) => (
+        <View key={rowIndex} style={styles.rowContainer}>
+          {row.map(([key, value], cellIndex) => (
+            <View key={cellIndex} style={styles.cellContainer}>
+              <Text style={styles.cellKey}>{key}</Text>
+              <Text style={styles.cellValue}>{value}</Text>
+            </View>
+          ))}
+          {row.length === 1 && <View style={styles.cellContainer} />}
         </View>
       ))}
     </View>
@@ -23,15 +36,18 @@ export default function KeyValueTable({ data }: Props) {
 
 const styles = StyleSheet.create({
   tableContainer: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    alignItems: "flex-start",
+    width: "100%",
     paddingHorizontal: 16,
   },
-  cellContainer: {
-    width: "45%",
-    marginHorizontal: "2.5%",
+  rowContainer: {
+    flexDirection: "row",
+    alignItems: "stretch",
     marginBottom: 12,
+  },
+  cellContainer: {
+    flex: 1,
+    paddingVertical: 8,
+    paddingHorizontal: 8,
     borderBottomWidth: 1,
     borderBottomColor: "#e0e0e0",
   },
