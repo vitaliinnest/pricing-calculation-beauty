@@ -15,6 +15,7 @@ import {
   calculateClientsNumberPerWeek,
   calculateDailyClientHours,
   calculateHoursNumberPerMonth,
+  calculateTurnoverDifference,
 } from "@/calculators/financialModelCalculators";
 import { useExpenseStore } from "@/stores/expenseStore";
 import CalculatedEuroField from "../calculatedFields/CalculatedEuroField";
@@ -41,6 +42,7 @@ export default function MonthlyFinancialDataDetailsPage({
     calculateTotalExpensesPerClient,
     calculateTotalDailyExpenses,
     calculateTotalHourlyExpenses,
+    calculateExpectedMonthlyProfit,
   } = useFinancialModelStore();
 
   const { control, watch } = useForm<MonthlyFinancialDataWithExpenses>({
@@ -64,6 +66,7 @@ export default function MonthlyFinancialDataDetailsPage({
 
   const formValues = watch();
 
+  const turnoverDifference = calculateTurnoverDifference(formValues);
   return (
     <EntityDetailsPage onSubmit={() => onSubmit(formValues)}>
       <CalculatedTextField label="Місяць" value={MonthMap[formValues.month]} />
@@ -140,6 +143,33 @@ export default function MonthlyFinancialDataDetailsPage({
       <CalculatedEuroField
         label="Витрати на годину"
         value={calculateTotalHourlyExpenses(formValues)}
+      />
+
+      <InputsSeparator title="Прибуток" />
+      
+      <CalculatedEuroField
+        label="Орієнтований прибуток на місяць"
+        value={calculateExpectedMonthlyProfit(formValues)}
+      />
+
+      <InputsSeparator title="Обсяг" />
+      
+      <EuroInput
+        label="Бажаний обсяг в місяць"
+        name="expectedMonthlyTurnover"
+        control={control}
+      />
+      <EuroInput
+        label="Фактичний обсяг в місяць"
+        name="actualMonthlyTurnover"
+        control={control}
+      />
+      <CalculatedTextField
+        label="Чи виконали мету на місяць"
+        value={
+          (turnoverDifference >= 0 ? "Так" : "Ні") +
+          ` (на ${turnoverDifference} €)`
+        }
       />
     </EntityDetailsPage>
   );
