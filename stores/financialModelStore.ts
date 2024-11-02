@@ -11,7 +11,7 @@ import {
 } from "@/calculators/financialModelCalculators";
 import { useCostPriceStore } from "./costPriceStore";
 import { Month } from "./common";
-import { useExpenseStore } from "./expenseStore";
+import { MonthlyFinancialDataWithExpenses } from "@/components/pages/MonthlyFinancialDataDetailsPage";
 
 export interface MonthlyFinancialData {
   id: string;
@@ -42,13 +42,19 @@ interface FinancialModelStore {
   calculateTotalClientsNumberPerMonth: () => number;
   calculateTotalMonthlyClientHours: () => number;
 
-  calculateMonthlyCostPrice: (id: string) => number;
+  calculateMonthlyCostPrice: (data: MonthlyFinancialDataFormValues) => number; // Себестоимость материала
   calculateAverageMonthlyCostPrice: () => number;
 
-  calculateTotalExpenses: (id: string) => number;
-  calculateTotalExpensesPerClient: (id: string) => number;
-  calculateTotalDailyExpenses: (id: string) => number;
-  calculateTotalHourlyExpenses: (id: string) => number;
+  calculateTotalExpenses: (data: MonthlyFinancialDataWithExpenses) => number; // итого расходы
+  calculateTotalExpensesPerClient: (
+    data: MonthlyFinancialDataWithExpenses
+  ) => number;
+  calculateTotalDailyExpenses: (
+    data: MonthlyFinancialDataWithExpenses
+  ) => number;
+  calculateTotalHourlyExpenses: (
+    data: MonthlyFinancialDataWithExpenses
+  ) => number;
 }
 
 const storage = buildStorage<FinancialModelStore>();
@@ -173,13 +179,12 @@ export const useFinancialModelStore = create<FinancialModelStore>()(
           )
         ),
 
-      calculateMonthlyCostPrice: (id: string) => {
-        const financialData = get().getFinancialDataById(id)!;
+      calculateMonthlyCostPrice: (data: MonthlyFinancialDataFormValues) => {
         const totalCostForOneClient = useCostPriceStore
           .getState()
           .calculateTotalForOneClient();
         return roundUpTo2(
-          calculateClientsNumberPerMonth(financialData) * totalCostForOneClient
+          calculateClientsNumberPerMonth(data) * totalCostForOneClient
         );
       },
 
@@ -188,52 +193,48 @@ export const useFinancialModelStore = create<FinancialModelStore>()(
         return roundUpTo2(
           financialData.reduce(
             (acc, financialData) =>
-              acc + get().calculateMonthlyCostPrice(financialData.id),
+              acc + get().calculateMonthlyCostPrice(financialData),
             0
           ) / financialData.length
         );
       },
 
-      calculateTotalExpenses: (id: string) => {
-        const financialData = get().getFinancialDataById(id)!;
-        const expenses = useExpenseStore.getState().expenses;
+      calculateTotalExpenses: (data: MonthlyFinancialDataWithExpenses) => {
         return roundUpTo2(
-          Object.values(expenses).reduce(
-            (acc, expense) => acc + expense.priceMap[financialData.month],
-            0
-          )
+          Object.values(data.expensesMap).reduce((acc, price) => acc + price, 0)
         );
       },
 
-      calculateTotalExpensesPerClient: (id: string) => {
-        const financialData = get().getFinancialDataById(id)!;
+      calculateTotalExpensesPerClient: (
+        data: MonthlyFinancialDataWithExpenses
+      ) => {
         return roundUpTo2(
-          get().calculateTotalExpenses(id) /
-            calculateClientsNumberPerMonth(financialData)
+          get().calculateTotalExpenses(data) /
+            calculateClientsNumberPerMonth(data)
         );
       },
 
-      calculateTotalDailyExpenses: (id: string) => {
-        const financialData = get().getFinancialDataById(id)!;
-        if (!financialData?.workingDaysPerMonth) {
+      calculateTotalDailyExpenses: (data: MonthlyFinancialDataWithExpenses) => {
+        if (!data?.workingDaysPerMonth) {
           return 0;
         }
         return roundUpTo2(
-          get().calculateTotalExpenses(id) /
-            calculateClientsNumberPerMonth(financialData) /
-            financialData.workingDaysPerMonth
+          get().calculateTotalExpenses(data) /
+            calculateClientsNumberPerMonth(data) /
+            data.workingDaysPerMonth
         );
       },
 
-      calculateTotalHourlyExpenses: (id: string) => {
-        const financialData = get().getFinancialDataById(id)!;
-        const hoursNumberPerMonth = calculateHoursNumberPerMonth(financialData);
+      calculateTotalHourlyExpenses: (
+        data: MonthlyFinancialDataWithExpenses
+      ) => {
+        const hoursNumberPerMonth = calculateHoursNumberPerMonth(data);
         if (!hoursNumberPerMonth) {
           return 0;
         }
         return roundUpTo2(
-          get().calculateTotalExpenses(id) /
-            calculateClientsNumberPerMonth(financialData) /
+          get().calculateTotalExpenses(data) /
+            calculateClientsNumberPerMonth(data) /
             hoursNumberPerMonth
         );
       },

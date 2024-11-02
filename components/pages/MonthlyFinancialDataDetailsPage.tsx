@@ -1,6 +1,7 @@
 import {
   MonthlyFinancialData,
   MonthlyFinancialDataFormValues,
+  useFinancialModelStore,
 } from "@/stores/financialModelStore";
 import { useForm } from "react-hook-form";
 import EntityDetailsPage from "../EntityDetailsPage";
@@ -24,15 +25,24 @@ type Props = {
   onSubmit: (formValues: MonthlyFinancialDataWithExpenses) => void;
 };
 
-export type MonthlyFinancialDataWithExpenses = MonthlyFinancialDataFormValues & {
-  expensesMap: Record<string, number>;
-};
+export type MonthlyFinancialDataWithExpenses =
+  MonthlyFinancialDataFormValues & {
+    expensesMap: Record<string, number>;
+  };
 
 export default function MonthlyFinancialDataDetailsPage({
   financialData,
   onSubmit,
 }: Props) {
   const { expenses } = useExpenseStore();
+  const {
+    calculateMonthlyCostPrice,
+    calculateTotalExpenses,
+    calculateTotalExpensesPerClient,
+    calculateTotalDailyExpenses,
+    calculateTotalHourlyExpenses,
+  } = useFinancialModelStore();
+
   const { control, watch } = useForm<MonthlyFinancialDataWithExpenses>({
     defaultValues: {
       month: financialData.month,
@@ -95,6 +105,11 @@ export default function MonthlyFinancialDataDetailsPage({
         value={calculateHoursNumberPerMonth(formValues)}
       />
 
+      <CalculatedEuroField
+        label="Собівартість матеріалу"
+        value={calculateMonthlyCostPrice(formValues)}
+      />
+
       <InputsSeparator title="Витрати" />
 
       {expenses.map((expense) => (
@@ -105,6 +120,25 @@ export default function MonthlyFinancialDataDetailsPage({
           control={control}
         />
       ))}
+
+      <InputsSeparator />
+
+      <CalculatedEuroField
+        label="Загальні витрати"
+        value={calculateTotalExpenses(formValues)}
+      />
+      <CalculatedEuroField
+        label="Витрати на клієнта"
+        value={calculateTotalExpensesPerClient(formValues)}
+      />
+      <CalculatedEuroField
+        label="Витрати на день"
+        value={calculateTotalDailyExpenses(formValues)}
+      />
+      <CalculatedEuroField
+        label="Витрати на годину"
+        value={calculateTotalHourlyExpenses(formValues)}
+      />
     </EntityDetailsPage>
   );
 }
