@@ -1,19 +1,13 @@
-import {
-  ListRenderItem,
-  Pressable,
-  StyleSheet,
-  Text,
-  View,
-} from "react-native";
+import { ListRenderItem, StyleSheet, Text } from "react-native";
 import {
   MonthlyFinancialData,
   useFinancialModelStore,
 } from "@/stores/financialModelStore";
 import { useRouter } from "expo-router";
 import ListItem from "../ListItem";
-import { Ionicons } from "@expo/vector-icons";
 import BottomSheetList from "../BottomSheetList";
 import { MonthMap } from "@/stores/common";
+import KeyValueTable from "../KeyValueTable";
 
 export default function FinancialModelsListPage() {
   const { financialData } = useFinancialModelStore();
@@ -25,48 +19,28 @@ export default function FinancialModelsListPage() {
   }) => (
     <ListItem
       index={index}
+      title={MonthMap[item.month]}
       onPress={() => router.push(`/financial-model-month/${item.id}`)}
     >
-      <View style={styles.itemContainer}>
-        <Text style={styles.itemTitle}>{MonthMap[item.month]}</Text>
-      </View>
+      <KeyValueTable
+        data={[
+          ["Робочі дні в місяць", item.workingDaysPerMonth ?? 0],
+          ["Робочі дні в тиждень", item.workingDaysPerWeek ?? 0],
+          ["Кількість клієнтів на день", item.clientsNumberPerDay ?? 0],
+          ["Кількість годин на одного клієнта", item.hoursNumberPerClient ?? 0],
+        ]}
+      />
     </ListItem>
   );
 
   return (
-    <BottomSheetList
-      data={financialData}
-      renderItem={renderItem}
-    >
-      <Text style={styles.totalPrice}>
-        test
-      </Text>
+    <BottomSheetList data={financialData} renderItem={renderItem}>
+      <Text style={styles.totalPrice}>test</Text>
     </BottomSheetList>
   );
 }
 
 const styles = StyleSheet.create({
-  itemContainer: {
-    paddingLeft: 10,
-    borderRadius: 5,
-  },
-  itemTitle: {
-    fontSize: 18,
-    fontWeight: "bold",
-    marginBottom: 10,
-  },
-  columnsContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-  },
-  column: {
-    flex: 1,
-    // marginHorizontal: 5,
-  },
-  itemDetail: {
-    fontSize: 14,
-    color: "#555",
-  },
   totalPrice: {
     fontSize: 16,
     fontWeight: "bold",
