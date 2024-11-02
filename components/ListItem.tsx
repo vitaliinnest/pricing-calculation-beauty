@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
   headerContainer: {
     flexDirection: "row", // Aligns index and title horizontally
     alignItems: "center", // Vertically centers the index and title
-    marginBottom: 10,
+    // marginBottom: 10,
   },
   indexContainer: {
     backgroundColor: "#f0f0f0",
