@@ -1,4 +1,4 @@
-import { ListRenderItem, StyleSheet, Text, View } from "react-native";
+import { ListRenderItem, StyleSheet, Text } from "react-native";
 import AppendableList from "../AppendableList";
 import {
   ToolProcessing,
@@ -6,11 +6,6 @@ import {
 } from "@/stores/toolProcessingStore";
 import ListItem from "../ListItem";
 import { useRouter } from "expo-router";
-import {
-  calculateDaysAmount,
-  calculateExpenditurePerClient,
-  calculatePricePerDay,
-} from "@/calculators/toolProcessingCalculators";
 import KeyValueTable from "../KeyValueTable";
 
 export default function ToolProcessingsListPage() {
@@ -28,12 +23,7 @@ export default function ToolProcessingsListPage() {
           ["Вартість", `${item.price} €`],
           ["Обсяг", item.volume],
           ["Витрати на день", item.expenditurePerDay],
-          ["Дні", calculateDaysAmount(item)],
-          ["Ціна в день", calculatePricePerDay(item)],
-          [
-            "Витрата на одного клієнта",
-            `${calculateExpenditurePerClient(item)} €`,
-          ],
+          ["Кількість клієнтів на день", item.clientsPerDay],
         ]}
       />
     </ListItem>
@@ -53,27 +43,6 @@ export default function ToolProcessingsListPage() {
 }
 
 const styles = StyleSheet.create({
-  itemContainer: {
-    paddingLeft: 10,
-    borderRadius: 5,
-  },
-  itemTitle: {
-    fontSize: 18,
-    fontWeight: "bold",
-    marginBottom: 10,
-  },
-  columnsContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-  },
-  column: {
-    flex: 1,
-    // marginHorizontal: 5,
-  },
-  itemDetail: {
-    fontSize: 14,
-    color: "#555",
-  },
   totalPrice: {
     fontSize: 16,
     fontWeight: "bold",
