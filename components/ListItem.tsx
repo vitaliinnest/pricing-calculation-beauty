@@ -14,6 +14,7 @@ export interface IWithStyle {
 
 type Props = IWithStyle & {
   index: number;
+  title?: string;
   onPress: () => void;
 };
 
@@ -23,10 +24,15 @@ export default function ListItem(props: React.PropsWithChildren<Props>) {
       style={[styles.listItem, props.style]}
       onPress={props.onPress}
     >
-      <View style={styles.indexContainer}>
-        <Text style={styles.indexText}>{props.index + 1}</Text>
+      {/* Container for index and title in the same row */}
+      <View style={styles.headerContainer}>
+        <View style={styles.indexContainer}>
+          <Text style={styles.indexText}>{props.index + 1}</Text>
+        </View>
+        {props.title && <Text style={styles.title}>{props.title}</Text>}
       </View>
-      {props.children}
+
+      <View style={styles.contentContainer}>{props.children}</View>
     </TouchableOpacity>
   );
 }
@@ -46,17 +52,30 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 5,
-    flexDirection: "row",
-    alignItems: "center",
+    flexDirection: "column",
+    alignItems: "flex-start",
+  },
+  headerContainer: {
+    flexDirection: "row", // Aligns index and title horizontally
+    alignItems: "center", // Vertically centers the index and title
+    marginBottom: 10,
   },
   indexContainer: {
-    marginRight: 10,
     backgroundColor: "#f0f0f0",
     borderRadius: 8,
     padding: 8,
+    marginRight: 10, // Space between index and title
   },
   indexText: {
     fontSize: 16,
     fontWeight: "bold",
+  },
+  title: {
+    fontSize: 16,
+    fontWeight: "bold",
+    color: "#333", // Darker color to make it stand out
+  },
+  contentContainer: {
+    width: "100%", // Ensures the children take full width within ListItem
   },
 });

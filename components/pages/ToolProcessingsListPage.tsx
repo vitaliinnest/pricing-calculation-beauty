@@ -11,6 +11,7 @@ import {
   calculateExpenditurePerClient,
   calculatePricePerDay,
 } from "@/calculators/toolProcessingCalculators";
+import KeyValueTable from "../KeyValueTable";
 
 export default function ToolProcessingsListPage() {
   const { tools, getTotalForOneClient } = useToolProcessingStore();
@@ -19,33 +20,22 @@ export default function ToolProcessingsListPage() {
   const renderItem: ListRenderItem<ToolProcessing> = ({ item, index }) => (
     <ListItem
       index={index}
+      title={item.name}
       onPress={() => router.push(`/tool-processing/${item.id}`)}
     >
-      <View style={styles.itemContainer}>
-        <Text style={styles.itemTitle}>{item.name}</Text>
-        <View style={styles.columnsContainer}>
-          <View style={styles.column}>
-            <Text style={styles.itemDetail}>{`Вартість: ${item.price} €`}</Text>
-            <Text style={styles.itemDetail}>{`Обсяг: ${item.volume}`}</Text>
-            <Text
-              style={styles.itemDetail}
-            >{`Витрати на день: ${item.expenditurePerDay}`}</Text>
-          </View>
-          <View style={styles.column}>
-            <Text style={styles.itemDetail}>{`Дні: ${calculateDaysAmount(
-              item
-            )}`}</Text>
-            <Text
-              style={styles.itemDetail}
-            >{`Ціна в день: ${calculatePricePerDay(item)}`}</Text>
-            <Text
-              style={styles.itemDetail}
-            >{`Витрата на одного клієнта: ${calculateExpenditurePerClient(
-              item
-            )} €`}</Text>
-          </View>
-        </View>
-      </View>
+      <KeyValueTable
+        data={[
+          ["Вартість", `${item.price} €`],
+          ["Обсяг", item.volume],
+          ["Витрати на день", item.expenditurePerDay],
+          ["Дні", calculateDaysAmount(item)],
+          ["Ціна в день", calculatePricePerDay(item)],
+          [
+            "Витрата на одного клієнта",
+            `${calculateExpenditurePerClient(item)} €`,
+          ],
+        ]}
+      />
     </ListItem>
   );
 
