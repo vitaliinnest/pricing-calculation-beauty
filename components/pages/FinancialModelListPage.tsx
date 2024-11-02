@@ -77,7 +77,7 @@ export default function FinancialModelsListPage() {
       </Text>
       <KeyValueTable
         data={[
-          ["Річний прибуток", `${calculateYearlyExpectedProfit()} €`],
+          ["Орієнтований річний прибуток", `${calculateYearlyExpectedProfit()} €`],
           [
             "Середні витрати на одного клієнта",
             `${calculateAverageYearlyExpensesPerClient()} €`,
