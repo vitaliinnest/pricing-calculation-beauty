@@ -107,7 +107,7 @@ export default function FinancialModelsListPage() {
             "Середня собівартість матеріалу в місяць",
             `${calculateAverageMonthlyCostPrice()} €`,
           ],
-          // four fields left
+          // fields left
         ]}
       />
     </BottomSheetList>
