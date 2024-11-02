@@ -8,9 +8,6 @@ import ListItem from "../ListItem";
 import BottomSheetList from "../BottomSheetList";
 import { MonthMap } from "@/stores/common";
 import KeyValueTable from "../KeyValueTable";
-import EuroInput from "../inputs/EuroInput";
-import CalculatedEuroField from "../calculatedFields/CalculatedEuroField";
-import CalculatedTextField from "../calculatedFields/CalculatedTextField";
 import { useExpenseStore } from "@/stores/expenseStore";
 import Text from "@/components/Text";
 
