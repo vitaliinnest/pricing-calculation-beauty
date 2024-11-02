@@ -15,6 +15,7 @@ import { useRouter } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 import { useState } from "react";
 import AverageClientsNumberModal from "./AverageClientsNumberModal";
+import KeyValueTable from "../KeyValueTable";
 
 export default function EquipmentWearsListPage() {
   const { equipmentWears, getTotalForOneClient, averageClientsNumberPerDay } =
@@ -28,11 +29,15 @@ export default function EquipmentWearsListPage() {
   const renderItem: ListRenderItem<EquipmentWear> = ({ item, index }) => (
     <ListItem
       index={index}
+      title={item.name}
       onPress={() => router.push(`/equipment-wear/${item.id}`)}
     >
-      <View style={styles.itemContainer}>
-        <Text style={styles.itemTitle}>{item.name}</Text>
-      </View>
+      <KeyValueTable
+        data={[
+          ["Вартість", `${item.price} €`],
+          ["Строк експлуатації в днях", item.serviceLifeInDays],
+        ]}
+      />
     </ListItem>
   );
 
@@ -66,27 +71,6 @@ export default function EquipmentWearsListPage() {
 }
 
 const styles = StyleSheet.create({
-  itemContainer: {
-    paddingLeft: 10,
-    borderRadius: 5,
-  },
-  itemTitle: {
-    fontSize: 18,
-    fontWeight: "bold",
-    marginBottom: 10,
-  },
-  columnsContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-  },
-  column: {
-    flex: 1,
-    // marginHorizontal: 5,
-  },
-  itemDetail: {
-    fontSize: 14,
-    color: "#555",
-  },
   summary: {
     display: "flex",
     flexDirection: "row",
