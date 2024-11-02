@@ -208,9 +208,12 @@ export const useFinancialModelStore = create<FinancialModelStore>()(
       calculateTotalExpensesPerClient: (
         data: MonthlyFinancialDataWithExpenses
       ) => {
+        const clientsNumberPerMonth = calculateClientsNumberPerMonth(data);
+        if (!clientsNumberPerMonth) {
+          return 0;
+        }
         return roundUpTo2(
-          get().calculateTotalExpenses(data) /
-            calculateClientsNumberPerMonth(data)
+          get().calculateTotalExpenses(data) / clientsNumberPerMonth
         );
       },
 
@@ -219,9 +222,7 @@ export const useFinancialModelStore = create<FinancialModelStore>()(
           return 0;
         }
         return roundUpTo2(
-          get().calculateTotalExpenses(data) /
-            calculateClientsNumberPerMonth(data) /
-            data.workingDaysPerMonth
+          get().calculateTotalExpenses(data) / data.workingDaysPerMonth
         );
       },
 
@@ -233,9 +234,7 @@ export const useFinancialModelStore = create<FinancialModelStore>()(
           return 0;
         }
         return roundUpTo2(
-          get().calculateTotalExpenses(data) /
-            calculateClientsNumberPerMonth(data) /
-            hoursNumberPerMonth
+          get().calculateTotalExpenses(data) / hoursNumberPerMonth
         );
       },
     }),
