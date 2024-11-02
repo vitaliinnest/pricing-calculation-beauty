@@ -26,6 +26,10 @@ export default function FinancialModelsListPage() {
     calculateTotalMonthlyClientHours,
     calculateAverageMonthlyCostPrice,
     calculateExpectedMonthlyProfit,
+    calculateYearlyExpectedProfit,
+    calculateAverageYearlyExpensesPerClient,
+    calculateAverageYearlyExpensesPerDay,
+    calculateAverageYearlyExpensesPerHour,
   } = useFinancialModelStore();
 
   const router = useRouter();
@@ -68,9 +72,24 @@ export default function FinancialModelsListPage() {
 
   return (
     <BottomSheetList data={financialData} renderItem={renderItem}>
-      <Text type="subtitle" style={styles.title}>Розрахунки</Text>
+      <Text type="subtitle" style={styles.title}>
+        Розрахунки
+      </Text>
       <KeyValueTable
         data={[
+          ["Річний прибуток", `${calculateYearlyExpectedProfit()} €`],
+          [
+            "Середні витрати на одного клієнта",
+            `${calculateAverageYearlyExpensesPerClient()} €`,
+          ],
+          [
+            "Середні витрати за один день",
+            `${calculateAverageYearlyExpensesPerDay()} €`,
+          ],
+          [
+            "Середні витрати за одну годину",
+            `${calculateAverageYearlyExpensesPerHour()} €`,
+          ],
           ["Загальна кількість робочих днів", calculateTotalWorkingDays()],
           [
             "Середня кількість робочих днів на тиждень",
@@ -104,7 +123,6 @@ export default function FinancialModelsListPage() {
             "Середня собівартість матеріалу в місяць",
             `${calculateAverageMonthlyCostPrice()} €`,
           ],
-          // fields left
         ]}
       />
     </BottomSheetList>
@@ -120,5 +138,5 @@ const styles = StyleSheet.create({
   },
   title: {
     paddingLeft: 5,
-  }
+  },
 });

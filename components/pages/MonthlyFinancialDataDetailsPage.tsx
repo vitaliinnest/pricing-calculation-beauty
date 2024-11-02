@@ -133,15 +133,15 @@ export default function MonthlyFinancialDataDetailsPage({
         value={calculateTotalExpenses(formValues)}
       />
       <CalculatedEuroField
-        label="Витрати на клієнта"
+        label="Витрати на одного клієнта"
         value={calculateTotalExpensesPerClient(formValues)}
       />
       <CalculatedEuroField
-        label="Витрати на день"
+        label="Витрати за один день"
         value={calculateTotalDailyExpenses(formValues)}
       />
       <CalculatedEuroField
-        label="Витрати на годину"
+        label="Витрати за одну годину"
         value={calculateTotalHourlyExpenses(formValues)}
       />
 

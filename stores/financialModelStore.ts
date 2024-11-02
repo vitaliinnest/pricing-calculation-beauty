@@ -64,6 +64,11 @@ interface FinancialModelStore {
   calculateExpectedMonthlyProfit: (
     data: MonthlyFinancialDataWithExpenses
   ) => number;
+
+  calculateYearlyExpectedProfit: () => number;
+  calculateAverageYearlyExpensesPerClient: () => number;
+  calculateAverageYearlyExpensesPerDay: () => number;
+  calculateAverageYearlyExpensesPerHour: () => number;
 }
 
 const storage = buildStorage<FinancialModelStore>();
@@ -256,6 +261,58 @@ export const useFinancialModelStore = create<FinancialModelStore>()(
           (data.actualMonthlyTurnover ?? 0) -
             get().calculateTotalExpenses(data) -
             get().calculateMonthlyCostPrice(data)
+        ),
+
+      calculateYearlyExpectedProfit: () =>
+        roundUpTo2(
+          get().financialData.reduce(
+            (acc, financialData) =>
+              acc +
+              get().calculateExpectedMonthlyProfit({
+                ...financialData,
+                expensesMap: {},
+              }),
+            0
+          )
+        ),
+
+      calculateAverageYearlyExpensesPerClient: () =>
+        roundUpTo2(
+          get().financialData.reduce(
+            (acc, financialData) =>
+              acc +
+              get().calculateTotalExpensesPerClient({
+                ...financialData,
+                expensesMap: {},
+              }),
+            0
+          ) / get().financialData.length
+        ),
+
+      calculateAverageYearlyExpensesPerDay: () =>
+        roundUpTo2(
+          get().financialData.reduce(
+            (acc, financialData) =>
+              acc +
+              get().calculateTotalDailyExpenses({
+                ...financialData,
+                expensesMap: {},
+              }),
+            0
+          ) / get().financialData.length
+        ),
+
+      calculateAverageYearlyExpensesPerHour: () =>
+        roundUpTo2(
+          get().financialData.reduce(
+            (acc, financialData) =>
+              acc +
+              get().calculateTotalHourlyExpenses({
+                ...financialData,
+                expensesMap: {},
+              }),
+            0
+          ) / get().financialData.length
         ),
     }),
     {
