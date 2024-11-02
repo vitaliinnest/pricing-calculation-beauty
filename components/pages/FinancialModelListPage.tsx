@@ -71,7 +71,7 @@ export default function FinancialModelsListPage() {
 
   return (
     <BottomSheetList data={financialData} renderItem={renderItem}>
-      <Text></Text>
+      <Text type="subtitle" style={styles.title}>Розрахунки</Text>
       <KeyValueTable
         data={[
           ["Загальна кількість робочих днів", calculateTotalWorkingDays()],
@@ -121,4 +121,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingBottom: 20,
   },
+  title: {
+    paddingLeft: 5,
+  }
 });
