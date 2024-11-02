@@ -40,3 +40,12 @@ export function calculateHoursNumberPerMonth(
       (financialData?.hoursNumberPerClient ?? 0)
   );
 }
+
+/** чи виконали ви вашу мету на місяць */
+export function calculateTurnoverDifference(
+  financialData: MonthlyFinancialDataFormValues
+) {
+  return roundUpTo2(
+    financialData.expectedMonthlyTurnover - financialData.actualMonthlyTurnover
+  );
+}

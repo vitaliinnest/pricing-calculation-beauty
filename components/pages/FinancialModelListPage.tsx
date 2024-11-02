@@ -8,8 +8,14 @@ import ListItem from "../ListItem";
 import BottomSheetList from "../BottomSheetList";
 import { MonthMap } from "@/stores/common";
 import KeyValueTable from "../KeyValueTable";
+import EuroInput from "../inputs/EuroInput";
+import CalculatedEuroField from "../calculatedFields/CalculatedEuroField";
+import CalculatedTextField from "../calculatedFields/CalculatedTextField";
+import { useExpenseStore } from "@/stores/expenseStore";
 
 export default function FinancialModelsListPage() {
+  const { expenses } = useExpenseStore();
+
   const {
     financialData,
     calculateTotalWorkingDays,
@@ -21,6 +27,7 @@ export default function FinancialModelsListPage() {
     calculateTotalClientsNumberPerMonth,
     calculateTotalMonthlyClientHours,
     calculateAverageMonthlyCostPrice,
+    calculateExpectedMonthlyProfit,
   } = useFinancialModelStore();
 
   const router = useRouter();
@@ -28,22 +35,38 @@ export default function FinancialModelsListPage() {
   const renderItem: ListRenderItem<MonthlyFinancialData> = ({
     item,
     index,
-  }) => (
-    <ListItem
-      index={index}
-      title={MonthMap[item.month]}
-      onPress={() => router.push(`/financial-model-month/${item.id}`)}
-    >
-      <KeyValueTable
-        data={[
-          ["Робочі дні в місяць", item.workingDaysPerMonth ?? 0],
-          ["Робочі дні в тиждень", item.workingDaysPerWeek ?? 0],
-          ["Кількість клієнтів на день", item.clientsNumberPerDay ?? 0],
-          ["Кількість годин на одного клієнта", item.hoursNumberPerClient ?? 0],
-        ]}
-      />
-    </ListItem>
-  );
+  }) => {
+    const expensesMap = expenses.reduce(
+      (acc, expense) => ({
+        ...acc,
+        [expense.id]: expense.priceMap[item.month],
+      }),
+      {}
+    );
+    return (
+      <ListItem
+        index={index}
+        title={MonthMap[item.month]}
+        onPress={() => router.push(`/financial-model-month/${item.id}`)}
+      >
+        <KeyValueTable
+          data={[
+            ["Робочі дні в місяць", item.workingDaysPerMonth ?? 0],
+            ["Робочі дні в тиждень", item.workingDaysPerWeek ?? 0],
+            ["Кількість клієнтів на день", item.clientsNumberPerDay ?? 0],
+            [
+              "Кількість годин на одного клієнта",
+              item.hoursNumberPerClient ?? 0,
+            ],
+            [
+              "Орієнтований прибуток",
+              `${calculateExpectedMonthlyProfit({ ...item, expensesMap })} €`,
+            ],
+          ]}
+        />
+      </ListItem>
+    );
+  };
 
   return (
     <BottomSheetList data={financialData} renderItem={renderItem}>
@@ -82,6 +105,7 @@ export default function FinancialModelsListPage() {
             "Середня собівартість матеріалу в місяць",
             `${calculateAverageMonthlyCostPrice()} €`,
           ],
+          // four fields left
         ]}
       />
     </BottomSheetList>

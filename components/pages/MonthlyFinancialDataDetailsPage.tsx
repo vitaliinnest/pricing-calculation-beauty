@@ -57,6 +57,8 @@ export default function MonthlyFinancialDataDetailsPage({
         }),
         {}
       ),
+      actualMonthlyTurnover: financialData.actualMonthlyTurnover,
+      expectedMonthlyTurnover: financialData.expectedMonthlyTurnover,
     },
   });
 

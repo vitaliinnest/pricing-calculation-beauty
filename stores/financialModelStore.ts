@@ -20,6 +20,8 @@ export interface MonthlyFinancialData {
   workingDaysPerWeek: number | undefined; // рабочі дні в тиждень
   clientsNumberPerDay: number | undefined; // кількість клієнтів на день
   hoursNumberPerClient: number | undefined; // кількість годин на одного клієнта
+  expectedMonthlyTurnover: number;
+  actualMonthlyTurnover: number;
 }
 
 export type MonthlyFinancialDataFormValues = Omit<MonthlyFinancialData, "id">;
@@ -42,10 +44,12 @@ interface FinancialModelStore {
   calculateTotalClientsNumberPerMonth: () => number;
   calculateTotalMonthlyClientHours: () => number;
 
-  calculateMonthlyCostPrice: (data: MonthlyFinancialDataFormValues) => number; // Себестоимость материала
+  // себестоимость материала
+  calculateMonthlyCostPrice: (data: MonthlyFinancialDataFormValues) => number;
   calculateAverageMonthlyCostPrice: () => number;
 
-  calculateTotalExpenses: (data: MonthlyFinancialDataWithExpenses) => number; // итого расходы
+  // итого расходы
+  calculateTotalExpenses: (data: MonthlyFinancialDataWithExpenses) => number;
   calculateTotalExpensesPerClient: (
     data: MonthlyFinancialDataWithExpenses
   ) => number;
@@ -53,6 +57,11 @@ interface FinancialModelStore {
     data: MonthlyFinancialDataWithExpenses
   ) => number;
   calculateTotalHourlyExpenses: (
+    data: MonthlyFinancialDataWithExpenses
+  ) => number;
+
+  // орієнтований прибуток
+  calculateExpectedMonthlyProfit: (
     data: MonthlyFinancialDataWithExpenses
   ) => number;
 }
@@ -69,6 +78,8 @@ const initializeFinancialData = (): MonthlyFinancialData[] =>
       workingDaysPerWeek: undefined,
       clientsNumberPerDay: undefined,
       hoursNumberPerClient: undefined,
+      expectedMonthlyTurnover: 0,
+      actualMonthlyTurnover: 0,
     }));
 
 export const useFinancialModelStore = create<FinancialModelStore>()(
@@ -237,6 +248,15 @@ export const useFinancialModelStore = create<FinancialModelStore>()(
           get().calculateTotalExpenses(data) / hoursNumberPerMonth
         );
       },
+
+      calculateExpectedMonthlyProfit: (
+        data: MonthlyFinancialDataWithExpenses
+      ) =>
+        roundUpTo2(
+          (data.actualMonthlyTurnover ?? 0) -
+            get().calculateTotalExpenses(data) -
+            get().calculateMonthlyCostPrice(data)
+        ),
     }),
     {
       name: "financial-model-storage",
