@@ -5,6 +5,7 @@ import { useRouter } from "expo-router";
 import AppendableList from "../AppendableList";
 import ListItem from "../ListItem";
 import { Ionicons } from "@expo/vector-icons";
+import KeyValueTable from "../KeyValueTable";
 
 export default function CostPricesListPage() {
   const { costPrices, calculateTotalForOneClient } = useCostPriceStore();
@@ -13,11 +14,16 @@ export default function CostPricesListPage() {
   const renderItem: ListRenderItem<CostPrice> = ({ item, index }) => (
     <ListItem
       index={index}
+      title={item.name}
       onPress={() => router.push(`/cost-price/${item.id}`)}
     >
-      <View style={styles.itemContainer}>
-        <Text style={styles.itemTitle}>{item.name}</Text>
-      </View>
+      <KeyValueTable
+        data={[
+          ["Вартість", `${item.price} €`],
+          ["Обсяг", item.volume],
+          ["Витрати на одного клієнта", item.expenditurePerClient],
+        ]}
+      />
     </ListItem>
   );
 
@@ -35,27 +41,6 @@ export default function CostPricesListPage() {
 }
 
 const styles = StyleSheet.create({
-  itemContainer: {
-    paddingLeft: 10,
-    borderRadius: 5,
-  },
-  itemTitle: {
-    fontSize: 18,
-    fontWeight: "bold",
-    marginBottom: 10,
-  },
-  columnsContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-  },
-  column: {
-    flex: 1,
-    // marginHorizontal: 5,
-  },
-  itemDetail: {
-    fontSize: 14,
-    color: "#555",
-  },
   totalPrice: {
     fontSize: 16,
     fontWeight: "bold",

@@ -37,7 +37,6 @@ export default function KeyValueTable({ data }: Props) {
 const styles = StyleSheet.create({
   tableContainer: {
     width: "100%",
-    paddingHorizontal: 16,
   },
   rowContainer: {
     flexDirection: "row",
