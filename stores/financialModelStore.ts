@@ -263,6 +263,7 @@ export const useFinancialModelStore = create<FinancialModelStore>()(
             get().calculateMonthlyCostPrice(data)
         ),
 
+      // todo: fix all of these below
       calculateYearlyExpectedProfit: () =>
         roundUpTo2(
           get().financialData.reduce(
