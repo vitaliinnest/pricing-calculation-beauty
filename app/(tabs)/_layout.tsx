@@ -46,18 +46,7 @@ export default function TabLayout() {
           ),
         }}
       />
-      <Tabs.Screen
-        name="financial-model"
-        options={{
-          title: "Фінансова модель",
-          tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon
-              name={focused ? "calculator" : "calculator-outline"}
-              color={color}
-            />
-          ),
-        }}
-      />
+      
       <Tabs.Screen
         name="expenses"
         options={{
@@ -65,6 +54,18 @@ export default function TabLayout() {
           tabBarIcon: ({ color, focused }) => (
             <TabBarIcon
               name={focused ? "receipt" : "receipt-outline"}
+              color={color}
+            />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="financial-model"
+        options={{
+          title: "Фінансова модель",
+          tabBarIcon: ({ color, focused }) => (
+            <TabBarIcon
+              name={focused ? "calculator" : "calculator-outline"}
               color={color}
             />
           ),
