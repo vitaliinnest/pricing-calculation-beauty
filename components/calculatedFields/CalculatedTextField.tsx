@@ -13,7 +13,7 @@ export default function CalculatedTextField({ label, value }: Props) {
       <TextInputNative
         readOnly
         value={value.toString()}
-        style={[inputStyles.input]}
+        style={[inputStyles.input, inputStyles.readonlyInput]}
       />
     </LabellableInput>
   );

@@ -17,4 +17,7 @@ export const inputStyles = StyleSheet.create({
     paddingHorizontal: 5,
     marginBottom: 15,
   },
+  readonlyInput: {
+    backgroundColor: "#f0f0f0",
+  },
 });
