@@ -140,14 +140,14 @@ export default function MonthlyFinancialDataDetailsPage({
       />
 
       <InputsSeparator title="Прибуток" />
-      
+
       <CalculatedEuroField
         label="Орієнтований прибуток на місяць"
         value={calculateExpectedMonthlyProfit(formValues)}
       />
 
       <InputsSeparator title="Обсяг" />
-      
+
       <EuroInput
         label="Бажаний обсяг в місяць"
         name="expectedMonthlyTurnover"
@@ -162,7 +162,9 @@ export default function MonthlyFinancialDataDetailsPage({
         label="Чи виконали мету на місяць"
         value={
           (turnoverDifference >= 0 ? "Так" : "Ні") +
-          ` (на ${turnoverDifference} €)`
+          ` (${turnoverDifference >= 0 ? "більше" : "менше"} на ${Math.abs(
+            turnoverDifference
+          )} €)`
         }
       />
     </EntityDetailsPage>
