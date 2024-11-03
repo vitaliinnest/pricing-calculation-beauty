@@ -265,7 +265,6 @@ export const useFinancialModelStore = create<FinancialModelStore>()(
             get().calculateMonthlyCostPrice(data)
         ),
 
-      // todo: fix all of these below
       calculateYearlyExpectedProfit: () => {
         const expenses = useExpenseStore.getState().expenses;
         return roundUpTo2(
@@ -307,6 +306,10 @@ export const useFinancialModelStore = create<FinancialModelStore>()(
           )
           .filter((ex) => ex > 0);
 
+        if (expensesPerClientArr.length === 0) {
+          return 0;
+        }
+
         return roundUpTo2(
           expensesPerClientArr.reduce((acc, ex) => acc + ex, 0) /
             expensesPerClientArr.length
@@ -324,6 +327,10 @@ export const useFinancialModelStore = create<FinancialModelStore>()(
           )
           .filter((ex) => ex > 0);
 
+        if (dailyExpensesArr.length === 0) {
+          return 0;
+        }
+
         return roundUpTo2(
           dailyExpensesArr.reduce((acc, ex) => acc + ex, 0) /
             dailyExpensesArr.length
@@ -340,6 +347,10 @@ export const useFinancialModelStore = create<FinancialModelStore>()(
             })
           )
           .filter((ex) => ex > 0);
+
+        if (hourlyExpensesArr.length === 0) {
+          return 0;
+        }
 
         return roundUpTo2(
           hourlyExpensesArr.reduce((acc, ex) => acc + ex, 0) /
