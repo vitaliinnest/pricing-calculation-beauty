@@ -19,5 +19,6 @@ export const inputStyles = StyleSheet.create({
   },
   readonlyInput: {
     backgroundColor: "#f0f0f0",
+    color: "black",
   },
 });
