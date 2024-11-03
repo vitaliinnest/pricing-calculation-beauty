@@ -1,5 +1,4 @@
 import { useForm } from "react-hook-form";
-import TextInput from "../inputs/TextInput";
 import EuroInput from "../inputs/EuroInput";
 import NumberInput from "../inputs/NumberInput";
 import EntityDetailsPage from "../EntityDetailsPage";
