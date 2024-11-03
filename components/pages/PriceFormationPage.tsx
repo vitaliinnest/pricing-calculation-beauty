@@ -19,15 +19,15 @@ import {
 } from "@/calculators/priceFormationCalculators";
 
 export default function PriceFormationPage() {
-  const { priceFormation, updatePriceFormation } = usePriceFormationStore();
+  // const { priceFormation, updatePriceFormation } = usePriceFormationStore();
 
   const { control, watch } = useForm<PriceFormationFormValues>({
     defaultValues: {
-      clientProfit: priceFormation.clientProfit,
-      expectedMonthlyTurnover: priceFormation.expectedMonthlyTurnover,
-      servicePrice: priceFormation.servicePrice,
-      workingDaysPerMonth: priceFormation.workingDaysPerMonth,
-      clientsNumberPerDay: priceFormation.clientsNumberPerDay,
+      clientProfit: 0,
+      expectedMonthlyTurnover: 0,
+      servicePrice: 0,
+      workingDaysPerMonth: 0,
+      clientsNumberPerDay: 0,
     },
   });
 
