@@ -10,8 +10,9 @@ import {
   calculateHoursNumberPerMonth,
 } from "@/calculators/financialModelCalculators";
 import { useCostPriceStore } from "./costPriceStore";
-import { Month } from "./common";
+import { mapExpenses, Month } from "./common";
 import { MonthlyFinancialDataWithExpenses } from "@/components/pages/MonthlyFinancialDataDetailsPage";
+import { useExpenseStore } from "./expenseStore";
 
 export interface MonthlyFinancialData {
   id: string;
@@ -66,6 +67,7 @@ interface FinancialModelStore {
   ) => number;
 
   calculateYearlyExpectedProfit: () => number;
+  calculateYearlyTotalExpenses: () => number;
   calculateAverageYearlyExpensesPerClient: () => number;
   calculateAverageYearlyExpensesPerDay: () => number;
   calculateAverageYearlyExpensesPerHour: () => number;
@@ -264,57 +266,86 @@ export const useFinancialModelStore = create<FinancialModelStore>()(
         ),
 
       // todo: fix all of these below
-      calculateYearlyExpectedProfit: () =>
-        roundUpTo2(
+      calculateYearlyExpectedProfit: () => {
+        const expenses = useExpenseStore.getState().expenses;
+        return roundUpTo2(
           get().financialData.reduce(
             (acc, financialData) =>
               acc +
               get().calculateExpectedMonthlyProfit({
                 ...financialData,
-                expensesMap: {},
+                expensesMap: mapExpenses(expenses, financialData),
               }),
             0
           )
-        ),
+        );
+      },
 
-      calculateAverageYearlyExpensesPerClient: () =>
-        roundUpTo2(
+      calculateYearlyTotalExpenses: () => {
+        const expenses = useExpenseStore.getState().expenses;
+        return roundUpTo2(
           get().financialData.reduce(
             (acc, financialData) =>
               acc +
-              get().calculateTotalExpensesPerClient({
+              get().calculateTotalExpenses({
                 ...financialData,
-                expensesMap: {},
+                expensesMap: mapExpenses(expenses, financialData),
               }),
             0
-          ) / get().financialData.length
-        ),
+          )
+        );
+      },
 
-      calculateAverageYearlyExpensesPerDay: () =>
-        roundUpTo2(
-          get().financialData.reduce(
-            (acc, financialData) =>
-              acc +
-              get().calculateTotalDailyExpenses({
-                ...financialData,
-                expensesMap: {},
-              }),
-            0
-          ) / get().financialData.length
-        ),
+      calculateAverageYearlyExpensesPerClient: () => {
+        const expenses = useExpenseStore.getState().expenses;
+        const expensesPerClientArr = get()
+          .financialData.map((d) =>
+            get().calculateTotalExpensesPerClient({
+              ...d,
+              expensesMap: mapExpenses(expenses, d),
+            })
+          )
+          .filter((ex) => ex > 0);
 
-      calculateAverageYearlyExpensesPerHour: () =>
-        roundUpTo2(
-          get().financialData.reduce(
-            (acc, financialData) =>
-              acc +
-              get().calculateTotalHourlyExpenses({
-                ...financialData,
-                expensesMap: {},
-              }),
-            0
-          ) / get().financialData.length
-        ),
+        return roundUpTo2(
+          expensesPerClientArr.reduce((acc, ex) => acc + ex, 0) /
+            expensesPerClientArr.length
+        );
+      },
+
+      calculateAverageYearlyExpensesPerDay: () => {
+        const expenses = useExpenseStore.getState().expenses;
+        const dailyExpensesArr = get()
+          .financialData.map((d) =>
+            get().calculateTotalDailyExpenses({
+              ...d,
+              expensesMap: mapExpenses(expenses, d),
+            })
+          )
+          .filter((ex) => ex > 0);
+
+        return roundUpTo2(
+          dailyExpensesArr.reduce((acc, ex) => acc + ex, 0) /
+            dailyExpensesArr.length
+        );
+      },
+
+      calculateAverageYearlyExpensesPerHour: () => {
+        const expenses = useExpenseStore.getState().expenses;
+        const hourlyExpensesArr = get()
+          .financialData.map((d) =>
+            get().calculateTotalHourlyExpenses({
+              ...d,
+              expensesMap: mapExpenses(expenses, d),
+            })
+          )
+          .filter((ex) => ex > 0);
+
+        return roundUpTo2(
+          hourlyExpensesArr.reduce((acc, ex) => acc + ex, 0) /
+            hourlyExpensesArr.length
+        );
+      },
     }),
     {
       name: "financial-model-storage",

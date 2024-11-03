@@ -7,7 +7,7 @@ import { useForm } from "react-hook-form";
 import EntityDetailsPage from "../EntityDetailsPage";
 import CalculatedNumberField from "../calculatedFields/CalculatedNumberField";
 import CalculatedTextField from "../calculatedFields/CalculatedTextField";
-import { MonthMap } from "@/stores/common";
+import { mapExpenses, MonthMap } from "@/stores/common";
 import NumberInput from "../inputs/NumberInput";
 import InputsSeparator from "../InputsSeparator";
 import {
@@ -52,13 +52,7 @@ export default function MonthlyFinancialDataDetailsPage({
       workingDaysPerMonth: financialData.workingDaysPerMonth,
       clientsNumberPerDay: financialData.clientsNumberPerDay,
       hoursNumberPerClient: financialData.hoursNumberPerClient,
-      expensesMap: expenses.reduce(
-        (acc, expense) => ({
-          ...acc,
-          [expense.id]: expense.priceMap[financialData.month],
-        }),
-        {}
-      ),
+      expensesMap: mapExpenses(expenses, financialData),
       actualMonthlyTurnover: financialData.actualMonthlyTurnover,
       expectedMonthlyTurnover: financialData.expectedMonthlyTurnover,
     },

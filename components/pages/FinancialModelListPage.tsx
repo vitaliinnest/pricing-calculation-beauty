@@ -27,6 +27,7 @@ export default function FinancialModelsListPage() {
     calculateAverageMonthlyCostPrice,
     calculateExpectedMonthlyProfit,
     calculateYearlyExpectedProfit,
+    calculateYearlyTotalExpenses,
     calculateAverageYearlyExpensesPerClient,
     calculateAverageYearlyExpensesPerDay,
     calculateAverageYearlyExpensesPerHour,
@@ -74,6 +75,10 @@ export default function FinancialModelsListPage() {
           [
             "Орієнтований річний прибуток",
             `${calculateYearlyExpectedProfit()} €`,
+          ],
+          [
+            "Річні витрати",
+            `${calculateYearlyTotalExpenses()} €`,
           ],
           [
             "Середні витрати на одного клієнта",
