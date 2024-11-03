@@ -1,9 +1,8 @@
-import { ListRenderItem, StyleSheet } from "react-native";
+import { ListRenderItem } from "react-native";
 import { Expense, useExpenseStore } from "@/stores/expenseStore";
 import { useRouter } from "expo-router";
 import AppendableList from "../AppendableList";
 import ListItem from "../ListItem";
-import KeyValueTable from "../KeyValueTable";
 
 export default function ExpensesListPage() {
   const { expenses } = useExpenseStore();
@@ -25,12 +24,3 @@ export default function ExpensesListPage() {
     />
   );
 }
-
-const styles = StyleSheet.create({
-  totalPrice: {
-    fontSize: 16,
-    fontWeight: "bold",
-    paddingHorizontal: 10,
-    paddingBottom: 20,
-  },
-});
