@@ -13,6 +13,18 @@ export default function TabLayout() {
         }}
       >
         <Drawer.Screen
+          name="financial-model"
+          options={{
+            title: "Фінансова модель",
+            drawerIcon: ({ color, focused }) => (
+              <TabBarIcon
+                name={focused ? "calculator" : "calculator-outline"}
+                color={color}
+              />
+            ),
+          }}
+        />
+        <Drawer.Screen
           name="index"
           options={{
             title: "Обробка інструментів",
@@ -56,18 +68,6 @@ export default function TabLayout() {
             drawerIcon: ({ color, focused }) => (
               <TabBarIcon
                 name={focused ? "receipt" : "receipt-outline"}
-                color={color}
-              />
-            ),
-          }}
-        />
-        <Drawer.Screen
-          name="financial-model"
-          options={{
-            title: "Фінансова модель",
-            drawerIcon: ({ color, focused }) => (
-              <TabBarIcon
-                name={focused ? "calculator" : "calculator-outline"}
                 color={color}
               />
             ),
