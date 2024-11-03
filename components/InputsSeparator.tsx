@@ -30,5 +30,6 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
     fontSize: 16,
     color: "black",
+    fontWeight: "bold"
   },
 });
