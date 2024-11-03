@@ -5,8 +5,6 @@ import { buildStorage } from "./store";
 export interface PriceFormation {
   // Прибыль с клиента
   clientProfit: number;
-  // Ваша цена
-  price: number;
   // Желаемый оборот в месяц
   expectedMonthlyTurnover: number;
   // Цена вашей услуги
