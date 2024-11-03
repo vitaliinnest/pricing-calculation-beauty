@@ -46,6 +46,6 @@ export function calculateTurnoverDifference(
   financialData: MonthlyFinancialDataFormValues
 ) {
   return roundUpTo2(
-    financialData.expectedMonthlyTurnover - financialData.actualMonthlyTurnover
+    financialData.actualMonthlyTurnover - financialData.expectedMonthlyTurnover
   );
 }

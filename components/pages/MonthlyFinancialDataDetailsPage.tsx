@@ -59,8 +59,8 @@ export default function MonthlyFinancialDataDetailsPage({
   });
 
   const formValues = watch();
-
   const turnoverDifference = calculateTurnoverDifference(formValues);
+
   return (
     <EntityDetailsPage onSubmit={() => onSubmit(formValues)}>
       <CalculatedTextField label="Місяць" value={MonthMap[formValues.month]} />
