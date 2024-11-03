@@ -10,6 +10,9 @@ export default function TabLayout() {
       <Drawer
         screenOptions={{
           drawerActiveTintColor: Colors.tabIconDefault,
+          drawerContentStyle: {
+            paddingTop: 20,
+          }
         }}
       >
         <Drawer.Screen
