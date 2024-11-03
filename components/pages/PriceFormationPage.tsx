@@ -50,6 +50,10 @@ export default function PriceFormationPage() {
         totalClientsPerMonth
       : 0;
 
+  const plannedDailyTurnoverDifference =
+    calculatePlannedDailyTurnover(formValues) -
+    calculateDailyTurnover(formValues);
+  const plannedMonthlyTurnoverDifference = plannedDailyTurnoverDifference * formValues.workingDaysPerMonth;
   return (
     <EntityDetailsPage>
       <InputsSeparator title="Ціноутворення" />
@@ -118,8 +122,14 @@ export default function PriceFormationPage() {
         label="Ваш запланований оборот на місяць виходячи з кількості робочих днів на місяць"
         value={calculatePlannedMonthlyTurnover(formValues)}
       />
-      {/* разница к цели в день */}
-      {/* разница к цели в месяц */}
+      <CalculatedEuroField
+        label="Різниця до мети в день"
+        value={plannedDailyTurnoverDifference}
+      />
+      <CalculatedEuroField
+        label="Різниця до мети в місяць"
+        value={plannedMonthlyTurnoverDifference}
+      />
 
       <InputsSeparator title="Прибуток" />
 
