@@ -58,7 +58,6 @@ export default function EntityDetailsPage({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: StatusBar.currentHeight || 0,
   },
   scrollContent: {
     padding: 10,
