@@ -48,6 +48,7 @@ interface FinancialModelStore {
   // себестоимость материала
   calculateMonthlyCostPrice: (data: MonthlyFinancialDataFormValues) => number;
   calculateAverageMonthlyCostPrice: () => number;
+  calculateTotalMonthlyCostPrice: () => number;
 
   // итого расходы
   calculateTotalExpenses: (data: MonthlyFinancialDataWithExpenses) => number;
@@ -216,6 +217,15 @@ export const useFinancialModelStore = create<FinancialModelStore>()(
           ) / financialData.length
         );
       },
+
+      calculateTotalMonthlyCostPrice: () =>
+        roundUpTo2(
+          get().financialData.reduce(
+            (acc, financialData) =>
+              acc + get().calculateMonthlyCostPrice(financialData),
+            0
+          )
+        ),
 
       calculateTotalExpenses: (data: MonthlyFinancialDataWithExpenses) => {
         return roundUpTo2(

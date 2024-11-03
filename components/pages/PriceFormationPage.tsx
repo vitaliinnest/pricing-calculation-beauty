@@ -12,6 +12,12 @@ import {
 } from "@/stores/priceFormationStore";
 import { useCostPriceStore } from "@/stores/costPriceStore";
 import { useFinancialModelStore } from "@/stores/financialModelStore";
+import {
+  calculateClientsNumberPerMonth,
+  calculateDailyTurnover,
+  calculatePlannedDailyTurnover,
+  calculatePlannedMonthlyTurnover,
+} from "@/calculators/priceFormationCalculators";
 
 export default function PriceFormationPage() {
   const { priceFormation, updatePriceFormation } = usePriceFormationStore();
@@ -27,27 +33,49 @@ export default function PriceFormationPage() {
     },
   });
 
+  const formValues = watch();
+
   const costPriceStore = useCostPriceStore();
   const financialModelStore = useFinancialModelStore();
 
+  const averageYearlyExpensesPerClient =
+    financialModelStore.calculateAverageYearlyExpensesPerClient();
+
+  const totalClientsPerMonth =
+    financialModelStore.calculateTotalClientsNumberPerMonth();
+
+  const totalCostPerClientPerDay =
+    totalClientsPerMonth > 0
+      ? financialModelStore.calculateTotalMonthlyCostPrice() /
+        totalClientsPerMonth
+      : 0;
+
   return (
     <EntityDetailsPage>
+      <InputsSeparator title="Ціноутворення" />
       <CalculatedEuroField
         label="Собівартість матеріала на одного клієнта"
         value={costPriceStore.calculateTotalForOneClient()}
       />
       <CalculatedEuroField
         label="Витрати на одного клієнта"
-        value={financialModelStore.calculateAverageYearlyExpensesPerClient()}
+        value={averageYearlyExpensesPerClient}
       />
       <EuroInput
         label="Прибуток з клієнта"
         name="clientProfit"
         control={control}
       />
+      <CalculatedEuroField
+        label="Рекомендована вартість"
+        value={averageYearlyExpensesPerClient + formValues.clientProfit}
+      />
       <EuroInput label="Ваша ціна" name="price" control={control} />
+
+      <InputsSeparator title="Сценарій, щоб краще бачити свою мету" />
+
       <EuroInput
-        label="Очікуваний оборот в місяць"
+        label="Бажаний оборот в місяць"
         name="expectedMonthlyTurnover"
         control={control}
       />
@@ -66,10 +94,38 @@ export default function PriceFormationPage() {
         name="clientsNumberPerDay"
         control={control}
       />
+      <CalculatedNumberField
+        label="Кількість клієнтів в місяць"
+        value={calculateClientsNumberPerMonth(formValues)}
+      />
       <CalculatedEuroField
-        label="Общие расходы в день исходя из количества рабочих дней в месяц"
+        label="Необхідний оборот за один день"
+        value={calculateDailyTurnover(formValues)}
+      />
+      <CalculatedEuroField
+        label="Загальні витрати на день виходячи з кількості робочих днів на місяць"
         value={financialModelStore.calculateAverageYearlyExpensesPerDay()}
       />
+      <CalculatedEuroField
+        label="Загальні витрати на день на одного клієнта"
+        value={totalCostPerClientPerDay}
+      />
+      <CalculatedEuroField
+        label="Ваш запланований оборот на день, виходячи з кількості робочих днів на місяць"
+        value={calculatePlannedDailyTurnover(formValues)}
+      />
+      <CalculatedEuroField
+        label="Ваш запланований оборот на місяць виходячи з кількості робочих днів на місяць"
+        value={calculatePlannedMonthlyTurnover(formValues)}
+      />
+      {/* разница к цели в день */}
+      {/* разница к цели в месяц */}
+
+      <InputsSeparator title="Прибуток" />
+
+      {/* Прибыль с клиента */}
+      {/* Прибыль в день */}
+      {/* Прибыль в месяц */}
     </EntityDetailsPage>
   );
 }
