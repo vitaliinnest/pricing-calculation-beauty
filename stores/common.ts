@@ -1,3 +1,6 @@
+import { Expense } from "./expenseStore";
+import { MonthlyFinancialData } from "./financialModelStore";
+
 export enum Month {
   January = 1,
   February,
@@ -27,3 +30,16 @@ export const MonthMap: Record<Month, string> = {
   [Month.November]: "Листопад",
   [Month.December]: "Грудень",
 };
+
+export function mapExpenses(
+  expenses: Expense[],
+  monthlyFinancialData: MonthlyFinancialData
+) {
+  return expenses.reduce(
+    (acc, expense) => ({
+      ...acc,
+      [expense.id]: expense.priceMap[monthlyFinancialData.month],
+    }),
+    {}
+  );
+}

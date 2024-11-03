@@ -6,7 +6,7 @@ import {
 import { useRouter } from "expo-router";
 import ListItem from "../ListItem";
 import BottomSheetList from "../BottomSheetList";
-import { MonthMap } from "@/stores/common";
+import { mapExpenses, MonthMap } from "@/stores/common";
 import KeyValueTable from "../KeyValueTable";
 import { useExpenseStore } from "@/stores/expenseStore";
 import Text from "@/components/Text";
@@ -38,13 +38,7 @@ export default function FinancialModelsListPage() {
     item,
     index,
   }) => {
-    const expensesMap = expenses.reduce(
-      (acc, expense) => ({
-        ...acc,
-        [expense.id]: expense.priceMap[item.month],
-      }),
-      {}
-    );
+    const expensesMap = mapExpenses(expenses, item);
     return (
       <ListItem
         index={index}
@@ -77,7 +71,10 @@ export default function FinancialModelsListPage() {
       </Text>
       <KeyValueTable
         data={[
-          ["Орієнтований річний прибуток", `${calculateYearlyExpectedProfit()} €`],
+          [
+            "Орієнтований річний прибуток",
+            `${calculateYearlyExpectedProfit()} €`,
+          ],
           [
             "Середні витрати на одного клієнта",
             `${calculateAverageYearlyExpensesPerClient()} €`,
