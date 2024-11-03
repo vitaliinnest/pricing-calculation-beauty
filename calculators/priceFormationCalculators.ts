@@ -37,5 +37,3 @@ export function calculatePlannedMonthlyTurnover(
     calculatePlannedDailyTurnover(priceFormation)
   );
 }
-
-// різниця до мети на день
