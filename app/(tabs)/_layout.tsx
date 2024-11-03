@@ -71,6 +71,18 @@ export default function TabLayout() {
           ),
         }}
       />
+      <Tabs.Screen
+        name="price-formation"
+        options={{
+          title: "Ціноутворення",
+          tabBarIcon: ({ color, focused }) => (
+            <TabBarIcon
+              name={focused ? "cash" : "cash-outline"}
+              color={color}
+            />
+          ),
+        }}
+      />
     </Tabs>
   );
 }

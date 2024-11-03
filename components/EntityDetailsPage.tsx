@@ -4,7 +4,7 @@ import Button from "./Button";
 import alert from "../alert";
 
 type Props = PropsWithChildren<{
-  onSubmit: () => void;
+  onSubmit?: () => void;
   onDelete?: () => void;
 }>;
 
@@ -37,16 +37,20 @@ export default function EntityDetailsPage({
       <ScrollView contentContainerStyle={styles.scrollContent}>
         {children}
       </ScrollView>
-      <View style={styles.buttonsContainer}>
-        {onDelete && (
-          <Button
-            title="Видалити"
-            onPress={handleDeletePress}
-            style={styles.button}
-          />
-        )}
-        <Button title="Зберегти" onPress={onSubmit} style={styles.button} />
-      </View>
+      {(onDelete || onSubmit) && (
+        <View style={styles.buttonsContainer}>
+          {onDelete && (
+            <Button
+              title="Видалити"
+              onPress={handleDeletePress}
+              style={styles.button}
+            />
+          )}
+          {onSubmit && (
+            <Button title="Зберегти" onPress={onSubmit} style={styles.button} />
+          )}
+        </View>
+      )}
     </View>
   );
 }
