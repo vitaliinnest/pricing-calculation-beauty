@@ -7,6 +7,7 @@ import InputsSeparator from "../InputsSeparator";
 import EuroInput from "../inputs/EuroInput";
 import CalculatedEuroField from "../calculatedFields/CalculatedEuroField";
 import { calculateTotalPrice } from "@/calculators/expenseCalculators";
+import { useTranslation } from "react-i18next";
 
 type Props = {
   expense?: Expense;
@@ -25,6 +26,7 @@ export default function ExpenseDetailsPage({
       priceMap: expense?.priceMap ?? initializePriceMap(),
     },
   });
+  const { t } = useTranslation("expenses");
 
   const formValues = watch();
 
@@ -33,7 +35,7 @@ export default function ExpenseDetailsPage({
       onSubmit={() => onSubmit(formValues)}
       onDelete={onDelete}
     >
-      <TextInput label="Назва" name="name" control={control} />
+      <TextInput label={t("name")} name="name" control={control} />
 
       {Object.keys(formValues.priceMap).map((month) => (
         <EuroInput
@@ -47,7 +49,7 @@ export default function ExpenseDetailsPage({
       <InputsSeparator />
       
       <CalculatedEuroField
-        label="Сумарна ціна за рік"
+        label={t("totalPrice")}
         value={calculateTotalPrice(formValues)}
       />
     </EntityDetailsPage>

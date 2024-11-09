@@ -60,6 +60,10 @@ const resources = {
     expenses: {
       detailsModalTitle: "Витрата",
       addModalTitle: "Додавання витрати",
+      updated: "Витрата оновлена",
+      added: "Витрата додана",
+      deleted: "Витрата видалена",
+      totalPrice: "Сумарна ціна за рік",
     },
     financialModelMonth: {
       detailsModalTitle: "Фінансова модель",
@@ -121,6 +125,10 @@ const resources = {
     expenses: {
       detailsModalTitle: "Kosten",
       addModalTitle: "Kosten hinzufügen",
+      updated: "Kosten aktualisiert",
+      added: "Kosten hinzugefügt",
+      deleted: "Kosten gelöscht",
+      totalPrice: "Gesamtpreis pro Jahr",
     },
     financialModelMonth: {
       detailsModalTitle: "Finanzmodell",
