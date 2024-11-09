@@ -10,7 +10,6 @@ import { useTranslation } from "react-i18next";
 import "@/i18n";
 import { usePreferencesStore } from "@/stores/preferencesStore";
 
-// Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
@@ -19,8 +18,8 @@ export default function RootLayout() {
   });
 
   const { t, i18n } = useTranslation();
-  const { language }= usePreferencesStore();
-  
+  const { language } = usePreferencesStore();
+
   useEffect(() => {
     i18n.changeLanguage(language);
   }, [language]);
@@ -44,15 +43,15 @@ export default function RootLayout() {
           name="tool-processing/[id]"
           options={{
             presentation: "modal",
-            title: t("toolProcessing.detailsModalTitle"),
+            title: t("detailsModalTitle", { ns: "toolProcessing" }),
           }}
         />
-        
+
         <Stack.Screen
           name="tool-processing/add"
           options={{
             presentation: "modal",
-            title: t("toolProcessing.addModalTitle"),
+            title: t("addModalTitle", { ns: "toolProcessing" }),
           }}
         />
 
@@ -60,7 +59,7 @@ export default function RootLayout() {
           name="equipment-wear/[id]"
           options={{
             presentation: "modal",
-            title: t("equipmentWear.detailsModalTitle"),
+            title: t("detailsModalTitle", { ns: "equipmentWear" }),
           }}
         />
 
@@ -68,7 +67,7 @@ export default function RootLayout() {
           name="equipment-wear/add"
           options={{
             presentation: "modal",
-            title: t("equipmentWear.addModalTitle"),
+            title: t("addModalTitle", { ns: "equipmentWear" }),
           }}
         />
 
@@ -76,7 +75,7 @@ export default function RootLayout() {
           name="cost-price/[id]"
           options={{
             presentation: "modal",
-            title: t("costPrice.detailsModalTitle"),
+            title: t("detailsModalTitle", { ns: "costPrice" }),
           }}
         />
 
@@ -84,7 +83,7 @@ export default function RootLayout() {
           name="cost-price/add"
           options={{
             presentation: "modal",
-            title: t("costPrice.addModalTitle"),
+            title: t("addModalTitle", { ns: "costPrice" }),
           }}
         />
 
@@ -92,7 +91,7 @@ export default function RootLayout() {
           name="expense/[id]"
           options={{
             presentation: "modal",
-            title: t("expenses.detailsModalTitle"),
+            title: t("detailsModalTitle", { ns: "expenses" }),
           }}
         />
 
@@ -100,7 +99,7 @@ export default function RootLayout() {
           name="expense/add"
           options={{
             presentation: "modal",
-            title: t("expenses.addModalTitle"),
+            title: t("addModalTitle", { ns: "expenses" }),
           }}
         />
 
@@ -108,7 +107,7 @@ export default function RootLayout() {
           name="financial-model-month/[id]"
           options={{
             presentation: "modal",
-            title: t("financialModelMonth.detailsModalTitle"),
+            title: t("detailsModalTitle", { ns: "financialModelMonth" }),
           }}
         />
 
