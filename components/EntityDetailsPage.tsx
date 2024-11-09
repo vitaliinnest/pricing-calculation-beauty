@@ -58,11 +58,11 @@ export default function EntityDetailsPage({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: "#faf8e3",
   },
   scrollContent: {
     padding: 10,
     paddingBottom: 65,
-    backgroundColor: "#faf8e3",
   },
   button: {
     flexGrow: 1,
