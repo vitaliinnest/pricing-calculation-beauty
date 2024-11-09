@@ -12,9 +12,7 @@ export default function EuroInput({ label, name, control }: InputProps) {
 
   const handleChangeText = (text: string) => {
     const value = parseFloat(text);
-    if (!isNaN(value)) {
-      field.onChange(value);
-    }
+    field.onChange(value);
   };
 
   return (
@@ -24,6 +22,7 @@ export default function EuroInput({ label, name, control }: InputProps) {
         value={field.value.toString()}
         onChangeText={handleChangeText}
         style={inputStyles.input}
+        selectTextOnFocus
       />
     </LabellableInput>
   );

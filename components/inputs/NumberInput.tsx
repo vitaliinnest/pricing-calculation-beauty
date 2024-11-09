@@ -14,16 +14,19 @@ export default function NumberInput({ label, name, control }: InputProps) {
     const value = parseInt(text);
     if (!isNaN(value)) {
       field.onChange(value);
+    } else {
+      field.onChange(0);
     }
   };
 
   return (
     <LabellableInput label={label} style={inputStyles.inputLabelWrapper}>
       <TextInputNative
-        keyboardType="numeric"
+        keyboardType="number-pad"
         value={field.value.toString()}
         onChangeText={handleChangeText}
         style={inputStyles.input}
+        selectTextOnFocus
       />
     </LabellableInput>
   );
