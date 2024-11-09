@@ -8,6 +8,7 @@ import InputsSeparator from "../InputsSeparator";
 import CalculatedNumberField from "../calculatedFields/CalculatedNumberField";
 import { calculateClientsNumber, calculatePricePerClient } from "@/calculators/costPriceCalculators";
 import CalculatedEuroField from "../calculatedFields/CalculatedEuroField";
+import { useTranslation } from "react-i18next";
 
 type Props = {
   costPrice?: CostPrice;
@@ -28,6 +29,7 @@ export default function CostPriceDetailsPage({
       expenditurePerClient: costPrice?.expenditurePerClient ?? 0,
     },
   });
+  const { t } = useTranslation("costPrice");
 
   const formValues = watch();
 
@@ -36,11 +38,11 @@ export default function CostPriceDetailsPage({
       onSubmit={() => onSubmit(formValues)}
       onDelete={onDelete}
     >
-      <TextInput label="Назва" name="name" control={control} />
-      <EuroInput label="Вартість" name="price" control={control} />
-      <NumberInput label="Обсяг" name="volume" control={control} />
+      <TextInput label={t('name')} name="name" control={control} />
+      <EuroInput label={t('price')} name="price" control={control} />
+      <NumberInput label={t('volume')} name="volume" control={control} />
       <NumberInput
-        label="Витрата на клієнта"
+        label={t('expenditurePerClient')}
         name="expenditurePerClient"
         control={control}
       />
@@ -48,11 +50,11 @@ export default function CostPriceDetailsPage({
       <InputsSeparator />
 
       <CalculatedNumberField
-        label="Усього клієнтів"
+        label={t('totalClients')}
         value={calculateClientsNumber(formValues)}
       />
       <CalculatedEuroField
-        label="Ціна на одного клієнта"
+        label={t('pricePerClient')}
         value={calculatePricePerClient(formValues)}
       />
     </EntityDetailsPage>

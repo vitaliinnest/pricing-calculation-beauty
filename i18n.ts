@@ -29,6 +29,15 @@ const resources = {
     costPrice: {
       detailsModalTitle: "Собівартість",
       addModalTitle: "Додавання собівартості",
+      added: "Собівартість додано",
+      updated: "Собівартість оновлено",
+      deleted: "Собівартість видалено",
+      name: "Назва",
+      price: "Вартість",
+      volume: "Обсяг",
+      expenditurePerClient: "Витрата на клієнта",
+      totalClients: "Усього клієнтів",
+      pricePerClient: "Ціна на одного клієнта",
     },
     expenses: {
       detailsModalTitle: "Витрата",
@@ -63,6 +72,15 @@ const resources = {
     costPrice: {
       detailsModalTitle: "Selbstkosten",
       addModalTitle: "Selbstkosten hinzufügen",
+      added: "Selbstkosten hinzugefügt",
+      updated: "Selbstkosten aktualisiert",
+      deleted: "Selbstkosten gelöscht",
+      name: "Name",
+      price: "Preis",
+      volume: "Volumen",
+      expenditurePerClient: "Kosten pro Kunde",
+      totalClients: "Gesamtzahl der Kunden",
+      pricePerClient: "Preis pro Kunde",
     },
     expenses: {
       detailsModalTitle: "Kosten",

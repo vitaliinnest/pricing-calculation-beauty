@@ -1,15 +1,16 @@
-import { View, ListRenderItem, Pressable, StyleSheet } from "react-native";
+import { ListRenderItem, StyleSheet } from "react-native";
 import Text from "@/components/Text";
 import { CostPrice, useCostPriceStore } from "@/stores/costPriceStore";
 import { useRouter } from "expo-router";
 import AppendableList from "../AppendableList";
 import ListItem from "../ListItem";
-import { Ionicons } from "@expo/vector-icons";
 import KeyValueTable from "../KeyValueTable";
+import { useTranslation } from "react-i18next";
 
 export default function CostPricesListPage() {
   const { costPrices, calculateTotalForOneClient } = useCostPriceStore();
   const router = useRouter();
+  const { t } = useTranslation("costPrice");
 
   const renderItem: ListRenderItem<CostPrice> = ({ item, index }) => (
     <ListItem
@@ -19,9 +20,9 @@ export default function CostPricesListPage() {
     >
       <KeyValueTable
         data={[
-          ["Вартість", `${item.price} €`],
-          ["Обсяг", item.volume],
-          ["Витрати на одного клієнта", item.expenditurePerClient],
+          [t('price'), `${item.price} €`],
+          [t('volume'), item.volume],
+          [t('expenditurePerClient'), item.expenditurePerClient],
         ]}
       />
     </ListItem>
@@ -34,7 +35,7 @@ export default function CostPricesListPage() {
       onAddItem={() => router.push("/cost-price/add")}
     >
       <Text style={styles.totalPrice}>
-        {`Сумарна ціна на одного клієнта: ${calculateTotalForOneClient()} €`}
+        {`${t('totalPricePerClient')}: ${calculateTotalForOneClient()} €`}
       </Text>
     </AppendableList>
   );
