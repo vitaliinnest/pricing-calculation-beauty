@@ -5,10 +5,7 @@ import EntityDetailsPage from "../EntityDetailsPage";
 import InputsSeparator from "../InputsSeparator";
 import CalculatedNumberField from "../calculatedFields/CalculatedNumberField";
 import CalculatedEuroField from "../calculatedFields/CalculatedEuroField";
-import {
-  PriceFormationFormValues,
-  usePriceFormationStore,
-} from "@/stores/priceFormationStore";
+import { PriceFormationFormValues } from "@/stores/priceFormationStore";
 import { useCostPriceStore } from "@/stores/costPriceStore";
 import { useFinancialModelStore } from "@/stores/financialModelStore";
 import {
@@ -17,10 +14,9 @@ import {
   calculatePlannedDailyTurnover,
   calculatePlannedMonthlyTurnover,
 } from "@/calculators/priceFormationCalculators";
+import { roundUpTo2 } from "@/utils";
 
 export default function PriceFormationPage() {
-  // const { priceFormation, updatePriceFormation } = usePriceFormationStore();
-
   const { control, watch } = useForm<PriceFormationFormValues>({
     defaultValues: {
       clientProfit: 0,
@@ -44,35 +40,43 @@ export default function PriceFormationPage() {
 
   const totalCostPerClientPerDay =
     totalClientsPerMonth > 0
-      ? financialModelStore.calculateTotalMonthlyCostPrice() /
-        totalClientsPerMonth
+      ? roundUpTo2(
+          financialModelStore.calculateTotalMonthlyCostPrice() /
+            totalClientsPerMonth
+        )
       : 0;
 
-  const plannedDailyTurnoverDifference =
+  const plannedDailyTurnoverDifference = roundUpTo2(
     calculatePlannedDailyTurnover(formValues) -
-    calculateDailyTurnover(formValues);
+      calculateDailyTurnover(formValues)
+  );
 
-  const plannedMonthlyTurnoverDifference =
-    plannedDailyTurnoverDifference * formValues.workingDaysPerMonth;
+  const plannedMonthlyTurnoverDifference = roundUpTo2(
+    plannedDailyTurnoverDifference * formValues.workingDaysPerMonth
+  );
 
   const averageDailyExpenses =
     financialModelStore.calculateAverageYearlyExpensesPerDay();
 
   const plannedDailyTurnover = calculatePlannedDailyTurnover(formValues);
 
-  const netProfitPerClient =
+  const netProfitPerClient = roundUpTo2(
     formValues.servicePrice -
-    totalCostPerClientPerDay -
-    (formValues.clientsNumberPerDay > 0
-      ? averageDailyExpenses / formValues.clientsNumberPerDay
-      : 0);
+      totalCostPerClientPerDay -
+      (formValues.clientsNumberPerDay > 0
+        ? averageDailyExpenses / formValues.clientsNumberPerDay
+        : 0)
+  );
 
-  const netProfitPerDay =
+  const netProfitPerDay = roundUpTo2(
     plannedDailyTurnover -
-    totalCostPerClientPerDay * formValues.clientsNumberPerDay -
-    averageDailyExpenses;
+      totalCostPerClientPerDay * formValues.clientsNumberPerDay -
+      averageDailyExpenses
+  );
 
-  const netProfitPerMonth = netProfitPerDay * formValues.workingDaysPerMonth;
+  const netProfitPerMonth = roundUpTo2(
+    netProfitPerDay * formValues.workingDaysPerMonth
+  );
 
   return (
     <EntityDetailsPage>
