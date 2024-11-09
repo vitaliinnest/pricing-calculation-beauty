@@ -16,6 +16,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { useState } from "react";
 import AverageClientsNumberModal from "./AverageClientsNumberModal";
 import KeyValueTable from "../KeyValueTable";
+import { useTranslation } from "react-i18next";
 
 export default function EquipmentWearsListPage() {
   const { equipmentWears, getTotalForOneClient, averageClientsNumberPerDay } =
@@ -23,6 +24,7 @@ export default function EquipmentWearsListPage() {
 
   const [avgClientsNumberModalVisible, setAvgClientsNumberModalVisible] =
     useState(false);
+  const { t } = useTranslation("equipmentWear");
 
   const router = useRouter();
 
@@ -34,8 +36,8 @@ export default function EquipmentWearsListPage() {
     >
       <KeyValueTable
         data={[
-          ["Вартість", `${item.price} €`],
-          ["Строк експлуатації в днях", item.serviceLifeInDays],
+          [t("price"), `${item.price} €`],
+          [t("serviceLifeInDays"), item.serviceLifeInDays],
         ]}
       />
     </ListItem>
@@ -49,7 +51,7 @@ export default function EquipmentWearsListPage() {
     >
       <View style={styles.summary}>
         <Text style={styles.totalPrice}>
-          {`Сумарна ціна на одного клієнта: ${getTotalForOneClient()} €`}
+          {`${t("totalPricePerClient")}: ${getTotalForOneClient()} €`}
         </Text>
         <Pressable
           style={styles.averageClientsNumberBtn}

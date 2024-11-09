@@ -1,13 +1,8 @@
-import {
-  FlatListProps,
-  SafeAreaView,
-  StatusBar,
-  StyleSheet,
-  View,
-} from "react-native";
+import { SafeAreaView, StatusBar, StyleSheet, View } from "react-native";
 import Button from "./Button";
 import { PropsWithChildren } from "react";
 import ItemsList, { ItemsListProps } from "./ItemsList";
+import { useTranslation } from "react-i18next";
 
 type Props = PropsWithChildren<
   ItemsListProps & {
@@ -16,12 +11,13 @@ type Props = PropsWithChildren<
 >;
 
 export default function AppendableList(props: Props) {
+  const { t } = useTranslation();
   return (
     <SafeAreaView style={styles.container}>
       <ItemsList {...props} />
       <View style={styles.buttonsContainer}>
         {props.children}
-        <Button title="Додати" onPress={props.onAddItem} />
+        <Button title={t("add")} onPress={props.onAddItem} />
       </View>
     </SafeAreaView>
   );

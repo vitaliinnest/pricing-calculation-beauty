@@ -18,8 +18,8 @@ export default function EntityDetailsPage({
 
   const handleDeletePress = () => {
     alert(
-      "Видалення",
-      "Ви впеврені, що хочете видалити?",
+      t("deletionTitle"),
+      t("deletionMessage"),
       [
         {
           text: t("cancel"),

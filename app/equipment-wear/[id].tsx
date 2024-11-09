@@ -4,6 +4,7 @@ import {
   useEquipmentWearStore,
 } from "@/stores/equipmentWearStore";
 import { useLocalSearchParams, useRouter } from "expo-router";
+import { useTranslation } from "react-i18next";
 import Toast from "react-native-toast-message";
 
 export default function EditEquipmentWearDetails() {
@@ -12,6 +13,7 @@ export default function EditEquipmentWearDetails() {
   const { updateEquipmentWear, deleteEquipmentWear, getEquipmentWearById } =
     useEquipmentWearStore();
   const equipmentWear = getEquipmentWearById(id);
+  const { t } = useTranslation("equipmentWear");
 
   if (!equipmentWear) {
     return null;
@@ -23,7 +25,7 @@ export default function EditEquipmentWearDetails() {
     Toast.show({
       type: "success",
       text1: equipmentWear.name,
-      text2: "Обладнання оновлено",
+      text2: t("updated"),
     });
   };
 
@@ -33,7 +35,7 @@ export default function EditEquipmentWearDetails() {
     Toast.show({
       type: "success",
       text1: equipmentWear.name,
-      text2: "Обладнання видалено",
+      text2: t("deleted"),
     });
   };
 

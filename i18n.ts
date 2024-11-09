@@ -8,6 +8,9 @@ const resources = {
     translation: {
       cancel: "Скасувати",
       delete: "Видалити",
+      deletionTitle: "Видалення",
+      deletionMessage: "Ви впеврені, що хочете видалити?",
+      add: "Додати",
       save: "Зберегти",
       name: "Назва",
       price: "Вартість",
@@ -17,6 +20,7 @@ const resources = {
       expenditurePerClient: "Витрата на клієнта",
       daysAmount: "Кількість днів",
       pricePerDay: "Ціна в день",
+      pricePerClient: "Ціна на одного клієнта",
     },
     drawerLayout: {
       financialModel: "Фінансова модель",
@@ -38,6 +42,10 @@ const resources = {
     equipmentWear: {
       detailsModalTitle: "Знос обладнання",
       addModalTitle: "Додавання зносу обладнання",
+      added: "Обладнання додано",
+      updated: "Обладнання оновлено",
+      deleted: "Обладнання видалено",
+      serviceLifeInDays: "Строк експлуатації в днях",
     },
     costPrice: {
       detailsModalTitle: "Собівартість",
@@ -46,7 +54,6 @@ const resources = {
       updated: "Собівартість оновлено",
       deleted: "Собівартість видалено",
       totalClients: "Усього клієнтів",
-      pricePerClient: "Ціна на одного клієнта",
     },
     expenses: {
       detailsModalTitle: "Витрата",
@@ -60,7 +67,10 @@ const resources = {
     translation: {
       cancel: "Stornieren",
       delete: "Löschen",
+      deletionTitle: "Löschen",
+      deletionMessage: "Möchten Sie wirklich löschen?",
       save: "Speichern",
+      add: "Hinzufügen",
       name: "Bezeichnung",
       price: "Preis",
       volume: "Volumen",
@@ -69,6 +79,7 @@ const resources = {
       expenditurePerClient: "Kosten pro Kunde",
       daysAmount: "Anzahl der Tage",
       pricePerDay: "Preis pro Tag",
+      pricePerClient: "Preis pro Kunde",
     },
     drawerLayout: {
       financialModel: "Finanzmodell",
@@ -87,9 +98,13 @@ const resources = {
       expenditurePerDay: "Kosten pro Tag",
       clientsPerDay: "Anzahl der Kunden pro Tag",
     },
-    quipmentWear: {
+    equipmentWear: {
       detailsModalTitle: "Ausrüstungsverschleiß",
       addModalTitle: "Ausrüstungsverschleiß hinzufügen",
+      added: "Ausrüstungsverschleiß hinzugefügt",
+      updated: "Ausrüstungsverschleiß aktualisiert",
+      deleted: "Ausrüstungsverschleiß gelöscht",
+      serviceLifeInDays: "Lebensdauer in Tagen",
     },
     costPrice: {
       detailsModalTitle: "Selbstkosten",
@@ -98,7 +113,6 @@ const resources = {
       updated: "Selbstkosten aktualisiert",
       deleted: "Selbstkosten gelöscht",
       totalClients: "Gesamtzahl der Kunden",
-      pricePerClient: "Preis pro Kunde",
     },
     expenses: {
       detailsModalTitle: "Kosten",

@@ -5,10 +5,12 @@ import {
   EquipmentWearFormValues,
   useEquipmentWearStore,
 } from "@/stores/equipmentWearStore";
+import { useTranslation } from "react-i18next";
 
 export default function AddEquipmentWear() {
   const { addEquipmentWear } = useEquipmentWearStore();
   const router = useRouter();
+  const { t } = useTranslation("equipmentWear");
 
   const onAddEquipmentWear = (equipmentWear: EquipmentWearFormValues) => {
     addEquipmentWear(equipmentWear);
@@ -16,7 +18,7 @@ export default function AddEquipmentWear() {
     Toast.show({
       type: "success",
       text1: equipmentWear.name,
-      text2: "Обладнання додано",
+      text2: t("added"),
     });
   };
 

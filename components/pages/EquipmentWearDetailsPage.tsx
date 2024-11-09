@@ -11,6 +11,7 @@ import NumberInput from "../inputs/NumberInput";
 import InputsSeparator from "../InputsSeparator";
 import CalculatedEuroField from "../calculatedFields/CalculatedEuroField";
 import { calculatePricePerClient, calculatePricePerDay } from "@/calculators/equipmentWearCalculators";
+import { useTranslation } from "react-i18next";
 
 type Props = {
   equipmentWear?: EquipmentWear;
@@ -30,6 +31,7 @@ export default function EquipmentWearDetailsPage({
       serviceLifeInDays: equipmentWear?.serviceLifeInDays ?? 0,
     },
   });
+  const { t } = useTranslation("equipmentWear");
 
   const { averageClientsNumberPerDay } = useEquipmentWearStore();
 
@@ -40,10 +42,10 @@ export default function EquipmentWearDetailsPage({
       onSubmit={() => onSubmit(formValues)}
       onDelete={onDelete}
     >
-      <TextInput label="Назва" name="name" control={control} />
-      <EuroInput label="Вартість" name="price" control={control} />
+      <TextInput label={t("name")} name="name" control={control} />
+      <EuroInput label={t("price")} name="price" control={control} />
       <NumberInput
-        label="Строк експлуатації в днях"
+        label={t("serviceLifeInDays")}
         name="serviceLifeInDays"
         control={control}
       />
@@ -51,11 +53,11 @@ export default function EquipmentWearDetailsPage({
       <InputsSeparator />
 
       <CalculatedEuroField
-        label="Ціна в день"
+        label={t("pricePerDay")}
         value={calculatePricePerDay(formValues)}
       />
       <CalculatedEuroField
-        label="Ціна на одного клієнта"
+        label={t("pricePerClient")}
         value={calculatePricePerClient(formValues, averageClientsNumberPerDay)}
       />
     </EntityDetailsPage>
