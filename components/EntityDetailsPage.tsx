@@ -74,6 +74,7 @@ const styles = StyleSheet.create({
     right: 0,
     backgroundColor: "#fff",
     padding: 10,
+    paddingBottom: 20,
     display: "flex",
     flexDirection: "row",
     gap: 10,
