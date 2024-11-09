@@ -6,7 +6,9 @@ import { usePreferencesStore } from "@/stores/preferencesStore";
 const resources = {
   uk: {
     translation: {
-
+      cancel: "Скасувати",
+      delete: "Видалити",
+      save: "Зберегти",
     },
     drawerLayout: {
       financialModel: "Фінансова модель",
@@ -19,7 +21,9 @@ const resources = {
   },
   de: {
     translation: {
-
+      cancel: "Stornieren",
+      delete: "Löschen",
+      save: "Speichern",
     },
     drawerLayout: {
       financialModel: "Finanzmodell",

@@ -1,7 +1,8 @@
-import { StyleSheet, View, ScrollView, StatusBar } from "react-native";
+import { StyleSheet, View, ScrollView } from "react-native";
 import { PropsWithChildren } from "react";
 import Button from "./Button";
 import alert from "../alert";
+import { useTranslation } from "react-i18next";
 
 type Props = PropsWithChildren<{
   onSubmit?: () => void;
@@ -13,17 +14,19 @@ export default function EntityDetailsPage({
   onSubmit,
   onDelete,
 }: Props) {
+  const { t } = useTranslation();
+
   const handleDeletePress = () => {
     alert(
       "Видалення",
       "Ви впеврені, що хочете видалити?",
       [
         {
-          text: "Скасувати",
+          text: t("cancel"),
           style: "cancel",
         },
         {
-          text: "Видалити",
+          text: t("delete"),
           style: "destructive",
           onPress: onDelete,
         },
@@ -41,13 +44,13 @@ export default function EntityDetailsPage({
         <View style={styles.buttonsContainer}>
           {onDelete && (
             <Button
-              title="Видалити"
+              title={t("delete")}
               onPress={handleDeletePress}
               style={styles.button}
             />
           )}
           {onSubmit && (
-            <Button title="Зберегти" onPress={onSubmit} style={styles.button} />
+            <Button title={t("save")} onPress={onSubmit} style={styles.button} />
           )}
         </View>
       )}

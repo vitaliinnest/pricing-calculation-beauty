@@ -3,6 +3,7 @@ import { useEquipmentWearStore } from "@/stores/equipmentWearStore";
 import Button from "../Button";
 import { useForm } from "react-hook-form";
 import NumberInput from "../inputs/NumberInput";
+import { useTranslation } from "react-i18next";
 
 type Props = {
   visible: boolean;
@@ -10,6 +11,8 @@ type Props = {
 };
 
 export default function AverageClientsNumberModal({ visible, onClose }: Props) {
+  const { t } = useTranslation();
+  
   const { averageClientsNumberPerDay, setAverageCustomersPerDay } =
     useEquipmentWearStore();
 
@@ -44,8 +47,8 @@ export default function AverageClientsNumberModal({ visible, onClose }: Props) {
             label="Введіть число"
           />
           <View style={styles.buttonContainer}>
-            <Button title="Скасувати" onPress={onClose} />
-            <Button title="Зберегти" onPress={onSubmit} />
+            <Button title={t("cancel")} onPress={onClose} />
+            <Button title={t("save")} onPress={onSubmit} />
           </View>
         </View>
       </View>
