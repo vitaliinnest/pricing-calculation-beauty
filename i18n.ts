@@ -9,6 +9,7 @@ const resources = {
       emptyList: "Список порожній",
       cancel: "Скасувати",
       delete: "Видалити",
+      close: "Закрити",
       deletionTitle: "Видалення",
       deletionMessage: "Ви впеврені, що хочете видалити?",
       add: "Додати",
@@ -144,6 +145,12 @@ const resources = {
       ukrainian: "Українська",
       german: "Німецька",
     },
+    decemberMessage: {
+      message: "Час робити річний звіт",
+    },
+    januaryMessage: {
+      message: "Необхідно оновити застосунок",
+    },
     months: {
       "1": "Січень",
       "2": "Лютий",
@@ -164,6 +171,7 @@ const resources = {
       emptyList: "Die Liste ist leer",
       cancel: "Stornieren",
       delete: "Löschen",
+      close: "Schließen",
       deletionTitle: "Löschen",
       deletionMessage: "Möchten Sie wirklich löschen?",
       save: "Speichern",
@@ -299,6 +307,12 @@ const resources = {
     languageSettings: {
       ukrainian: "Ukrainisch",
       german: "Deutsch",
+    },
+    decemberMessage: {
+      message: "Es ist Zeit für den Jahresbericht",
+    },
+    januaryMessage: {
+      message: "Es ist Zeit für ein Update der Anwendung",
     },
     months: {
       "1": "Januar",

@@ -9,6 +9,7 @@ import Toast from "react-native-toast-message";
 import { useTranslation } from "react-i18next";
 import "@/i18n";
 import { useLanguageStore } from "@/stores/languageStore";
+import DecemberMessage from "@/components/DecemberMessage";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -114,6 +115,7 @@ export default function RootLayout() {
         <Stack.Screen name="+not-found" />
       </Stack>
       <Toast config={toastConfig} />
+      <DecemberMessage />
     </ThemeProvider>
   );
 }
