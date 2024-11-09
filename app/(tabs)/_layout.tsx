@@ -7,7 +7,7 @@ import { useTranslation } from "react-i18next";
 
 export default function DrawerLayout() {
   const { t } = useTranslation("drawerLayout");
-  
+
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <Drawer
@@ -15,7 +15,7 @@ export default function DrawerLayout() {
           drawerActiveTintColor: Colors.tabIconDefault,
           drawerContentStyle: {
             paddingTop: 20,
-          }
+          },
         }}
       >
         <Drawer.Screen
@@ -66,7 +66,6 @@ export default function DrawerLayout() {
             ),
           }}
         />
-
         <Drawer.Screen
           name="expenses"
           options={{
@@ -86,6 +85,18 @@ export default function DrawerLayout() {
             drawerIcon: ({ color, focused }) => (
               <TabBarIcon
                 name={focused ? "cash" : "cash-outline"}
+                color={color}
+              />
+            ),
+          }}
+        />
+        <Drawer.Screen
+          name="language-settings"
+          options={{
+            title: t("languageSettings"),
+            drawerIcon: ({ color, focused }) => (
+              <TabBarIcon
+                name={focused ? "language" : "language-outline"}
                 color={color}
               />
             ),

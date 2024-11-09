@@ -30,6 +30,7 @@ const resources = {
       costPrice: "Собівартість",
       expenses: "Витрати",
       priceFormation: "Ціноутворення",
+      languageSettings: "Sprache / Мова"
     },
     toolProcessing: {
       detailsModalTitle: "Обробка інструменту",
@@ -180,6 +181,7 @@ const resources = {
       costPrice: "Selbstkosten",
       expenses: "Kosten",
       priceFormation: "Preisbildung",
+      languageSettings: "Мова / Sprache"
     },
     toolProcessing: {
       detailsModalTitle: "Werkzeugbearbeitung",
