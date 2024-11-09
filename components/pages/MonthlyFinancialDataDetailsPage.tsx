@@ -1,3 +1,5 @@
+import React from "react";
+import { useTranslation } from "react-i18next";
 import {
   MonthlyFinancialData,
   MonthlyFinancialDataFormValues,
@@ -57,30 +59,34 @@ export default function MonthlyFinancialDataDetailsPage({
       expectedMonthlyTurnover: financialData.expectedMonthlyTurnover,
     },
   });
+  const { t } = useTranslation("financialModel");
 
   const formValues = watch();
   const turnoverDifference = calculateTurnoverDifference(formValues);
 
   return (
     <EntityDetailsPage onSubmit={() => onSubmit(formValues)}>
-      <CalculatedTextField label="Місяць" value={MonthMap[formValues.month]} />
+      <CalculatedTextField
+        label={t("month")}
+        value={MonthMap[formValues.month]}
+      />
       <NumberInput
-        label="Робочі дні на тиждень"
+        label={t("workingDaysPerWeek")}
         name="workingDaysPerWeek"
         control={control}
       />
       <NumberInput
-        label="Робочі дні на місяць"
+        label={t("workingDaysPerMonth")}
         name="workingDaysPerMonth"
         control={control}
       />
       <NumberInput
-        label="Кількість клієнтів на день"
+        label={t("clientsNumberPerDay")}
         name="clientsNumberPerDay"
         control={control}
       />
       <NumberInput
-        label="Кількість годин на клієнта"
+        label={t("hoursNumberPerClient")}
         name="hoursNumberPerClient"
         control={control}
       />
@@ -88,28 +94,28 @@ export default function MonthlyFinancialDataDetailsPage({
       <InputsSeparator />
 
       <CalculatedNumberField
-        label="Загальна кількість годин на день"
+        label={t("totalDailyClientHours")}
         value={calculateDailyClientHours(formValues)}
       />
       <CalculatedNumberField
-        label="Кількість клієнтів на тиждень"
+        label={t("clientsNumberPerWeek")}
         value={calculateClientsNumberPerWeek(formValues)}
       />
       <CalculatedNumberField
-        label="Кількість клієнтів на місяць"
+        label={t("clientsNumberPerMonth")}
         value={calculateClientsNumberPerMonth(formValues)}
       />
       <CalculatedNumberField
-        label="Кількість годин на місяць"
+        label={t("hoursNumberPerMonth")}
         value={calculateHoursNumberPerMonth(formValues)}
       />
 
       <CalculatedEuroField
-        label="Собівартість матеріалу"
+        label={t("monthlyCostPrice")}
         value={calculateMonthlyCostPrice(formValues)}
       />
 
-      <InputsSeparator title="Витрати" />
+      <InputsSeparator title={t("expenses")} />
 
       {expenses.map((expense) => (
         <EuroInput
@@ -123,46 +129,46 @@ export default function MonthlyFinancialDataDetailsPage({
       <InputsSeparator />
 
       <CalculatedEuroField
-        label="Загальні витрати"
+        label={t("totalExpenses")}
         value={calculateTotalExpenses(formValues)}
       />
       <CalculatedEuroField
-        label="Витрати на одного клієнта"
+        label={t("totalExpensesPerClient")}
         value={calculateTotalExpensesPerClient(formValues)}
       />
       <CalculatedEuroField
-        label="Витрати за один день"
+        label={t("totalDailyExpenses")}
         value={calculateTotalDailyExpenses(formValues)}
       />
       <CalculatedEuroField
-        label="Витрати за одну годину"
+        label={t("totalHourlyExpenses")}
         value={calculateTotalHourlyExpenses(formValues)}
       />
 
-      <InputsSeparator title="Прибуток" />
+      <InputsSeparator title={t("profit")} />
 
       <CalculatedEuroField
-        label="Орієнтований прибуток на місяць"
+        label={t("expectedMonthlyProfit")}
         value={calculateExpectedMonthlyProfit(formValues)}
       />
 
-      <InputsSeparator title="Обсяг" />
+      <InputsSeparator title={t("turnover")} />
 
       <EuroInput
-        label="Бажаний обсяг в місяць"
+        label={t("expectedMonthlyTurnover")}
         name="expectedMonthlyTurnover"
         control={control}
       />
       <EuroInput
-        label="Фактичний обсяг в місяць"
+        label={t("actualMonthlyTurnover")}
         name="actualMonthlyTurnover"
         control={control}
       />
       <CalculatedTextField
-        label="Чи виконали мету на місяць"
+        label={t("turnoverGoalMet")}
         value={
-          (turnoverDifference >= 0 ? "Так" : "Ні") +
-          ` (${turnoverDifference >= 0 ? "більше" : "менше"} на ${Math.abs(
+          (turnoverDifference >= 0 ? t("yes") : t("no")) +
+          ` (${turnoverDifference >= 0 ? t("more") : t("less")} ${Math.abs(
             turnoverDifference
           )} €)`
         }

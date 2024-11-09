@@ -10,6 +10,7 @@ import { mapExpenses, MonthMap } from "@/stores/common";
 import KeyValueTable from "../KeyValueTable";
 import { useExpenseStore } from "@/stores/expenseStore";
 import Text from "@/components/Text";
+import { useTranslation } from "react-i18next";
 
 export default function FinancialModelsListPage() {
   const { expenses } = useExpenseStore();
@@ -33,6 +34,8 @@ export default function FinancialModelsListPage() {
     calculateAverageYearlyExpensesPerHour,
   } = useFinancialModelStore();
 
+  const { t } = useTranslation("financialModel");
+
   const router = useRouter();
 
   const renderItem: ListRenderItem<MonthlyFinancialData> = ({
@@ -48,15 +51,12 @@ export default function FinancialModelsListPage() {
       >
         <KeyValueTable
           data={[
-            ["Робочі дні в місяць", item.workingDaysPerMonth ?? 0],
-            ["Робочі дні в тиждень", item.workingDaysPerWeek ?? 0],
-            ["Кількість клієнтів на день", item.clientsNumberPerDay ?? 0],
+            [t("workingDaysPerMonth"), item.workingDaysPerMonth ?? 0],
+            [t("workingDaysPerWeek"), item.workingDaysPerWeek ?? 0],
+            [t("clientsNumberPerDay"), item.clientsNumberPerDay ?? 0],
+            [t("hoursNumberPerClient"), item.hoursNumberPerClient ?? 0],
             [
-              "Кількість годин на одного клієнта",
-              item.hoursNumberPerClient ?? 0,
-            ],
-            [
-              "Орієнтований прибуток",
+              t("expectedMonthlyProfit"),
               `${calculateExpectedMonthlyProfit({ ...item, expensesMap })} €`,
             ],
           ]}
@@ -64,65 +64,52 @@ export default function FinancialModelsListPage() {
       </ListItem>
     );
   };
-
   return (
     <BottomSheetList data={financialData} renderItem={renderItem}>
       <Text type="subtitle" style={styles.title}>
-        Розрахунки
+        {t("calculations")}
       </Text>
       <KeyValueTable
         data={[
+          [t("expectedYearlyProfit"), `${calculateYearlyExpectedProfit()} €`],
+          [t("yearlyExpenses"), `${calculateYearlyTotalExpenses()} €`],
           [
-            "Орієнтований річний прибуток",
-            `${calculateYearlyExpectedProfit()} €`,
-          ],
-          [
-            "Річні витрати",
-            `${calculateYearlyTotalExpenses()} €`,
-          ],
-          [
-            "Середні витрати на одного клієнта",
+            t("averageExpensesPerClient"),
             `${calculateAverageYearlyExpensesPerClient()} €`,
           ],
           [
-            "Середні витрати за один день",
+            t("averageExpensesPerDay"),
             `${calculateAverageYearlyExpensesPerDay()} €`,
           ],
           [
-            "Середні витрати за одну годину",
+            t("averageExpensesPerHour"),
             `${calculateAverageYearlyExpensesPerHour()} €`,
           ],
-          ["Загальна кількість робочих днів", calculateTotalWorkingDays()],
+          [t("totalWorkingDays"), calculateTotalWorkingDays()],
           [
-            "Середня кількість робочих днів на тиждень",
+            t("averageWorkingDaysPerWeek"),
             calculateAverageWorkingDaysPerWeek(),
           ],
           [
-            "Середня кількість клієнтів на день",
+            t("averageClientsNumberPerDay"),
             calculateAverageClientsNumberPerDay(),
           ],
           [
-            "Середня кількість годин на одного клієнта",
+            t("averageHoursNumberPerClient"),
             calculateAverageHoursNumberPerClient(),
           ],
+          [t("averageDailyClientHours"), calculateAverageDailyClientHours()],
           [
-            "Середня кількість годин на одного клієнта в день",
-            calculateAverageDailyClientHours(),
-          ],
-          [
-            "Середня кількість клієнтів на тиждень",
+            t("averageClientsNumberPerWeek"),
             calculateAverageClientsNumberPerWeek(),
           ],
           [
-            "Загальна кількість клієнтів в місяць",
+            t("totalClientsNumberPerMonth"),
             calculateTotalClientsNumberPerMonth(),
           ],
+          [t("totalMonthlyClientHours"), calculateTotalMonthlyClientHours()],
           [
-            "Загальна кількість годин в місяць",
-            calculateTotalMonthlyClientHours(),
-          ],
-          [
-            "Середня собівартість матеріалу в місяць",
+            t("averageMonthlyCostPrice"),
             `${calculateAverageMonthlyCostPrice()} €`,
           ],
         ]}
