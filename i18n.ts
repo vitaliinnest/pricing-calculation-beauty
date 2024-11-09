@@ -66,8 +66,9 @@ const resources = {
       deleted: "Витрата видалена",
       totalPrice: "Сумарна ціна за рік",
     },
-    financialModelMonth: {
+    financialModel: {
       detailsModalTitle: "Фінансова модель",
+      updated: "Дані оновлено",
     },
   },
   de: {
@@ -132,8 +133,9 @@ const resources = {
       deleted: "Kosten gelöscht",
       totalPrice: "Gesamtpreis pro Jahr",
     },
-    financialModelMonth: {
+    financialModel: {
       detailsModalTitle: "Finanzmodell",
+      updated: "Daten aktualisiert",
     },
   },
 };

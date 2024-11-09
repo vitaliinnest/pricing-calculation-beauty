@@ -5,6 +5,7 @@ import { MonthMap } from "@/stores/common";
 import { useExpenseStore } from "@/stores/expenseStore";
 import { useFinancialModelStore } from "@/stores/financialModelStore";
 import { useLocalSearchParams, useRouter } from "expo-router";
+import { useTranslation } from "react-i18next";
 import Toast from "react-native-toast-message";
 
 export default function EditFinancialModelDetails() {
@@ -14,6 +15,7 @@ export default function EditFinancialModelDetails() {
     useFinancialModelStore();
   const { updateExpensesPrices } = useExpenseStore();
   const financialData = getFinancialDataById(id);
+  const { t } = useTranslation("financialModel");
 
   if (!financialData) {
     return null;
@@ -28,7 +30,7 @@ export default function EditFinancialModelDetails() {
     Toast.show({
       type: "success",
       text1: MonthMap[financialData.month],
-      text2: "Дані оновлено",
+      text2: t("updated"),
     });
   };
 

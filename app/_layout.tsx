@@ -107,7 +107,7 @@ export default function RootLayout() {
           name="financial-model-month/[id]"
           options={{
             presentation: "modal",
-            title: t("detailsModalTitle", { ns: "financialModelMonth" }),
+            title: t("detailsModalTitle", { ns: "financialModel" }),
           }}
         />
 
