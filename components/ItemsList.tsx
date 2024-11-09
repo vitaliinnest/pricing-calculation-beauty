@@ -7,16 +7,18 @@ import {
   Text,
 } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
+import { useTranslation } from "react-i18next";
 
 export type ItemsListProps = Pick<FlatListProps<any>, "data" | "renderItem">;
 
 export default function ItemsList(props: ItemsListProps) {
+  const { t } = useTranslation();
   const isEmpty = !props.data || props.data.length === 0;
 
   return isEmpty ? (
     <View style={styles.emptyContainer}>
       <Ionicons name="search" size={80} color="#333" />
-      <Text style={styles.emptyMessage}>Список порожній</Text>
+      <Text style={styles.emptyMessage}>{t("emptyList")}</Text>
     </View>
   ) : (
     <FlatList contentContainerStyle={styles.scrollContent} {...props} />

@@ -6,6 +6,7 @@ import { usePreferencesStore } from "@/stores/preferencesStore";
 const resources = {
   uk: {
     translation: {
+      emptyList: "Список порожній",
       cancel: "Скасувати",
       delete: "Видалити",
       deletionTitle: "Видалення",
@@ -71,6 +72,7 @@ const resources = {
   },
   de: {
     translation: {
+      emptyList: "Die Liste ist leer",
       cancel: "Stornieren",
       delete: "Löschen",
       deletionTitle: "Löschen",
