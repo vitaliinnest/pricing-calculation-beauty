@@ -2,13 +2,13 @@ import React, { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { View, Text, TouchableOpacity, StyleSheet, Modal } from "react-native";
 
-const DecemberMessage = () => {
+export default function DecemberMessage() {
   const [visible, setVisible] = useState(false);
   const { t } = useTranslation("decemberMessage");
 
   useEffect(() => {
     const currentMonth = new Date().getMonth();
-    if (currentMonth) {
+    if (currentMonth === 11) {
       // December is month 11 (0-indexed)
       setVisible(true);
     }
@@ -35,7 +35,7 @@ const DecemberMessage = () => {
       </View>
     </Modal>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -66,5 +66,3 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
 });
-
-export default DecemberMessage;
