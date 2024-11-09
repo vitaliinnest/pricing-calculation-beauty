@@ -2,7 +2,7 @@ import { Expense, ExpenseFormValues } from "@/stores/expenseStore";
 import { useForm } from "react-hook-form";
 import EntityDetailsPage from "../EntityDetailsPage";
 import TextInput from "../inputs/TextInput";
-import { Month, MonthMap } from "@/stores/common";
+import { Month, useMonthMap } from "@/stores/common";
 import InputsSeparator from "../InputsSeparator";
 import EuroInput from "../inputs/EuroInput";
 import CalculatedEuroField from "../calculatedFields/CalculatedEuroField";
@@ -27,7 +27,8 @@ export default function ExpenseDetailsPage({
     },
   });
   const { t } = useTranslation("expenses");
-
+  const monthMap = useMonthMap();
+  
   const formValues = watch();
 
   return (
@@ -40,7 +41,7 @@ export default function ExpenseDetailsPage({
       {Object.keys(formValues.priceMap).map((month) => (
         <EuroInput
           key={month}
-          label={MonthMap[month as unknown as Month]}
+          label={monthMap[month as unknown as Month]}
           name={`priceMap.${month}`}
           control={control}
         />

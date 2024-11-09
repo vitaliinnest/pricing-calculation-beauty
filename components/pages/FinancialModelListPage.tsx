@@ -6,7 +6,7 @@ import {
 import { useRouter } from "expo-router";
 import ListItem from "../ListItem";
 import BottomSheetList from "../BottomSheetList";
-import { mapExpenses, MonthMap } from "@/stores/common";
+import { mapExpenses, useMonthMap } from "@/stores/common";
 import KeyValueTable from "../KeyValueTable";
 import { useExpenseStore } from "@/stores/expenseStore";
 import Text from "@/components/Text";
@@ -35,7 +35,8 @@ export default function FinancialModelsListPage() {
   } = useFinancialModelStore();
 
   const { t } = useTranslation("financialModel");
-
+  const monthMap = useMonthMap();
+  
   const router = useRouter();
 
   const renderItem: ListRenderItem<MonthlyFinancialData> = ({
@@ -46,7 +47,7 @@ export default function FinancialModelsListPage() {
     return (
       <ListItem
         index={index}
-        title={MonthMap[item.month]}
+        title={monthMap[item.month]}
         onPress={() => router.push(`/financial-model-month/${item.id}`)}
       >
         <KeyValueTable

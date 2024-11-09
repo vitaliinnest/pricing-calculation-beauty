@@ -9,7 +9,7 @@ import { useForm } from "react-hook-form";
 import EntityDetailsPage from "../EntityDetailsPage";
 import CalculatedNumberField from "../calculatedFields/CalculatedNumberField";
 import CalculatedTextField from "../calculatedFields/CalculatedTextField";
-import { mapExpenses, MonthMap } from "@/stores/common";
+import { mapExpenses, useMonthMap } from "@/stores/common";
 import NumberInput from "../inputs/NumberInput";
 import InputsSeparator from "../InputsSeparator";
 import {
@@ -60,7 +60,8 @@ export default function MonthlyFinancialDataDetailsPage({
     },
   });
   const { t } = useTranslation("financialModel");
-
+  const monthMap = useMonthMap();
+  
   const formValues = watch();
   const turnoverDifference = calculateTurnoverDifference(formValues);
 
@@ -68,7 +69,7 @@ export default function MonthlyFinancialDataDetailsPage({
     <EntityDetailsPage onSubmit={() => onSubmit(formValues)}>
       <CalculatedTextField
         label={t("month")}
-        value={MonthMap[formValues.month]}
+        value={monthMap[formValues.month]}
       />
       <NumberInput
         label={t("workingDaysPerWeek")}

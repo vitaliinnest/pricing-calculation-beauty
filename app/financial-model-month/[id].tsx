@@ -1,7 +1,7 @@
 import MonthlyFinancialDataDetailsPage, {
   MonthlyFinancialDataWithExpenses,
 } from "@/components/pages/MonthlyFinancialDataDetailsPage";
-import { MonthMap } from "@/stores/common";
+import { useMonthMap } from "@/stores/common";
 import { useExpenseStore } from "@/stores/expenseStore";
 import { useFinancialModelStore } from "@/stores/financialModelStore";
 import { useLocalSearchParams, useRouter } from "expo-router";
@@ -16,6 +16,7 @@ export default function EditFinancialModelDetails() {
   const { updateExpensesPrices } = useExpenseStore();
   const financialData = getFinancialDataById(id);
   const { t } = useTranslation("financialModel");
+  const monthMap = useMonthMap();
 
   if (!financialData) {
     return null;
@@ -29,7 +30,7 @@ export default function EditFinancialModelDetails() {
     router.replace("/(tabs)/");
     Toast.show({
       type: "success",
-      text1: MonthMap[financialData.month],
+      text1: monthMap[financialData.month],
       text2: t("updated"),
     });
   };
