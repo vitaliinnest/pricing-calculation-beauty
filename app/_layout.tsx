@@ -8,7 +8,7 @@ import "react-native-reanimated";
 import Toast from "react-native-toast-message";
 import { useTranslation } from "react-i18next";
 import "@/i18n";
-import { usePreferencesStore } from "@/stores/preferencesStore";
+import { useLanguageStore } from "@/stores/languageStore";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -18,7 +18,7 @@ export default function RootLayout() {
   });
 
   const { t, i18n } = useTranslation();
-  const { language } = usePreferencesStore();
+  const { language } = useLanguageStore();
 
   useEffect(() => {
     i18n.changeLanguage(language);

@@ -1,7 +1,7 @@
 import "intl-pluralrules";
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
-import { usePreferencesStore } from "@/stores/preferencesStore";
+import { useLanguageStore } from "@/stores/languageStore";
 
 const resources = {
   uk: {
@@ -309,7 +309,7 @@ const resources = {
   },
 };
 
-const savedLanguage = usePreferencesStore.getState().language;
+const savedLanguage = useLanguageStore.getState().language;
 const defaultLanguage = "uk";
 const language = savedLanguage ?? defaultLanguage;
 

@@ -2,21 +2,21 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { buildStorage } from "./store";
 
-interface PreferencesStore {
+interface LanguageStore {
   language: string;
   changeLanguage: (language: string) => void;
 }
 
-const storage = buildStorage<PreferencesStore>();
+const storage = buildStorage<LanguageStore>();
 
-export const usePreferencesStore = create<PreferencesStore>()(
+export const useLanguageStore = create<LanguageStore>()(
   persist(
     (set) => ({
       language: "uk",
       changeLanguage: (language) => set({ language }),
     }),
     {
-      name: "preferences-storage",
+      name: "language-storage",
       storage,
     }
   )
