@@ -1,4 +1,4 @@
-import { TextInput as TextInputNative, StyleSheet } from "react-native";
+import { TextInput as TextInputNative } from "react-native";
 import { useController } from "react-hook-form";
 import { InputProps, inputStyles } from "./common";
 import { LabellableInput } from "./LabellableInput";
@@ -23,13 +23,8 @@ export default function EuroInput({ label, name, control }: InputProps) {
         keyboardType="decimal-pad"
         value={field.value.toString()}
         onChangeText={handleChangeText}
-        style={[inputStyles.input, styles.input]}
+        style={inputStyles.input}
       />
     </LabellableInput>
   );
 }
-
-const styles = StyleSheet.create({
-  input: {
-  },
-});
