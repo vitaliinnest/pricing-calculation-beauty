@@ -10,6 +10,7 @@ import { useTranslation } from "react-i18next";
 import "@/i18n";
 import { useLanguageStore } from "@/stores/languageStore";
 import DecemberMessage from "@/components/DecemberMessage";
+import JanuaryMessage from "@/components/JanuaryMessage";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -116,6 +117,7 @@ export default function RootLayout() {
       </Stack>
       <Toast config={toastConfig} />
       <DecemberMessage />
+      <JanuaryMessage />
     </ThemeProvider>
   );
 }
