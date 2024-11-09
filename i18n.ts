@@ -17,7 +17,26 @@ const resources = {
       costPrice: "Собівартість",
       expenses: "Витрати",
       priceFormation: "Ціноутворення",
-    }
+    },
+    toolProcessing: {
+      detailsModalTitle: "Обробка інструменту",
+      addModalTitle: "Додавання обробки інструменту",
+    },
+    equipmentWear: {
+      detailsModalTitle: "Знос обладнання",
+      addModalTitle: "Додавання зносу обладнання",
+    },
+    costPrice: {
+      detailsModalTitle: "Собівартість",
+      addModalTitle: "Додавання собівартості",
+    },
+    expenses: {
+      detailsModalTitle: "Витрата",
+      addModalTitle: "Додавання витрати",
+    },
+    financialModelMonth: {
+      detailsModalTitle: "Фінансова модель",
+    },
   },
   de: {
     translation: {
@@ -32,7 +51,26 @@ const resources = {
       costPrice: "Selbstkosten",
       expenses: "Kosten",
       priceFormation: "Preisbildung",
-    }
+    },
+    toolProcessing: {
+      detailsModalTitle: "Werkzeugbearbeitung",
+      addModalTitle: "Werkzeugbearbeitung hinzufügen",
+    },
+    quipmentWear: {
+      detailsModalTitle: "Ausrüstungsverschleiß",
+      addModalTitle: "Ausrüstungsverschleiß hinzufügen",
+    },
+    costPrice: {
+      detailsModalTitle: "Selbstkosten",
+      addModalTitle: "Selbstkosten hinzufügen",
+    },
+    expenses: {
+      detailsModalTitle: "Kosten",
+      addModalTitle: "Kosten hinzufügen",
+    },
+    financialModelMonth: {
+      detailsModalTitle: "Finanzmodell",
+    },
   },
 };
 

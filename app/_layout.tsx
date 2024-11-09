@@ -18,7 +18,7 @@ export default function RootLayout() {
     SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
   });
 
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { language }= usePreferencesStore();
   
   useEffect(() => {
@@ -44,14 +44,15 @@ export default function RootLayout() {
           name="tool-processing/[id]"
           options={{
             presentation: "modal",
-            title: "Обробка інструменту",
+            title: t("toolProcessing.detailsModalTitle"),
           }}
         />
+        
         <Stack.Screen
           name="tool-processing/add"
           options={{
             presentation: "modal",
-            title: "Додавання обробки інструменту",
+            title: t("toolProcessing.addModalTitle"),
           }}
         />
 
@@ -59,14 +60,15 @@ export default function RootLayout() {
           name="equipment-wear/[id]"
           options={{
             presentation: "modal",
-            title: "Знос обладнання",
+            title: t("equipmentWear.detailsModalTitle"),
           }}
         />
+
         <Stack.Screen
           name="equipment-wear/add"
           options={{
             presentation: "modal",
-            title: "Додавання зносу обладнання",
+            title: t("equipmentWear.addModalTitle"),
           }}
         />
 
@@ -74,7 +76,7 @@ export default function RootLayout() {
           name="cost-price/[id]"
           options={{
             presentation: "modal",
-            title: "Собівартість",
+            title: t("costPrice.detailsModalTitle"),
           }}
         />
 
@@ -82,7 +84,7 @@ export default function RootLayout() {
           name="cost-price/add"
           options={{
             presentation: "modal",
-            title: "Додавання собівартості",
+            title: t("costPrice.addModalTitle"),
           }}
         />
 
@@ -90,7 +92,7 @@ export default function RootLayout() {
           name="expense/[id]"
           options={{
             presentation: "modal",
-            title: "Витрати",
+            title: t("expenses.detailsModalTitle"),
           }}
         />
 
@@ -98,7 +100,7 @@ export default function RootLayout() {
           name="expense/add"
           options={{
             presentation: "modal",
-            title: "Додавання витрат",
+            title: t("expenses.addModalTitle"),
           }}
         />
 
@@ -106,7 +108,7 @@ export default function RootLayout() {
           name="financial-model-month/[id]"
           options={{
             presentation: "modal",
-            title: "Фінансова модель",
+            title: t("financialModelMonth.detailsModalTitle"),
           }}
         />
 
