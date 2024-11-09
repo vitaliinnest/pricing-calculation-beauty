@@ -24,7 +24,7 @@ export default function EditFinancialModelDetails() {
   ) => {
     updateFinancialData(id, financialData);
     updateExpensesPrices(financialData.month, financialData.expensesMap);
-    router.replace("/(tabs)/financial-model");
+    router.replace("/(tabs)/");
     Toast.show({
       type: "success",
       text1: MonthMap[financialData.month],

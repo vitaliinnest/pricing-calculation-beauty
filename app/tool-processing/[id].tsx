@@ -18,7 +18,7 @@ export default function EditToolProcessingDetails() {
 
   const onUpdateTool = (tool: ToolProcessingFormValues) => {
     updateTool(id, tool);
-    router.replace("/(tabs)/");
+    router.replace("/(tabs)/tool-processing");
     Toast.show({
       type: "success",
       text1: tool.name,
@@ -28,7 +28,7 @@ export default function EditToolProcessingDetails() {
 
   const onDeleteTool = () => {
     deleteTool(id);
-    router.replace("/(tabs)/");
+    router.replace("/(tabs)/tool-processing");
     Toast.show({
       type: "success",
       text1: tool.name,
