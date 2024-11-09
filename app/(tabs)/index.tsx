@@ -1,5 +1,5 @@
-import ToolProcessingsListPage from '@/components/pages/ToolProcessingsListPage';
+import FinancialModelListPage from "@/components/pages/FinancialModelListPage";
 
-export default function ToolProcessingScreen() {
-  return <ToolProcessingsListPage />;
+export default function FinancialModelPage() {
+  return <FinancialModelListPage />;
 }

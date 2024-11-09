@@ -18,9 +18,8 @@ export default function DrawerLayout() {
           }
         }}
       >
-        {/* todo: make financial model index */}
         <Drawer.Screen
-          name="financial-model"
+          name="index"
           options={{
             title: t("financialModel"),
             drawerIcon: ({ color, focused }) => (
@@ -32,7 +31,7 @@ export default function DrawerLayout() {
           }}
         />
         <Drawer.Screen
-          name="index"
+          name="tool-processing"
           options={{
             title: t("toolProcessing"),
             drawerIcon: ({ color, focused }) => (
