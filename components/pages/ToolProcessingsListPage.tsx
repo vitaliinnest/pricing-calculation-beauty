@@ -7,10 +7,12 @@ import {
 import ListItem from "../ListItem";
 import { useRouter } from "expo-router";
 import KeyValueTable from "../KeyValueTable";
+import { useTranslation } from "react-i18next";
 
 export default function ToolProcessingsListPage() {
   const { tools, getTotalForOneClient } = useToolProcessingStore();
   const router = useRouter();
+  const { t } = useTranslation("toolProcessing");
 
   const renderItem: ListRenderItem<ToolProcessing> = ({ item, index }) => (
     <ListItem
@@ -20,10 +22,10 @@ export default function ToolProcessingsListPage() {
     >
       <KeyValueTable
         data={[
-          ["Вартість", `${item.price} €`],
-          ["Обсяг", item.volume],
-          ["Витрати на день", item.expenditurePerDay],
-          ["Кількість клієнтів на день", item.clientsPerDay],
+          [t("price"), `${item.price} €`],
+          [t("volume"), item.volume],
+          [t("expenditurePerDay"), item.expenditurePerDay],
+          [t("clientsPerDay"), item.clientsPerDay],
         ]}
       />
     </ListItem>
@@ -36,7 +38,7 @@ export default function ToolProcessingsListPage() {
       onAddItem={() => router.push("/tool-processing/add")}
     >
       <Text style={styles.totalPrice}>
-        {`Сумарна ціна на одного клієнта: ${getTotalForOneClient()} €`}
+        {`${t("totalPricePerClient")}: ${getTotalForOneClient()} €`}
       </Text>
     </AppendableList>
   );

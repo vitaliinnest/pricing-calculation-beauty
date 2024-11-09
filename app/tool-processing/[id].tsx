@@ -4,6 +4,7 @@ import {
   useToolProcessingStore,
 } from "@/stores/toolProcessingStore";
 import { useLocalSearchParams, useRouter } from "expo-router";
+import { useTranslation } from "react-i18next";
 import Toast from "react-native-toast-message";
 
 export default function EditToolProcessingDetails() {
@@ -11,6 +12,7 @@ export default function EditToolProcessingDetails() {
   const router = useRouter();
   const { updateTool, deleteTool, getToolById } = useToolProcessingStore();
   const tool = getToolById(id);
+  const { t } = useTranslation("toolProcessing");
 
   if (!tool) {
     return null;
@@ -22,7 +24,7 @@ export default function EditToolProcessingDetails() {
     Toast.show({
       type: "success",
       text1: tool.name,
-      text2: "Інструмент оновлено",
+      text2: t("updated"),
     });
   };
 
@@ -32,7 +34,7 @@ export default function EditToolProcessingDetails() {
     Toast.show({
       type: "success",
       text1: tool.name,
-      text2: "Інструмент видалено",
+      text2: t("deleted"),
     });
   };
 

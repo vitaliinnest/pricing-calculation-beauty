@@ -1,10 +1,14 @@
+import { useTranslation } from "react-i18next";
 import { StyleSheet, View, Text } from "react-native";
 
 type Props = {
   title?: string;
 };
 
-export default function InputsSeparator({ title = "Підрахунки" }: Props) {
+export default function InputsSeparator(props: Props) {
+  const { t } = useTranslation();
+  const title = props.title ?? t("inputsSeparatorDefaultTitle");
+
   return (
     <View style={styles.container}>
       <View style={styles.divider} />

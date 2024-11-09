@@ -15,6 +15,7 @@ import EntityDetailsPage from "../EntityDetailsPage";
 import InputsSeparator from "../InputsSeparator";
 import CalculatedNumberField from "../calculatedFields/CalculatedNumberField";
 import CalculatedEuroField from "../calculatedFields/CalculatedEuroField";
+import { useTranslation } from "react-i18next";
 
 type Props = {
   toolProcessing?: ToolProcessing;
@@ -36,6 +37,7 @@ export default function ToolsProcessingDetailsPage({
       clientsPerDay: toolProcessing?.clientsPerDay ?? 0,
     },
   });
+  const { t } = useTranslation("toolProcessing");
 
   const formValues = watch();
 
@@ -44,16 +46,16 @@ export default function ToolsProcessingDetailsPage({
       onSubmit={() => onSubmit(formValues)}
       onDelete={onDelete}
     >
-      <TextInput label="Назва" name="name" control={control} />
-      <EuroInput label="Вартість" name="price" control={control} />
-      <NumberInput label="Обсяг" name="volume" control={control} />
+      <TextInput label={t("name")} name="name" control={control} />
+      <EuroInput label={t("price")} name="price" control={control} />
+      <NumberInput label={t("volume")} name="volume" control={control} />
       <NumberInput
-        label="Витрати на день"
+        label={t("expenditurePerDay")}
         name="expenditurePerDay"
         control={control}
       />
       <NumberInput
-        label="Кількість клієнтів на день"
+        label={t("clientsPerDay")}
         name="clientsPerDay"
         control={control}
       />
@@ -61,15 +63,15 @@ export default function ToolsProcessingDetailsPage({
       <InputsSeparator />
 
       <CalculatedNumberField
-        label="Кількість днів"
+        label={t('daysAmount')}
         value={calculateDaysAmount(formValues)}
       />
       <CalculatedEuroField
-        label="Ціна в день"
+        label={t('pricePerDay')}
         value={calculatePricePerDay(formValues)}
       />
       <CalculatedEuroField
-        label="Витрата на одного клієнта"
+        label={t('expenditurePerClient')}
         value={calculateExpenditurePerClient(formValues)}
       />
     </EntityDetailsPage>
