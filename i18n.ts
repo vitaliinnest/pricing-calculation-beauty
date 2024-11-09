@@ -30,7 +30,7 @@ const resources = {
       costPrice: "Собівартість",
       expenses: "Витрати",
       priceFormation: "Ціноутворення",
-      languageSettings: "Sprache / Мова"
+      languageSettings: "Sprache / Мова",
     },
     toolProcessing: {
       detailsModalTitle: "Обробка інструменту",
@@ -140,6 +140,10 @@ const resources = {
       netProfitPerDay: "Прибуток в день",
       netProfitPerMonth: "Прибуток в місяць",
     },
+    languageSettings: {
+      ukrainian: "Українська",
+      german: "Німецька",
+    },
     months: {
       "1": "Січень",
       "2": "Лютий",
@@ -181,7 +185,7 @@ const resources = {
       costPrice: "Selbstkosten",
       expenses: "Kosten",
       priceFormation: "Preisbildung",
-      languageSettings: "Мова / Sprache"
+      languageSettings: "Мова / Sprache",
     },
     toolProcessing: {
       detailsModalTitle: "Werkzeugbearbeitung",
@@ -291,6 +295,10 @@ const resources = {
       netProfitPerClient: "Nettogewinn pro Kunde",
       netProfitPerDay: "Nettogewinn pro Tag",
       netProfitPerMonth: "Nettogewinn pro Monat",
+    },
+    languageSettings: {
+      ukrainian: "Ukrainisch",
+      german: "Deutsch",
     },
     months: {
       "1": "Januar",
