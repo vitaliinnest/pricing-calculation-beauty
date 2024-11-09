@@ -112,6 +112,33 @@ const resources = {
       more: "більше",
       less: "менше",
     },
+    priceFormation: {
+      priceFormation: "Ціноутворення",
+      costPricePerClient: "Собівартість матеріала на одного клієнта",
+      expensesPerClient: "Витрати на одного клієнта",
+      clientProfit: "Прибуток з клієнта",
+      recommendedPrice: "Рекомендована вартість",
+      scenario: "Сценарій, щоб краще бачити свою мету",
+      expectedMonthlyTurnover: "Бажаний оборот в місяць",
+      servicePrice: "Ціна вашої послуги",
+      workingDaysPerMonth: "Кількість робочих днів в місяць",
+      clientsNumberPerDay: "Кількість клієнтів на день",
+      clientsNumberPerMonth: "Кількість клієнтів в місяць",
+      requiredDailyTurnover: "Необхідний оборот за один день",
+      totalDailyExpenses:
+        "Загальні витрати на день виходячи з кількості робочих днів на місяць",
+      totalCostPerClientPerDay: "Загальні витрати на день на одного клієнта",
+      plannedDailyTurnover:
+        "Ваш запланований оборот на день, виходячи з кількості робочих днів на місяць",
+      plannedMonthlyTurnover:
+        "Ваш запланований оборот на місяць виходячи з кількості робочих днів на місяць",
+      dailyTurnoverDifference: "Різниця до мети в день",
+      monthlyTurnoverDifference: "Різниця до мети в місяць",
+      profit: "Прибуток",
+      netProfitPerClient: "Прибуток з клієнта",
+      netProfitPerDay: "Прибуток в день",
+      netProfitPerMonth: "Прибуток в місяць",
+    },
   },
   de: {
     translation: {
@@ -221,6 +248,33 @@ const resources = {
       no: "Nein",
       more: "mehr",
       less: "weniger",
+    },
+    priceFormation: {
+      priceFormation: "Preisbildung",
+      costPricePerClient: "Selbstkostenpreis pro Kunde",
+      expensesPerClient: "Ausgaben pro Kunde",
+      clientProfit: "Gewinn pro Kunde",
+      recommendedPrice: "Empfohlener Preis",
+      scenario: "Szenario, um Ihr Ziel besser zu sehen",
+      expectedMonthlyTurnover: "Erwarteter Monatsumsatz",
+      servicePrice: "Preis Ihrer Dienstleistung",
+      workingDaysPerMonth: "Arbeitstage pro Monat",
+      clientsNumberPerDay: "Anzahl der Kunden pro Tag",
+      clientsNumberPerMonth: "Anzahl der Kunden pro Monat",
+      requiredDailyTurnover: "Erforderlicher Tagesumsatz",
+      totalDailyExpenses:
+        "Gesamtausgaben pro Tag basierend auf der Anzahl der Arbeitstage pro Monat",
+      totalCostPerClientPerDay: "Gesamtkosten pro Tag pro Kunde",
+      plannedDailyTurnover:
+        "Geplanter Tagesumsatz basierend auf der Anzahl der Arbeitstage pro Monat",
+      plannedMonthlyTurnover:
+        "Geplanter Monatsumsatz basierend auf der Anzahl der Arbeitstage pro Monat",
+      dailyTurnoverDifference: "Tagesumsatzdifferenz zum Ziel",
+      monthlyTurnoverDifference: "Monatsumsatzdifferenz zum Ziel",
+      profit: "Gewinn",
+      netProfitPerClient: "Nettogewinn pro Kunde",
+      netProfitPerDay: "Nettogewinn pro Tag",
+      netProfitPerMonth: "Nettogewinn pro Monat",
     },
   },
 };

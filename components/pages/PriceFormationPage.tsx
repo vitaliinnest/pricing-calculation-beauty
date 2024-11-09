@@ -15,6 +15,7 @@ import {
   calculatePlannedMonthlyTurnover,
 } from "@/calculators/priceFormationCalculators";
 import { roundUpTo2 } from "@/utils";
+import { useTranslation } from "react-i18next";
 
 export default function PriceFormationPage() {
   const { control, watch } = useForm<PriceFormationFormValues>({
@@ -26,6 +27,8 @@ export default function PriceFormationPage() {
       clientsNumberPerDay: 0,
     },
   });
+
+  const { t } = useTranslation("priceFormation");
 
   const formValues = watch();
 
@@ -80,89 +83,92 @@ export default function PriceFormationPage() {
 
   return (
     <EntityDetailsPage>
-      <InputsSeparator title="Ціноутворення" />
+      <InputsSeparator title={t("priceFormation")} />
       <CalculatedEuroField
-        label="Собівартість матеріала на одного клієнта"
+        label={t("costPricePerClient")}
         value={costPriceStore.calculateTotalForOneClient()}
       />
       <CalculatedEuroField
-        label="Витрати на одного клієнта"
+        label={t("expensesPerClient")}
         value={averageYearlyExpensesPerClient}
       />
       <EuroInput
-        label="Прибуток з клієнта"
+        label={t("clientProfit")}
         name="clientProfit"
         control={control}
       />
       <CalculatedEuroField
-        label="Рекомендована вартість"
+        label={t("recommendedPrice")}
         value={averageYearlyExpensesPerClient + formValues.clientProfit}
       />
 
-      <InputsSeparator title="Сценарій, щоб краще бачити свою мету" />
+      <InputsSeparator title={t("scenario")} />
 
       <EuroInput
-        label="Бажаний оборот в місяць"
+        label={t("expectedMonthlyTurnover")}
         name="expectedMonthlyTurnover"
         control={control}
       />
       <EuroInput
-        label="Ціна вашої послуги"
+        label={t("servicePrice")}
         name="servicePrice"
         control={control}
       />
       <NumberInput
-        label="Кількість робочих днів в місяць"
+        label={t("workingDaysPerMonth")}
         name="workingDaysPerMonth"
         control={control}
       />
       <NumberInput
-        label="Кількість клієнтів на день"
+        label={t("clientsNumberPerDay")}
         name="clientsNumberPerDay"
         control={control}
       />
       <CalculatedNumberField
-        label="Кількість клієнтів в місяць"
+        label={t("clientsNumberPerMonth")}
         value={calculateClientsNumberPerMonth(formValues)}
       />
       <CalculatedEuroField
-        label="Необхідний оборот за один день"
+        label={t("requiredDailyTurnover")}
         value={calculateDailyTurnover(formValues)}
       />
       <CalculatedEuroField
-        label="Загальні витрати на день виходячи з кількості робочих днів на місяць"
+        label={t("totalDailyExpenses")}
         value={averageDailyExpenses}
       />
       <CalculatedEuroField
-        label="Загальні витрати на день на одного клієнта"
+        label={t("totalCostPerClientPerDay")}
         value={totalCostPerClientPerDay}
       />
       <CalculatedEuroField
-        label="Ваш запланований оборот на день, виходячи з кількості робочих днів на місяць"
+        label={t("plannedDailyTurnover")}
         value={plannedDailyTurnover}
       />
       <CalculatedEuroField
-        label="Ваш запланований оборот на місяць виходячи з кількості робочих днів на місяць"
+        label={t("plannedMonthlyTurnover")}
         value={calculatePlannedMonthlyTurnover(formValues)}
       />
       <CalculatedEuroField
-        label="Різниця до мети в день"
+        label={t("dailyTurnoverDifference")}
         value={plannedDailyTurnoverDifference}
       />
       <CalculatedEuroField
-        label="Різниця до мети в місяць"
+        label={t("monthlyTurnoverDifference")}
         value={plannedMonthlyTurnoverDifference}
       />
 
-      <InputsSeparator title="Прибуток" />
+      <InputsSeparator title={t("profit")} />
 
       <CalculatedEuroField
-        label="Прибуток з клієнта"
+        label={t("netProfitPerClient")}
         value={netProfitPerClient}
       />
-      <CalculatedEuroField label="Прибуток в день" value={netProfitPerDay} />
       <CalculatedEuroField
-        label="Прибуток в місяць"
+        label={t("netProfitPerDay")}
+        value={netProfitPerDay}
+      />
+      <CalculatedEuroField
+        label={t("netProfitPerMonth")}
         value={netProfitPerMonth}
       />
     </EntityDetailsPage>
