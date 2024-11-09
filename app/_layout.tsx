@@ -6,6 +6,9 @@ import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 import "react-native-reanimated";
 import Toast from "react-native-toast-message";
+import { useTranslation } from "react-i18next";
+import "@/i18n";
+import { usePreferencesStore } from "@/stores/preferencesStore";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -14,6 +17,13 @@ export default function RootLayout() {
   const [loaded] = useFonts({
     SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
   });
+
+  const { i18n } = useTranslation();
+  const { language }= usePreferencesStore();
+  
+  useEffect(() => {
+    i18n.changeLanguage(language);
+  }, [language]);
 
   useEffect(() => {
     if (loaded) {
