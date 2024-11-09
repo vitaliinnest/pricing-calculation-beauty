@@ -84,6 +84,11 @@ export default function PriceFormationPage() {
   return (
     <EntityDetailsPage>
       <InputsSeparator title={t("priceFormation")} />
+      <EuroInput
+        label={t("clientProfit")}
+        name="clientProfit"
+        control={control}
+      />
       <CalculatedEuroField
         label={t("costPricePerClient")}
         value={costPriceStore.calculateTotalForOneClient()}
@@ -91,11 +96,6 @@ export default function PriceFormationPage() {
       <CalculatedEuroField
         label={t("expensesPerClient")}
         value={averageYearlyExpensesPerClient}
-      />
-      <EuroInput
-        label={t("clientProfit")}
-        name="clientProfit"
-        control={control}
       />
       <CalculatedEuroField
         label={t("recommendedPrice")}
