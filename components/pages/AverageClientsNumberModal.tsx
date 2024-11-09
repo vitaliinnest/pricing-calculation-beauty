@@ -11,8 +11,8 @@ type Props = {
 };
 
 export default function AverageClientsNumberModal({ visible, onClose }: Props) {
-  const { t } = useTranslation();
-  
+  const { t } = useTranslation("equipmentWear");
+
   const { averageClientsNumberPerDay, setAverageCustomersPerDay } =
     useEquipmentWearStore();
 
@@ -39,12 +39,12 @@ export default function AverageClientsNumberModal({ visible, onClose }: Props) {
       <View style={styles.centeredView}>
         <View style={styles.modalView}>
           <Text style={styles.modalText}>
-            Середня кількість клієнтів на день
+            {t("averageClientsNumberPerDay")}
           </Text>
           <NumberInput
             name="averageClientsNumberPerDay"
             control={control}
-            label="Введіть число"
+            label={t("enterNumber")}
           />
           <View style={styles.buttonContainer}>
             <Button title={t("cancel")} onPress={onClose} />

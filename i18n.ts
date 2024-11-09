@@ -46,6 +46,8 @@ const resources = {
       updated: "Обладнання оновлено",
       deleted: "Обладнання видалено",
       serviceLifeInDays: "Строк експлуатації в днях",
+      averageClientsNumberPerDay: "Середня кількість клієнтів на день",
+      enterNumber: "Введіть число",
     },
     costPrice: {
       detailsModalTitle: "Собівартість",
@@ -105,6 +107,8 @@ const resources = {
       updated: "Ausrüstungsverschleiß aktualisiert",
       deleted: "Ausrüstungsverschleiß gelöscht",
       serviceLifeInDays: "Lebensdauer in Tagen",
+      averageClientsNumberPerDay: "Durchschnittliche Anzahl der Kunden pro Tag",
+      enterNumber: "Geben Sie eine Zahl ein",
     },
     costPrice: {
       detailsModalTitle: "Selbstkosten",
