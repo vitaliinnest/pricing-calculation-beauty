@@ -13,7 +13,7 @@ export default function EuroInput({ label, name, control }: InputProps) {
   const [value, setValue] = useState<string>(field.value.toFixed(2));
 
   const onChangeValue = (text: string) => {
-    let formattedText = formatText(text);
+    const formattedText = formatText(text);
     setValue(formattedText);
 
     const floatValue = formattedText ? parseFloat(formattedText) : 0;
