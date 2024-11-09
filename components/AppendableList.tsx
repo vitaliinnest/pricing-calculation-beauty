@@ -39,6 +39,7 @@ const styles = StyleSheet.create({
     right: 0,
     backgroundColor: "#fff",
     padding: 10,
+    paddingBottom: 20,
     borderTopColor: "lightgrey",
     borderTopWidth: 3,
   },
