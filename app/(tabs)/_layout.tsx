@@ -3,8 +3,11 @@ import { TabBarIcon } from "@/components/navigation/TabBarIcon";
 import { Colors } from "@/constants/Colors";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { Drawer } from "expo-router/drawer";
+import { useTranslation } from "react-i18next";
 
 export default function DrawerLayout() {
+  const { t } = useTranslation("drawerLayout");
+  
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <Drawer
@@ -15,10 +18,11 @@ export default function DrawerLayout() {
           }
         }}
       >
+        {/* todo: make financial model index */}
         <Drawer.Screen
           name="financial-model"
           options={{
-            title: "Фінансова модель",
+            title: t("financialModel"),
             drawerIcon: ({ color, focused }) => (
               <TabBarIcon
                 name={focused ? "calculator" : "calculator-outline"}
@@ -30,7 +34,7 @@ export default function DrawerLayout() {
         <Drawer.Screen
           name="index"
           options={{
-            title: "Обробка інструментів",
+            title: t("toolProcessing"),
             drawerIcon: ({ color, focused }) => (
               <TabBarIcon
                 name={focused ? "hand-left" : "hand-left-outline"}
@@ -42,7 +46,7 @@ export default function DrawerLayout() {
         <Drawer.Screen
           name="equipment-wear"
           options={{
-            title: "Знос обладнання",
+            title: t("equipmentWear"),
             drawerIcon: ({ color, focused }) => (
               <TabBarIcon
                 name={focused ? "bag-handle" : "bag-handle-outline"}
@@ -54,7 +58,7 @@ export default function DrawerLayout() {
         <Drawer.Screen
           name="cost-price"
           options={{
-            title: "Собівартість",
+            title: t("costPrice"),
             drawerIcon: ({ color, focused }) => (
               <TabBarIcon
                 name={focused ? "hammer" : "hammer-outline"}
@@ -67,7 +71,7 @@ export default function DrawerLayout() {
         <Drawer.Screen
           name="expenses"
           options={{
-            title: "Витрати",
+            title: t("expenses"),
             drawerIcon: ({ color, focused }) => (
               <TabBarIcon
                 name={focused ? "receipt" : "receipt-outline"}
@@ -79,7 +83,7 @@ export default function DrawerLayout() {
         <Drawer.Screen
           name="price-formation"
           options={{
-            title: "Ціноутворення",
+            title: t("priceFormation"),
             drawerIcon: ({ color, focused }) => (
               <TabBarIcon
                 name={focused ? "cash" : "cash-outline"}
