@@ -18,7 +18,7 @@ export default function EuroInput({ label, name, control }: InputProps) {
   };
 
   return (
-    <LabellableInput label={label + ", €"}>
+    <LabellableInput label={label + ", €"} style={inputStyles.inputLabelWrapper}>
       <TextInputNative
         keyboardType="decimal-pad"
         value={field.value.toString()}

@@ -1,13 +1,14 @@
 import { PropsWithChildren } from "react";
-import { StyleSheet, View, Text } from "react-native";
+import { StyleSheet, View, Text, StyleProp, ViewStyle } from "react-native";
 
 type Props = PropsWithChildren<{
   label: string;
+  style?: StyleProp<ViewStyle>;
 }>;
 
-export function LabellableInput({ label, children }: Props) {
+export function LabellableInput({ label, children, style }: Props) {
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, style]}>
       <Text style={styles.label}>{label}</Text>
       {children}
     </View>

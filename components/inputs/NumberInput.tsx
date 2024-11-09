@@ -18,7 +18,7 @@ export default function NumberInput({ label, name, control }: InputProps) {
   };
 
   return (
-    <LabellableInput label={label}>
+    <LabellableInput label={label} style={inputStyles.inputLabelWrapper}>
       <TextInputNative
         keyboardType="numeric"
         value={field.value.toString()}

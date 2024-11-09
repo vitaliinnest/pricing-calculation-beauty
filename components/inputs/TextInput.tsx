@@ -11,7 +11,7 @@ export default function TextInput({ label, name, control }: InputProps) {
   });
 
   return (
-    <LabellableInput label={label}>
+    <LabellableInput label={label} style={inputStyles.inputLabelWrapper}>
       <TextInputNative
         value={field.value}
         onChangeText={field.onChange}

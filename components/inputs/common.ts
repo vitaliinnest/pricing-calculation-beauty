@@ -17,8 +17,13 @@ export const inputStyles = StyleSheet.create({
     paddingHorizontal: 5,
     marginBottom: 15,
   },
+  inputLabelWrapper: {
+    backgroundColor: "#ffffcc",
+  },
+  readonlyInputLabelWrapper: {
+    backgroundColor: "#ccff99",
+  },
   readonlyInput: {
-    backgroundColor: "#f0f0f0",
     color: "black",
   },
 });

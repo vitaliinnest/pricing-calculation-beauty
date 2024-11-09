@@ -9,7 +9,7 @@ type Props = {
 
 export default function CalculatedTextField({ label, value }: Props) {
   return (
-    <LabellableInput label={label}>
+    <LabellableInput label={label} style={inputStyles.readonlyInputLabelWrapper}>
       <TextInputNative
         readOnly
         value={value.toString()}
