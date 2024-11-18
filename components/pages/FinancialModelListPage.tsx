@@ -36,7 +36,7 @@ export default function FinancialModelsListPage() {
 
   const { t } = useTranslation("financialModel");
   const monthMap = useMonthMap();
-  
+
   const router = useRouter();
 
   const renderItem: ListRenderItem<MonthlyFinancialData> = ({

@@ -71,7 +71,7 @@ const seedEquipmentWears = (): EquipmentWear[] => [
   {
     id: uuidv4(),
     name: "Стіл",
-    price: 141.18,
+    price: 35.29,
     serviceLifeInDays: 360,
   },
   {

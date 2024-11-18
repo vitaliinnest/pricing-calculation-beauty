@@ -1,39 +1,50 @@
 import { PriceFormationFormValues } from "@/stores/priceFormationStore";
+import { roundNumber } from "@/utils";
 
 export function calculateClientsNumberPerMonth(
-  priceFormation: PriceFormationFormValues
+  priceFormation: PriceFormationFormValues,
+  discard?: boolean
 ): number {
-  return (
-    priceFormation.clientsNumberPerDay * priceFormation.workingDaysPerMonth
+  return roundNumber(
+    priceFormation.clientsNumberPerDay * priceFormation.workingDaysPerMonth,
+    discard
   );
 }
 
 // Необхідний оборот за один день
 export function calculateDailyTurnover(
-  priceFormation: PriceFormationFormValues
+  priceFormation: PriceFormationFormValues,
+  discard?: boolean
 ): number {
   if (priceFormation.workingDaysPerMonth === 0) {
     return 0;
   }
 
-  return (
-    priceFormation.expectedMonthlyTurnover / priceFormation.workingDaysPerMonth
+  return roundNumber(
+    priceFormation.expectedMonthlyTurnover / priceFormation.workingDaysPerMonth,
+    discard
   );
 }
 
 // Ваш запланований оборот на день, виходячи з кількості робочих днів на місяць
 export function calculatePlannedDailyTurnover(
-  priceFormation: PriceFormationFormValues
+  priceFormation: PriceFormationFormValues,
+  discard?: boolean
 ): number {
-  return priceFormation.servicePrice * priceFormation.clientsNumberPerDay;
+  return roundNumber(
+    priceFormation.servicePrice * priceFormation.clientsNumberPerDay,
+    discard
+  );
 }
 
 // Ваш планируемый оборот в месяц  исходя из количества рабочих дней в месяц
 export function calculatePlannedMonthlyTurnover(
-  priceFormation: PriceFormationFormValues
+  priceFormation: PriceFormationFormValues,
+  discard?: boolean
 ): number {
-  return (
+  return roundNumber(
     priceFormation.workingDaysPerMonth *
-    calculatePlannedDailyTurnover(priceFormation)
+      calculatePlannedDailyTurnover(priceFormation, true),
+    discard
   );
 }

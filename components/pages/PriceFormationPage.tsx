@@ -44,14 +44,14 @@ export default function PriceFormationPage() {
   const totalCostPerClientPerDay =
     totalClientsPerMonth > 0
       ? roundNumber(
-          financialModelStore.calculateTotalMonthlyCostPrice() /
+          financialModelStore.calculateTotalMonthlyCostPrice(true) /
             totalClientsPerMonth
         )
       : 0;
 
   const plannedDailyTurnoverDifference = roundNumber(
-    calculatePlannedDailyTurnover(formValues) -
-      calculateDailyTurnover(formValues)
+    calculatePlannedDailyTurnover(formValues, true) -
+      calculateDailyTurnover(formValues, true)
   );
 
   const plannedMonthlyTurnoverDifference = roundNumber(

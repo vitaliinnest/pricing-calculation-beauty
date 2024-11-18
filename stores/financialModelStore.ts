@@ -49,7 +49,7 @@ interface FinancialModelStore {
   // себестоимость материала
   calculateMonthlyCostPrice: (data: MonthlyFinancialDataFormValues) => number;
   calculateAverageMonthlyCostPrice: () => number;
-  calculateTotalMonthlyCostPrice: () => number;
+  calculateTotalMonthlyCostPrice: (discard?: boolean) => number;
 
   // итого расходы
   calculateTotalExpenses: (data: MonthlyFinancialDataWithExpenses) => number;
@@ -291,12 +291,10 @@ export const useFinancialModelStore = create<FinancialModelStore>()(
         ),
 
       calculateTotalClientsNumberPerMonth: () =>
-        roundNumber(
-          get().financialData.reduce(
-            (acc, financialData) =>
-              acc + calculateClientsNumberPerMonth(financialData),
-            0
-          )
+        get().financialData.reduce(
+          (acc, financialData) =>
+            acc + calculateClientsNumberPerMonth(financialData),
+          0
         ),
 
       calculateTotalMonthlyClientHours: () =>
@@ -328,13 +326,14 @@ export const useFinancialModelStore = create<FinancialModelStore>()(
         );
       },
 
-      calculateTotalMonthlyCostPrice: () =>
+      calculateTotalMonthlyCostPrice: (discard) =>
         roundNumber(
           get().financialData.reduce(
             (acc, financialData) =>
               acc + get().calculateMonthlyCostPrice(financialData),
             0
-          )
+          ),
+          discard
         ),
 
       calculateTotalExpenses: (data: MonthlyFinancialDataWithExpenses) => {
