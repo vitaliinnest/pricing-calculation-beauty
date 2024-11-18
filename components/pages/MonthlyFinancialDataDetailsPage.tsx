@@ -61,7 +61,7 @@ export default function MonthlyFinancialDataDetailsPage({
   });
   const { t } = useTranslation("financialModel");
   const monthMap = useMonthMap();
-  
+
   const formValues = watch();
   const turnoverDifference = calculateTurnoverDifference(formValues);
 
@@ -146,13 +146,6 @@ export default function MonthlyFinancialDataDetailsPage({
         value={calculateTotalHourlyExpenses(formValues)}
       />
 
-      <InputsSeparator title={t("profit")} />
-
-      <CalculatedEuroField
-        label={t("expectedMonthlyProfit")}
-        value={calculateExpectedMonthlyProfit(formValues)}
-      />
-
       <InputsSeparator title={t("turnover")} />
 
       <EuroInput
@@ -173,6 +166,10 @@ export default function MonthlyFinancialDataDetailsPage({
             turnoverDifference
           )} €)`
         }
+      />
+      <CalculatedEuroField
+        label={t("expectedMonthlyProfit")}
+        value={calculateExpectedMonthlyProfit(formValues)}
       />
     </EntityDetailsPage>
   );
