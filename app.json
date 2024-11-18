@@ -1,6 +1,7 @@
+
 {
   "expo": {
-    "name": "pricing-calculation-beauty",
+    "name": "Beauty Calculator",
     "slug": "pricing-calculation-beauty",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -24,7 +25,7 @@
     "web": {
       "bundler": "metro",
       "output": "static",
-      "favicon": "./assets/images/favicon.png"
+      "favicon": "./assets/images/icon.png"
     },
     "plugins": [
       "expo-router"
