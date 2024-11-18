@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { buildStorage } from "./store";
-import 'react-native-get-random-values';
+import "react-native-get-random-values";
 import { v4 as uuidv4 } from "uuid";
 import { roundUpTo2 } from "@/utils";
 import {
@@ -77,24 +77,10 @@ interface FinancialModelStore {
 
 const storage = buildStorage<FinancialModelStore>();
 
-const initializeFinancialData = (): MonthlyFinancialData[] =>
-  Object.values(Month)
-    .filter((value) => typeof value === "number")
-    .map<MonthlyFinancialData>((month) => ({
-      id: uuidv4(),
-      month: month as Month,
-      workingDaysPerMonth: undefined,
-      workingDaysPerWeek: undefined,
-      clientsNumberPerDay: undefined,
-      hoursNumberPerClient: undefined,
-      expectedMonthlyTurnover: 0,
-      actualMonthlyTurnover: 0,
-    }));
-
 export const useFinancialModelStore = create<FinancialModelStore>()(
   persist(
     (set, get) => ({
-      financialData: initializeFinancialData(),
+      financialData: seedFinancialData(),
 
       updateFinancialData: (id, updatedFinancialData) =>
         set((state) => ({
@@ -375,3 +361,127 @@ export const useFinancialModelStore = create<FinancialModelStore>()(
     }
   )
 );
+
+
+const seedFinancialData = (): MonthlyFinancialData[] => [
+  {
+    id: uuidv4(),
+    month: Month.January,
+    workingDaysPerMonth: 22,
+    workingDaysPerWeek: 5,
+    clientsNumberPerDay: 0.3,
+    hoursNumberPerClient: 2,
+    expectedMonthlyTurnover: 2650,
+    actualMonthlyTurnover: 2800,
+  },
+  {
+    id: uuidv4(),
+    month: Month.February,
+    workingDaysPerMonth: 20,
+    workingDaysPerWeek: 5,
+    clientsNumberPerDay: 0.3,
+    hoursNumberPerClient: 2,
+    expectedMonthlyTurnover: 2500,
+    actualMonthlyTurnover: 2550,
+  },
+  {
+    id: uuidv4(),
+    month: Month.March,
+    workingDaysPerMonth: 22,
+    workingDaysPerWeek: 5,
+    clientsNumberPerDay: 0.3,
+    hoursNumberPerClient: 2,
+    expectedMonthlyTurnover: 2500,
+    actualMonthlyTurnover: 2550,
+  },
+  {
+    id: uuidv4(),
+    month: Month.April,
+    workingDaysPerMonth: 21,
+    workingDaysPerWeek: 5,
+    clientsNumberPerDay: 0.4,
+    hoursNumberPerClient: 2,
+    expectedMonthlyTurnover: 2500,
+    actualMonthlyTurnover: 2550,
+  },
+  {
+    id: uuidv4(),
+    month: Month.May,
+    workingDaysPerMonth: 22,
+    workingDaysPerWeek: 5,
+    clientsNumberPerDay: 0.5,
+    hoursNumberPerClient: 2,
+    expectedMonthlyTurnover: 2500,
+    actualMonthlyTurnover: 2550,
+  },
+  {
+    id: uuidv4(),
+    month: Month.June,
+    workingDaysPerMonth: 21,
+    workingDaysPerWeek: 5,
+    clientsNumberPerDay: 0.3,
+    hoursNumberPerClient: 2.5,
+    expectedMonthlyTurnover: 2500,
+    actualMonthlyTurnover: 2550,
+  },
+  {
+    id: uuidv4(),
+    month: Month.July,
+    workingDaysPerMonth: 23,
+    workingDaysPerWeek: 5,
+    clientsNumberPerDay: 0.4,
+    hoursNumberPerClient: 2,
+    expectedMonthlyTurnover: 2500,
+    actualMonthlyTurnover: 2550,
+  },
+  {
+    id: uuidv4(),
+    month: Month.August,
+    workingDaysPerMonth: 22,
+    workingDaysPerWeek: 5,
+    clientsNumberPerDay: 0.3,
+    hoursNumberPerClient: 2.3,
+    expectedMonthlyTurnover: 2500,
+    actualMonthlyTurnover: 2550,
+  },
+  {
+    id: uuidv4(),
+    month: Month.September,
+    workingDaysPerMonth: 21,
+    workingDaysPerWeek: 5,
+    clientsNumberPerDay: 0.5,
+    hoursNumberPerClient: 2,
+    expectedMonthlyTurnover: 2500,
+    actualMonthlyTurnover: 2550,
+  },
+  {
+    id: uuidv4(),
+    month: Month.October,
+    workingDaysPerMonth: 22,
+    workingDaysPerWeek: 5,
+    clientsNumberPerDay: 0.4,
+    hoursNumberPerClient: 2.5,
+    expectedMonthlyTurnover: 2500,
+    actualMonthlyTurnover: 2550,
+  },
+  {
+    id: uuidv4(),
+    month: Month.November,
+    workingDaysPerMonth: 21,
+    workingDaysPerWeek: 5,
+    clientsNumberPerDay: 0.3,
+    hoursNumberPerClient: 2,
+    expectedMonthlyTurnover: 2500,
+    actualMonthlyTurnover: 2550,
+  },
+  {
+    id: uuidv4(),
+    month: Month.December,
+    workingDaysPerMonth: 23,
+    workingDaysPerWeek: 5,
+    clientsNumberPerDay: 0.6,
+    hoursNumberPerClient: 2,
+    expectedMonthlyTurnover: 2500,
+    actualMonthlyTurnover: 2550,
+  },
+];
