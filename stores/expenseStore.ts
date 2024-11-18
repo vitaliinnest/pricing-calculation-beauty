@@ -27,72 +27,6 @@ interface ExpenseStore {
 
 const storage = buildStorage<ExpenseStore>();
 
-export const useExpenseStore = create<ExpenseStore>()(
-  persist(
-    (set, get) => ({
-      expenses: seedExpenses(),
-
-      addExpense: (expense) => {
-        const newExpense = {
-          ...expense,
-          id: uuidv4(),
-          priceMap: ensureAllMonths(expense.priceMap),
-        };
-
-        return set((state) => ({
-          expenses: [...state.expenses, newExpense],
-        }));
-      },
-
-      updateExpense: (id, updatedExpense) =>
-        set((state) => {
-          const refinedExpense = {
-            ...updatedExpense,
-            priceMap: ensureAllMonths(updatedExpense.priceMap),
-          };
-          return {
-            expenses: state.expenses.map((expense) =>
-              expense.id === id ? { ...expense, ...refinedExpense } : expense
-            ),
-          };
-        }),
-
-      updateExpensesPrices: (month, priceMap) =>
-        set((state) => ({
-          expenses: state.expenses.map((expense) => ({
-            ...expense,
-            priceMap: {
-              ...expense.priceMap,
-              [month]: priceMap[expense.id],
-            },
-          })),
-        })),
-
-      deleteExpense: (id) =>
-        set((state) => ({
-          expenses: state.expenses.filter((expense) => expense.id !== id),
-        })),
-
-      getExpenseById: (id) =>
-        get().expenses.find((expense) => expense.id === id),
-    }),
-    {
-      name: "expense-storage",
-      storage,
-    }
-  )
-);
-
-const ensureAllMonths = (priceMap: Record<Month, number>) => {
-  const updatedPriceMap: Record<Month, number> = { ...priceMap };
-  Object.values(Month).forEach((month) => {
-    if (typeof month === "number" && !(month in updatedPriceMap)) {
-      updatedPriceMap[month] = 0;
-    }
-  });
-  return updatedPriceMap;
-};
-
 const seedExpenses = (): Expense[] => [
   {
     id: uuidv4(),
@@ -293,3 +227,69 @@ const seedExpenses = (): Expense[] => [
     },
   },
 ];
+
+export const useExpenseStore = create<ExpenseStore>()(
+  persist(
+    (set, get) => ({
+      expenses: seedExpenses(),
+
+      addExpense: (expense) => {
+        const newExpense = {
+          ...expense,
+          id: uuidv4(),
+          priceMap: ensureAllMonths(expense.priceMap),
+        };
+
+        return set((state) => ({
+          expenses: [...state.expenses, newExpense],
+        }));
+      },
+
+      updateExpense: (id, updatedExpense) =>
+        set((state) => {
+          const refinedExpense = {
+            ...updatedExpense,
+            priceMap: ensureAllMonths(updatedExpense.priceMap),
+          };
+          return {
+            expenses: state.expenses.map((expense) =>
+              expense.id === id ? { ...expense, ...refinedExpense } : expense
+            ),
+          };
+        }),
+
+      updateExpensesPrices: (month, priceMap) =>
+        set((state) => ({
+          expenses: state.expenses.map((expense) => ({
+            ...expense,
+            priceMap: {
+              ...expense.priceMap,
+              [month]: priceMap[expense.id],
+            },
+          })),
+        })),
+
+      deleteExpense: (id) =>
+        set((state) => ({
+          expenses: state.expenses.filter((expense) => expense.id !== id),
+        })),
+
+      getExpenseById: (id) =>
+        get().expenses.find((expense) => expense.id === id),
+    }),
+    {
+      name: "expense-storage",
+      storage,
+    }
+  )
+);
+
+const ensureAllMonths = (priceMap: Record<Month, number>) => {
+  const updatedPriceMap: Record<Month, number> = { ...priceMap };
+  Object.values(Month).forEach((month) => {
+    if (typeof month === "number" && !(month in updatedPriceMap)) {
+      updatedPriceMap[month] = 0;
+    }
+  });
+  return updatedPriceMap;
+};

@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { buildStorage } from "./store";
-import 'react-native-get-random-values';
+import "react-native-get-random-values";
 import { v4 as uuidv4 } from "uuid";
 import { calculatePricePerClient } from "@/calculators/equipmentWearCalculators";
 import { roundUpTo2 } from "@/utils";
@@ -30,61 +30,6 @@ interface EquipmentWearStore {
 }
 
 const storage = buildStorage<EquipmentWearStore>();
-
-export const useEquipmentWearStore = create<EquipmentWearStore>()(
-  persist(
-    (set, get) => ({
-      equipmentWears: seedEquipmentWears(),
-      averageClientsNumberPerDay: 4,
-
-      addEquipmentWear: (equipmentWear) => {
-        const newEquipmentWear = { ...equipmentWear, id: uuidv4() };
-        return set((state) => ({
-          equipmentWears: [...state.equipmentWears, newEquipmentWear],
-        }));
-      },
-
-      updateEquipmentWear: (id, updatedEquipmentWear) =>
-        set((state) => ({
-          equipmentWears: state.equipmentWears.map((equipmentWear) =>
-            equipmentWear.id === id
-              ? { ...equipmentWear, ...updatedEquipmentWear }
-              : equipmentWear
-          ),
-        })),
-
-      deleteEquipmentWear: (id) =>
-        set((state) => ({
-          equipmentWears: state.equipmentWears.filter(
-            (equipmentWear) => equipmentWear.id !== id
-          ),
-        })),
-
-      getEquipmentWearById: (id) =>
-        get().equipmentWears.find((equipmentWear) => equipmentWear.id === id),
-
-      setAverageCustomersPerDay: (average) =>
-        set(() => ({ averageClientsNumberPerDay: average })),
-
-      getTotalForOneClient: () =>
-        roundUpTo2(
-          get().equipmentWears.reduce(
-            (acc, equipmentWear) =>
-              acc +
-              calculatePricePerClient(
-                equipmentWear,
-                get().averageClientsNumberPerDay
-              ),
-            0
-          )
-        ),
-    }),
-    {
-      name: "equipment-wear-storage",
-      storage,
-    }
-  )
-);
 
 const seedEquipmentWears = (): EquipmentWear[] => [
   {
@@ -142,3 +87,58 @@ const seedEquipmentWears = (): EquipmentWear[] => [
     serviceLifeInDays: 360,
   },
 ];
+
+export const useEquipmentWearStore = create<EquipmentWearStore>()(
+  persist(
+    (set, get) => ({
+      equipmentWears: seedEquipmentWears(),
+      averageClientsNumberPerDay: 4,
+
+      addEquipmentWear: (equipmentWear) => {
+        const newEquipmentWear = { ...equipmentWear, id: uuidv4() };
+        return set((state) => ({
+          equipmentWears: [...state.equipmentWears, newEquipmentWear],
+        }));
+      },
+
+      updateEquipmentWear: (id, updatedEquipmentWear) =>
+        set((state) => ({
+          equipmentWears: state.equipmentWears.map((equipmentWear) =>
+            equipmentWear.id === id
+              ? { ...equipmentWear, ...updatedEquipmentWear }
+              : equipmentWear
+          ),
+        })),
+
+      deleteEquipmentWear: (id) =>
+        set((state) => ({
+          equipmentWears: state.equipmentWears.filter(
+            (equipmentWear) => equipmentWear.id !== id
+          ),
+        })),
+
+      getEquipmentWearById: (id) =>
+        get().equipmentWears.find((equipmentWear) => equipmentWear.id === id),
+
+      setAverageCustomersPerDay: (average) =>
+        set(() => ({ averageClientsNumberPerDay: average })),
+
+      getTotalForOneClient: () =>
+        roundUpTo2(
+          get().equipmentWears.reduce(
+            (acc, equipmentWear) =>
+              acc +
+              calculatePricePerClient(
+                equipmentWear,
+                get().averageClientsNumberPerDay
+              ),
+            0
+          )
+        ),
+    }),
+    {
+      name: "equipment-wear-storage",
+      storage,
+    }
+  )
+);

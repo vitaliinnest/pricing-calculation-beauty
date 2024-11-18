@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { buildStorage } from "./store";
-import 'react-native-get-random-values';
+import "react-native-get-random-values";
 import { v4 as uuidv4 } from "uuid";
 import { calculateExpenditurePerClient } from "@/calculators/toolProcessingCalculators";
 import { roundUpTo2 } from "@/utils";
@@ -27,45 +27,6 @@ interface ToolProcessingStore {
 }
 
 const storage = buildStorage<ToolProcessingStore>();
-
-export const useToolProcessingStore = create<ToolProcessingStore>()(
-  persist(
-    (set, get) => ({
-      tools: seedTools(),
-
-      addTool: (tool) => {
-        const newTool = { ...tool, id: uuidv4() };
-        return set((state) => ({ tools: [...state.tools, newTool] }));
-      },
-
-      updateTool: (id, updatedTool) =>
-        set((state) => ({
-          tools: state.tools.map((tool) =>
-            tool.id === id ? { ...tool, ...updatedTool } : tool
-          ),
-        })),
-
-      deleteTool: (id) =>
-        set((state) => ({
-          tools: state.tools.filter((tool) => tool.id !== id),
-        })),
-
-      getToolById: (id) => get().tools.find((tool) => tool.id === id),
-
-      getTotalForOneClient: () =>
-        roundUpTo2(
-          get().tools.reduce(
-            (acc, tool) => acc + calculateExpenditurePerClient(tool),
-            0
-          )
-        ),
-    }),
-    {
-      name: "tool-processing-storage",
-      storage,
-    }
-  )
-);
 
 const seedTools = (): ToolProcessing[] => [
   {
@@ -109,3 +70,42 @@ const seedTools = (): ToolProcessing[] => [
     clientsPerDay: 4,
   },
 ];
+
+export const useToolProcessingStore = create<ToolProcessingStore>()(
+  persist(
+    (set, get) => ({
+      tools: seedTools(),
+
+      addTool: (tool) => {
+        const newTool = { ...tool, id: uuidv4() };
+        return set((state) => ({ tools: [...state.tools, newTool] }));
+      },
+
+      updateTool: (id, updatedTool) =>
+        set((state) => ({
+          tools: state.tools.map((tool) =>
+            tool.id === id ? { ...tool, ...updatedTool } : tool
+          ),
+        })),
+
+      deleteTool: (id) =>
+        set((state) => ({
+          tools: state.tools.filter((tool) => tool.id !== id),
+        })),
+
+      getToolById: (id) => get().tools.find((tool) => tool.id === id),
+
+      getTotalForOneClient: () =>
+        roundUpTo2(
+          get().tools.reduce(
+            (acc, tool) => acc + calculateExpenditurePerClient(tool),
+            0
+          )
+        ),
+    }),
+    {
+      name: "tool-processing-storage",
+      storage,
+    }
+  )
+);
