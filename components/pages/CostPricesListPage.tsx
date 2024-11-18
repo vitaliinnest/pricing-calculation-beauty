@@ -6,6 +6,7 @@ import AppendableList from "../AppendableList";
 import ListItem from "../ListItem";
 import KeyValueTable from "../KeyValueTable";
 import { useTranslation } from "react-i18next";
+import { calculateClientsNumber, calculatePricePerClient } from "@/calculators/costPriceCalculators";
 
 export default function CostPricesListPage() {
   const { costPrices, calculateTotalForOneClient } = useCostPriceStore();
@@ -23,6 +24,8 @@ export default function CostPricesListPage() {
           [t('price'), `${item.price} €`],
           [t('volume'), item.volume],
           [t('expenditurePerClient'), item.expenditurePerClient],
+          [t('totalClients'), calculateClientsNumber(item)],
+          [t('pricePerClient'), calculatePricePerClient(item)],
         ]}
       />
     </ListItem>

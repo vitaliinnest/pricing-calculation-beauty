@@ -198,7 +198,7 @@ export const useCostPriceStore = create<CostPriceStore>()(
 
       calculateTotalForOneClient: () => {
         const costPriceTotal = get().costPrices.reduce(
-          (acc, costPrice) => acc + calculatePricePerClient(costPrice),
+          (acc, costPrice) => acc + calculatePricePerClient(costPrice, true),
           0
         );
 
