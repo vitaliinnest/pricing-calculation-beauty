@@ -174,7 +174,7 @@ const seedExpenses = (): Expense[] => [
   },
   {
     id: uuidv4(),
-    name: "Інше",
+    name: "Радіо",
     priceMap: {
       [Month.January]: 50.0,
       [Month.February]: 45.0,
