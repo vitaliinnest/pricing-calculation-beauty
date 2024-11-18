@@ -24,7 +24,7 @@ interface CostPriceStore {
   updateCostPrice: (id: string, updatedCostPrice: CostPriceFormValues) => void;
   deleteCostPrice: (id: string) => void;
   getCostPriceById: (id: string) => CostPrice | undefined;
-  calculateTotalForOneClient: () => number;
+  calculateTotalForOneClient: (discard?: boolean) => number;
 }
 
 const storage = buildStorage<CostPriceStore>();
@@ -196,7 +196,7 @@ export const useCostPriceStore = create<CostPriceStore>()(
       getCostPriceById: (id) =>
         get().costPrices.find((costPrice) => costPrice.id === id),
 
-      calculateTotalForOneClient: () => {
+      calculateTotalForOneClient: (discard) => {
         const costPriceTotal = get().costPrices.reduce(
           (acc, costPrice) => acc + calculatePricePerClient(costPrice, true),
           0
@@ -204,14 +204,15 @@ export const useCostPriceStore = create<CostPriceStore>()(
 
         const toolProcessingTotal = useToolProcessingStore
           .getState()
-          .getTotalForOneClient();
+          .getTotalForOneClient(true);
 
         const equipmentWearTotal = useEquipmentWearStore
           .getState()
-          .getTotalForOneClient();
+          .getTotalForOneClient(true);
 
         return roundNumber(
-          costPriceTotal + toolProcessingTotal + equipmentWearTotal
+          costPriceTotal + toolProcessingTotal + equipmentWearTotal,
+          discard
         );
       },
     }),

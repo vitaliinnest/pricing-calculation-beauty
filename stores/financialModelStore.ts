@@ -311,7 +311,7 @@ export const useFinancialModelStore = create<FinancialModelStore>()(
       calculateMonthlyCostPrice: (data: MonthlyFinancialDataFormValues) => {
         const totalCostForOneClient = useCostPriceStore
           .getState()
-          .calculateTotalForOneClient();
+          .calculateTotalForOneClient(true);
         return roundNumber(
           calculateClientsNumberPerMonth(data) * totalCostForOneClient
         );

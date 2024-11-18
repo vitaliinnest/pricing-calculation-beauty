@@ -26,7 +26,7 @@ interface EquipmentWearStore {
   deleteEquipmentWear: (id: string) => void;
   getEquipmentWearById: (id: string) => EquipmentWear | undefined;
   setAverageCustomersPerDay: (average: number) => void;
-  getTotalForOneClient: () => number;
+  getTotalForOneClient: (discard?: boolean) => number;
 }
 
 const storage = buildStorage<EquipmentWearStore>();
@@ -123,7 +123,7 @@ export const useEquipmentWearStore = create<EquipmentWearStore>()(
       setAverageCustomersPerDay: (average) =>
         set(() => ({ averageClientsNumberPerDay: average })),
 
-      getTotalForOneClient: () =>
+      getTotalForOneClient: (discard) =>
         roundNumber(
           get().equipmentWears.reduce(
             (acc, equipmentWear) =>
@@ -134,7 +134,8 @@ export const useEquipmentWearStore = create<EquipmentWearStore>()(
                 true
               ),
             0
-          )
+          ),
+          discard
         ),
     }),
     {

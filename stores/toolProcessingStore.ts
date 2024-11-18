@@ -23,7 +23,7 @@ interface ToolProcessingStore {
   updateTool: (id: string, updatedTool: ToolProcessingFormValues) => void;
   deleteTool: (id: string) => void;
   getToolById: (id: string) => ToolProcessing | undefined;
-  getTotalForOneClient: () => number;
+  getTotalForOneClient: (discard?: boolean) => number;
 }
 
 const storage = buildStorage<ToolProcessingStore>();
@@ -95,12 +95,13 @@ export const useToolProcessingStore = create<ToolProcessingStore>()(
 
       getToolById: (id) => get().tools.find((tool) => tool.id === id),
 
-      getTotalForOneClient: () =>
+      getTotalForOneClient: (discard) =>
         roundNumber(
           get().tools.reduce(
             (acc, tool) => acc + calculateExpenditurePerClient(tool, true),
             0
-          )
+          ),
+          discard
         ),
     }),
     {
