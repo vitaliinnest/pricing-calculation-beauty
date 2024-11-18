@@ -4,7 +4,7 @@ import { buildStorage } from "./store";
 import "react-native-get-random-values";
 import { v4 as uuidv4 } from "uuid";
 import { calculatePricePerClient } from "@/calculators/equipmentWearCalculators";
-import { roundUpTo2 } from "@/utils";
+import { roundNumber } from "@/utils";
 
 export interface EquipmentWear {
   id: string;
@@ -124,7 +124,7 @@ export const useEquipmentWearStore = create<EquipmentWearStore>()(
         set(() => ({ averageClientsNumberPerDay: average })),
 
       getTotalForOneClient: () =>
-        roundUpTo2(
+        roundNumber(
           get().equipmentWears.reduce(
             (acc, equipmentWear) =>
               acc +

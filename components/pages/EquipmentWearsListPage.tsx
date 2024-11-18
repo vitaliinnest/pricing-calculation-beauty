@@ -17,6 +17,7 @@ import { useState } from "react";
 import AverageClientsNumberModal from "./AverageClientsNumberModal";
 import KeyValueTable from "../KeyValueTable";
 import { useTranslation } from "react-i18next";
+import { calculatePricePerClient, calculatePricePerDay } from "@/calculators/equipmentWearCalculators";
 
 export default function EquipmentWearsListPage() {
   const { equipmentWears, getTotalForOneClient, averageClientsNumberPerDay } =
@@ -38,6 +39,8 @@ export default function EquipmentWearsListPage() {
         data={[
           [t("price"), `${item.price} €`],
           [t("serviceLifeInDays"), item.serviceLifeInDays],
+          [t("pricePerDay"), `${calculatePricePerDay(item)} €`],
+          [t("pricePerClient"), `${calculatePricePerClient(item, averageClientsNumberPerDay)} €`],
         ]}
       />
     </ListItem>

@@ -14,7 +14,7 @@ import {
   calculatePlannedDailyTurnover,
   calculatePlannedMonthlyTurnover,
 } from "@/calculators/priceFormationCalculators";
-import { roundUpTo2 } from "@/utils";
+import { roundNumber } from "@/utils";
 import { useTranslation } from "react-i18next";
 
 export default function PriceFormationPage() {
@@ -43,18 +43,18 @@ export default function PriceFormationPage() {
 
   const totalCostPerClientPerDay =
     totalClientsPerMonth > 0
-      ? roundUpTo2(
+      ? roundNumber(
           financialModelStore.calculateTotalMonthlyCostPrice() /
             totalClientsPerMonth
         )
       : 0;
 
-  const plannedDailyTurnoverDifference = roundUpTo2(
+  const plannedDailyTurnoverDifference = roundNumber(
     calculatePlannedDailyTurnover(formValues) -
       calculateDailyTurnover(formValues)
   );
 
-  const plannedMonthlyTurnoverDifference = roundUpTo2(
+  const plannedMonthlyTurnoverDifference = roundNumber(
     plannedDailyTurnoverDifference * formValues.workingDaysPerMonth
   );
 
@@ -63,7 +63,7 @@ export default function PriceFormationPage() {
 
   const plannedDailyTurnover = calculatePlannedDailyTurnover(formValues);
 
-  const netProfitPerClient = roundUpTo2(
+  const netProfitPerClient = roundNumber(
     formValues.servicePrice -
       totalCostPerClientPerDay -
       (formValues.clientsNumberPerDay > 0
@@ -71,13 +71,13 @@ export default function PriceFormationPage() {
         : 0)
   );
 
-  const netProfitPerDay = roundUpTo2(
+  const netProfitPerDay = roundNumber(
     plannedDailyTurnover -
       totalCostPerClientPerDay * formValues.clientsNumberPerDay -
       averageDailyExpenses
   );
 
-  const netProfitPerMonth = roundUpTo2(
+  const netProfitPerMonth = roundNumber(
     netProfitPerDay * formValues.workingDaysPerMonth
   );
 

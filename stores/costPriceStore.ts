@@ -6,7 +6,7 @@ import { v4 as uuidv4 } from "uuid";
 import { calculatePricePerClient } from "@/calculators/costPriceCalculators";
 import { useEquipmentWearStore } from "./equipmentWearStore";
 import { useToolProcessingStore } from "./toolProcessingStore";
-import { roundUpTo2 } from "@/utils";
+import { roundNumber } from "@/utils";
 
 export interface CostPrice {
   id: string;
@@ -210,7 +210,7 @@ export const useCostPriceStore = create<CostPriceStore>()(
           .getState()
           .getTotalForOneClient();
 
-        return roundUpTo2(
+        return roundNumber(
           costPriceTotal + toolProcessingTotal + equipmentWearTotal
         );
       },

@@ -3,7 +3,7 @@ import { persist } from "zustand/middleware";
 import { buildStorage } from "./store";
 import "react-native-get-random-values";
 import { v4 as uuidv4 } from "uuid";
-import { roundUpTo2 } from "@/utils";
+import { roundNumber } from "@/utils";
 import {
   calculateClientsNumberPerMonth,
   calculateClientsNumberPerWeek,
@@ -218,7 +218,7 @@ export const useFinancialModelStore = create<FinancialModelStore>()(
         get().financialData.find((financialData) => financialData.id === id),
 
       calculateTotalWorkingDays: () =>
-        roundUpTo2(
+        roundNumber(
           get()
             .financialData.filter(
               (financialData) => financialData.workingDaysPerMonth !== undefined
@@ -231,7 +231,7 @@ export const useFinancialModelStore = create<FinancialModelStore>()(
 
       calculateAverageWorkingDaysPerWeek: () => {
         const financialData = get().financialData;
-        return roundUpTo2(
+        return roundNumber(
           financialData
             .filter(
               (financialData) => financialData.workingDaysPerWeek !== undefined
@@ -245,7 +245,7 @@ export const useFinancialModelStore = create<FinancialModelStore>()(
 
       calculateAverageClientsNumberPerDay: () => {
         const financialData = get().financialData;
-        return roundUpTo2(
+        return roundNumber(
           financialData
             .filter(
               (financialData) => financialData.clientsNumberPerDay !== undefined
@@ -259,7 +259,7 @@ export const useFinancialModelStore = create<FinancialModelStore>()(
 
       calculateAverageHoursNumberPerClient: () => {
         const financialData = get().financialData;
-        return roundUpTo2(
+        return roundNumber(
           financialData
             .filter(
               (financialData) =>
@@ -273,7 +273,7 @@ export const useFinancialModelStore = create<FinancialModelStore>()(
       },
 
       calculateAverageDailyClientHours: () =>
-        roundUpTo2(
+        roundNumber(
           get().financialData.reduce(
             (acc, financialData) =>
               acc + calculateDailyClientHours(financialData),
@@ -282,7 +282,7 @@ export const useFinancialModelStore = create<FinancialModelStore>()(
         ),
 
       calculateAverageClientsNumberPerWeek: () =>
-        roundUpTo2(
+        roundNumber(
           get().financialData.reduce(
             (acc, financialData) =>
               acc + calculateClientsNumberPerWeek(financialData),
@@ -291,7 +291,7 @@ export const useFinancialModelStore = create<FinancialModelStore>()(
         ),
 
       calculateTotalClientsNumberPerMonth: () =>
-        roundUpTo2(
+        roundNumber(
           get().financialData.reduce(
             (acc, financialData) =>
               acc + calculateClientsNumberPerMonth(financialData),
@@ -300,7 +300,7 @@ export const useFinancialModelStore = create<FinancialModelStore>()(
         ),
 
       calculateTotalMonthlyClientHours: () =>
-        roundUpTo2(
+        roundNumber(
           get().financialData.reduce(
             (acc, financialData) =>
               acc + calculateHoursNumberPerMonth(financialData),
@@ -312,14 +312,14 @@ export const useFinancialModelStore = create<FinancialModelStore>()(
         const totalCostForOneClient = useCostPriceStore
           .getState()
           .calculateTotalForOneClient();
-        return roundUpTo2(
+        return roundNumber(
           calculateClientsNumberPerMonth(data) * totalCostForOneClient
         );
       },
 
       calculateAverageMonthlyCostPrice: () => {
         const financialData = get().financialData;
-        return roundUpTo2(
+        return roundNumber(
           financialData.reduce(
             (acc, financialData) =>
               acc + get().calculateMonthlyCostPrice(financialData),
@@ -329,7 +329,7 @@ export const useFinancialModelStore = create<FinancialModelStore>()(
       },
 
       calculateTotalMonthlyCostPrice: () =>
-        roundUpTo2(
+        roundNumber(
           get().financialData.reduce(
             (acc, financialData) =>
               acc + get().calculateMonthlyCostPrice(financialData),
@@ -338,7 +338,7 @@ export const useFinancialModelStore = create<FinancialModelStore>()(
         ),
 
       calculateTotalExpenses: (data: MonthlyFinancialDataWithExpenses) => {
-        return roundUpTo2(
+        return roundNumber(
           Object.values(data.expensesMap).reduce((acc, price) => acc + price, 0)
         );
       },
@@ -350,7 +350,7 @@ export const useFinancialModelStore = create<FinancialModelStore>()(
         if (!clientsNumberPerMonth) {
           return 0;
         }
-        return roundUpTo2(
+        return roundNumber(
           get().calculateTotalExpenses(data) / clientsNumberPerMonth
         );
       },
@@ -359,7 +359,7 @@ export const useFinancialModelStore = create<FinancialModelStore>()(
         if (!data?.workingDaysPerMonth) {
           return 0;
         }
-        return roundUpTo2(
+        return roundNumber(
           get().calculateTotalExpenses(data) / data.workingDaysPerMonth
         );
       },
@@ -371,7 +371,7 @@ export const useFinancialModelStore = create<FinancialModelStore>()(
         if (!hoursNumberPerMonth) {
           return 0;
         }
-        return roundUpTo2(
+        return roundNumber(
           get().calculateTotalExpenses(data) / hoursNumberPerMonth
         );
       },
@@ -379,7 +379,7 @@ export const useFinancialModelStore = create<FinancialModelStore>()(
       calculateExpectedMonthlyProfit: (
         data: MonthlyFinancialDataWithExpenses
       ) =>
-        roundUpTo2(
+        roundNumber(
           (data.actualMonthlyTurnover ?? 0) -
             get().calculateTotalExpenses(data) -
             get().calculateMonthlyCostPrice(data)
@@ -387,7 +387,7 @@ export const useFinancialModelStore = create<FinancialModelStore>()(
 
       calculateYearlyExpectedProfit: () => {
         const expenses = useExpenseStore.getState().expenses;
-        return roundUpTo2(
+        return roundNumber(
           get().financialData.reduce(
             (acc, financialData) =>
               acc +
@@ -402,7 +402,7 @@ export const useFinancialModelStore = create<FinancialModelStore>()(
 
       calculateYearlyTotalExpenses: () => {
         const expenses = useExpenseStore.getState().expenses;
-        return roundUpTo2(
+        return roundNumber(
           get().financialData.reduce(
             (acc, financialData) =>
               acc +
@@ -430,7 +430,7 @@ export const useFinancialModelStore = create<FinancialModelStore>()(
           return 0;
         }
 
-        return roundUpTo2(
+        return roundNumber(
           expensesPerClientArr.reduce((acc, ex) => acc + ex, 0) /
             expensesPerClientArr.length
         );
@@ -451,7 +451,7 @@ export const useFinancialModelStore = create<FinancialModelStore>()(
           return 0;
         }
 
-        return roundUpTo2(
+        return roundNumber(
           dailyExpensesArr.reduce((acc, ex) => acc + ex, 0) /
             dailyExpensesArr.length
         );
@@ -472,7 +472,7 @@ export const useFinancialModelStore = create<FinancialModelStore>()(
           return 0;
         }
 
-        return roundUpTo2(
+        return roundNumber(
           hourlyExpensesArr.reduce((acc, ex) => acc + ex, 0) /
             hourlyExpensesArr.length
         );

@@ -4,7 +4,7 @@ import { buildStorage } from "./store";
 import "react-native-get-random-values";
 import { v4 as uuidv4 } from "uuid";
 import { calculateExpenditurePerClient } from "@/calculators/toolProcessingCalculators";
-import { roundUpTo2 } from "@/utils";
+import { roundNumber } from "@/utils";
 
 export interface ToolProcessing {
   id: string;
@@ -96,7 +96,7 @@ export const useToolProcessingStore = create<ToolProcessingStore>()(
       getToolById: (id) => get().tools.find((tool) => tool.id === id),
 
       getTotalForOneClient: () =>
-        roundUpTo2(
+        roundNumber(
           get().tools.reduce(
             (acc, tool) => acc + calculateExpenditurePerClient(tool),
             0

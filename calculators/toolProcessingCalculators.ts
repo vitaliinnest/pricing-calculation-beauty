@@ -1,12 +1,12 @@
 import { ToolProcessingFormValues } from "@/stores/toolProcessingStore";
-import { roundUpTo2 } from "@/utils";
+import { roundNumber } from "@/utils";
 
 /** Кількість днів */
 export function calculateDaysAmount(tool: ToolProcessingFormValues): number {
   if (!tool?.expenditurePerDay) {
     return 0;
   }
-  return roundUpTo2(tool.volume / tool.expenditurePerDay);
+  return roundNumber(tool.volume / tool.expenditurePerDay);
 }
 
 /** Ціна в день */
@@ -15,7 +15,7 @@ export function calculatePricePerDay(tool: ToolProcessingFormValues): number {
   if (daysAmount === 0) {
     return 0;
   }
-  return roundUpTo2(tool.price / daysAmount);
+  return roundNumber(tool.price / daysAmount);
 }
 
 /** Витрата на одного клієнта */
@@ -25,5 +25,5 @@ export function calculateExpenditurePerClient(
   if (!tool?.clientsPerDay) {
     return 0;
   }
-  return roundUpTo2(calculatePricePerDay(tool) / tool.clientsPerDay);
+  return roundNumber(calculatePricePerDay(tool) / tool.clientsPerDay);
 }

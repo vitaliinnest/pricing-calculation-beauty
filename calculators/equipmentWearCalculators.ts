@@ -1,5 +1,5 @@
 import { EquipmentWearFormValues } from "@/stores/equipmentWearStore";
-import { roundUpTo2 } from "@/utils";
+import { roundNumber } from "@/utils";
 
 /** Ціна в день */
 export function calculatePricePerDay(
@@ -8,7 +8,7 @@ export function calculatePricePerDay(
   if (!equipment?.serviceLifeInDays) {
     return 0;
   }
-  return roundUpTo2(equipment.price / equipment.serviceLifeInDays);
+  return roundNumber(equipment.price / equipment.serviceLifeInDays);
 }
 
 /** Ціна на одного клієнта */
@@ -19,5 +19,5 @@ export function calculatePricePerClient(
   if (averageClientsNumberPerDay === 0) {
     return 0;
   }
-  return roundUpTo2(calculatePricePerDay(equipment) / averageClientsNumberPerDay);
+  return roundNumber(calculatePricePerDay(equipment) / averageClientsNumberPerDay);
 }
