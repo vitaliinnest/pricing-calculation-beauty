@@ -8,6 +8,7 @@ import ListItem from "../ListItem";
 import { useRouter } from "expo-router";
 import KeyValueTable from "../KeyValueTable";
 import { useTranslation } from "react-i18next";
+import { calculateDaysAmount, calculateExpenditurePerClient, calculatePricePerDay } from "@/calculators/toolProcessingCalculators";
 
 export default function ToolProcessingsListPage() {
   const { tools, getTotalForOneClient } = useToolProcessingStore();
@@ -26,6 +27,9 @@ export default function ToolProcessingsListPage() {
           [t("volume"), item.volume],
           [t("expenditurePerDay"), item.expenditurePerDay],
           [t("clientsPerDay"), item.clientsPerDay],
+          [t("daysAmount"), calculateDaysAmount(item)],
+          [t("pricePerDay"), `${calculatePricePerDay(item)} €`],
+          [t("expenditurePerClient"), `${calculateExpenditurePerClient(item)} €`],
         ]}
       />
     </ListItem>
