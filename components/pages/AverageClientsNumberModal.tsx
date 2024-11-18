@@ -4,6 +4,7 @@ import Button from "../Button";
 import { useForm } from "react-hook-form";
 import NumberInput from "../inputs/NumberInput";
 import { useTranslation } from "react-i18next";
+import Toast from "react-native-toast-message";
 
 type Props = {
   visible: boolean;
@@ -27,6 +28,11 @@ export default function AverageClientsNumberModal({ visible, onClose }: Props) {
   const onSubmit = () => {
     setAverageCustomersPerDay(formValues.averageClientsNumberPerDay);
     onClose();
+    Toast.show({
+      type: "success",
+      text1: t("averageClientsNumberPerDay"),
+      text2: t("averageClientsNumberPerDayUpdated"),
+    });
   };
 
   return (
