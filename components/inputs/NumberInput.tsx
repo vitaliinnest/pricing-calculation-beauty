@@ -13,11 +13,16 @@ export default function NumberInput({ label, name, control }: InputProps) {
   const [value, setValue] = useState<string>(field.value.toString());
 
   const onChangeValue = (text: string) => {
-    const sanitizedText = sanitizeInput(text);
-    setValue(sanitizedText);
+    const formattedText = formatText(text);
+    setValue(formattedText);
 
-    const isFloat = sanitizedText.includes('.') || sanitizedText.includes(',');
-    field.onChange(isFloat ? parseFloat(sanitizedText.replace(',', '.')) : parseInt(sanitizedText, 10));
+    if (!formattedText) {
+      field.onChange(0);
+      return;
+    }
+
+    const isFloat = formattedText.includes('.') || formattedText.includes(',');
+    field.onChange(isFloat ? parseFloat(formattedText.replace(',', '.')) : parseInt(formattedText, 10));
   };
 
   const onBlur = () => {
@@ -37,7 +42,7 @@ export default function NumberInput({ label, name, control }: InputProps) {
     </LabellableInput>
   );
 }
-function sanitizeInput(text: string) {
+function formatText(text: string) {
   let sanitizedText = text.replace(/[^0-9.,]/g, '');
 
   if (sanitizedText.startsWith('0') && sanitizedText.length > 1 && !sanitizedText.startsWith('0.') && !sanitizedText.startsWith('0,')) {
