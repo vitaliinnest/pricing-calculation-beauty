@@ -37,35 +37,45 @@ interface FinancialModelStore {
   getFinancialDataById: (id: string) => MonthlyFinancialData | undefined;
 
   calculateTotalWorkingDays: () => number;
-  calculateAverageWorkingDaysPerWeek: () => number;
-  calculateAverageClientsNumberPerDay: () => number;
-  calculateAverageHoursNumberPerClient: () => number;
+  calculateAverageWorkingDaysPerWeek: (discard?: boolean) => number;
+  calculateAverageClientsNumberPerDay: (discard?: boolean) => number;
+  calculateAverageHoursNumberPerClient: (discard?: boolean) => number;
 
-  calculateAverageDailyClientHours: () => number;
-  calculateAverageClientsNumberPerWeek: () => number;
-  calculateTotalClientsNumberPerMonth: () => number;
-  calculateTotalMonthlyClientHours: () => number;
+  calculateAverageDailyClientHours: (discard?: boolean) => number;
+  calculateAverageClientsNumberPerWeek: (discard?: boolean) => number;
+  calculateTotalClientsNumberPerMonth: (discard?: boolean) => number;
+  calculateTotalMonthlyClientHours: (discard?: boolean) => number;
 
   // себестоимость материала
-  calculateMonthlyCostPrice: (data: MonthlyFinancialDataFormValues) => number;
-  calculateAverageMonthlyCostPrice: () => number;
+  calculateMonthlyCostPrice: (
+    data: MonthlyFinancialDataFormValues,
+    discard?: boolean
+  ) => number;
+  calculateAverageMonthlyCostPrice: (discard?: boolean) => number;
   calculateTotalMonthlyCostPrice: (discard?: boolean) => number;
 
   // итого расходы
-  calculateTotalExpenses: (data: MonthlyFinancialDataWithExpenses) => number;
+  calculateTotalExpenses: (
+    data: MonthlyFinancialDataWithExpenses,
+    discard?: boolean
+  ) => number;
   calculateTotalExpensesPerClient: (
-    data: MonthlyFinancialDataWithExpenses
+    data: MonthlyFinancialDataWithExpenses,
+    discard?: boolean
   ) => number;
   calculateTotalDailyExpenses: (
-    data: MonthlyFinancialDataWithExpenses
+    data: MonthlyFinancialDataWithExpenses,
+    discard?: boolean
   ) => number;
   calculateTotalHourlyExpenses: (
-    data: MonthlyFinancialDataWithExpenses
+    data: MonthlyFinancialDataWithExpenses,
+    discard?: boolean
   ) => number;
 
   // орієнтований прибуток
   calculateExpectedMonthlyProfit: (
-    data: MonthlyFinancialDataWithExpenses
+    data: MonthlyFinancialDataWithExpenses,
+    discard?: boolean
   ) => number;
 
   calculateYearlyExpectedProfit: () => number;
@@ -276,7 +286,7 @@ export const useFinancialModelStore = create<FinancialModelStore>()(
         roundNumber(
           get().financialData.reduce(
             (acc, financialData) =>
-              acc + calculateDailyClientHours(financialData),
+              acc + calculateDailyClientHours(financialData, true),
             0
           ) / get().financialData.length
         ),
@@ -285,7 +295,7 @@ export const useFinancialModelStore = create<FinancialModelStore>()(
         roundNumber(
           get().financialData.reduce(
             (acc, financialData) =>
-              acc + calculateClientsNumberPerWeek(financialData),
+              acc + calculateClientsNumberPerWeek(financialData, true),
             0
           ) / get().financialData.length
         ),
@@ -293,7 +303,7 @@ export const useFinancialModelStore = create<FinancialModelStore>()(
       calculateTotalClientsNumberPerMonth: () =>
         get().financialData.reduce(
           (acc, financialData) =>
-            acc + calculateClientsNumberPerMonth(financialData),
+            acc + calculateClientsNumberPerMonth(financialData, true),
           0
         ),
 
@@ -301,17 +311,18 @@ export const useFinancialModelStore = create<FinancialModelStore>()(
         roundNumber(
           get().financialData.reduce(
             (acc, financialData) =>
-              acc + calculateHoursNumberPerMonth(financialData),
+              acc + calculateHoursNumberPerMonth(financialData, true),
             0
           )
         ),
 
-      calculateMonthlyCostPrice: (data: MonthlyFinancialDataFormValues) => {
+      calculateMonthlyCostPrice: (data, discard) => {
         const totalCostForOneClient = useCostPriceStore
           .getState()
           .calculateTotalForOneClient(true);
         return roundNumber(
-          calculateClientsNumberPerMonth(data) * totalCostForOneClient
+          calculateClientsNumberPerMonth(data, true) * totalCostForOneClient,
+          discard
         );
       },
 
@@ -320,7 +331,7 @@ export const useFinancialModelStore = create<FinancialModelStore>()(
         return roundNumber(
           financialData.reduce(
             (acc, financialData) =>
-              acc + get().calculateMonthlyCostPrice(financialData),
+              acc + get().calculateMonthlyCostPrice(financialData, true),
             0
           ) / financialData.length
         );
@@ -330,58 +341,56 @@ export const useFinancialModelStore = create<FinancialModelStore>()(
         roundNumber(
           get().financialData.reduce(
             (acc, financialData) =>
-              acc + get().calculateMonthlyCostPrice(financialData),
+              acc + get().calculateMonthlyCostPrice(financialData, true),
             0
           ),
           discard
         ),
 
-      calculateTotalExpenses: (data: MonthlyFinancialDataWithExpenses) => {
+      calculateTotalExpenses: (data, discard) => {
         return roundNumber(
           Object.values(data.expensesMap).reduce((acc, price) => acc + price, 0)
         );
       },
 
-      calculateTotalExpensesPerClient: (
-        data: MonthlyFinancialDataWithExpenses
-      ) => {
-        const clientsNumberPerMonth = calculateClientsNumberPerMonth(data);
+      calculateTotalExpensesPerClient: (data) => {
+        const clientsNumberPerMonth = calculateClientsNumberPerMonth(
+          data,
+          true
+        );
         if (!clientsNumberPerMonth) {
           return 0;
         }
         return roundNumber(
-          get().calculateTotalExpenses(data) / clientsNumberPerMonth
+          get().calculateTotalExpenses(data, true) / clientsNumberPerMonth
         );
       },
 
-      calculateTotalDailyExpenses: (data: MonthlyFinancialDataWithExpenses) => {
+      calculateTotalDailyExpenses: (data) => {
         if (!data?.workingDaysPerMonth) {
           return 0;
         }
         return roundNumber(
-          get().calculateTotalExpenses(data) / data.workingDaysPerMonth
+          get().calculateTotalExpenses(data, true) / data.workingDaysPerMonth
         );
       },
 
-      calculateTotalHourlyExpenses: (
-        data: MonthlyFinancialDataWithExpenses
-      ) => {
-        const hoursNumberPerMonth = calculateHoursNumberPerMonth(data);
+      calculateTotalHourlyExpenses: (data) => {
+        const hoursNumberPerMonth = calculateHoursNumberPerMonth(data, true);
         if (!hoursNumberPerMonth) {
           return 0;
         }
         return roundNumber(
-          get().calculateTotalExpenses(data) / hoursNumberPerMonth
+          get().calculateTotalExpenses(data, true) / hoursNumberPerMonth
         );
       },
 
-      calculateExpectedMonthlyProfit: (
-        data: MonthlyFinancialDataWithExpenses
-      ) =>
+      calculateExpectedMonthlyProfit: (data, discard) =>
         roundNumber(
           (data.actualMonthlyTurnover ?? 0) -
-            get().calculateTotalExpenses(data) -
-            get().calculateMonthlyCostPrice(data)
+            get().calculateTotalExpenses(data, true) -
+            get().calculateMonthlyCostPrice(data, true),
+          discard
         ),
 
       calculateYearlyExpectedProfit: () => {
@@ -390,10 +399,13 @@ export const useFinancialModelStore = create<FinancialModelStore>()(
           get().financialData.reduce(
             (acc, financialData) =>
               acc +
-              get().calculateExpectedMonthlyProfit({
-                ...financialData,
-                expensesMap: mapExpenses(expenses, financialData),
-              }),
+              get().calculateExpectedMonthlyProfit(
+                {
+                  ...financialData,
+                  expensesMap: mapExpenses(expenses, financialData),
+                },
+                true
+              ),
             0
           )
         );
@@ -405,10 +417,13 @@ export const useFinancialModelStore = create<FinancialModelStore>()(
           get().financialData.reduce(
             (acc, financialData) =>
               acc +
-              get().calculateTotalExpenses({
-                ...financialData,
-                expensesMap: mapExpenses(expenses, financialData),
-              }),
+              get().calculateTotalExpenses(
+                {
+                  ...financialData,
+                  expensesMap: mapExpenses(expenses, financialData),
+                },
+                true
+              ),
             0
           )
         );
@@ -418,10 +433,13 @@ export const useFinancialModelStore = create<FinancialModelStore>()(
         const expenses = useExpenseStore.getState().expenses;
         const expensesPerClientArr = get()
           .financialData.map((d) =>
-            get().calculateTotalExpensesPerClient({
-              ...d,
-              expensesMap: mapExpenses(expenses, d),
-            })
+            get().calculateTotalExpensesPerClient(
+              {
+                ...d,
+                expensesMap: mapExpenses(expenses, d),
+              },
+              true
+            )
           )
           .filter((ex) => ex > 0);
 
@@ -439,10 +457,13 @@ export const useFinancialModelStore = create<FinancialModelStore>()(
         const expenses = useExpenseStore.getState().expenses;
         const dailyExpensesArr = get()
           .financialData.map((d) =>
-            get().calculateTotalDailyExpenses({
-              ...d,
-              expensesMap: mapExpenses(expenses, d),
-            })
+            get().calculateTotalDailyExpenses(
+              {
+                ...d,
+                expensesMap: mapExpenses(expenses, d),
+              },
+              true
+            )
           )
           .filter((ex) => ex > 0);
 
@@ -460,10 +481,13 @@ export const useFinancialModelStore = create<FinancialModelStore>()(
         const expenses = useExpenseStore.getState().expenses;
         const hourlyExpensesArr = get()
           .financialData.map((d) =>
-            get().calculateTotalHourlyExpenses({
-              ...d,
-              expensesMap: mapExpenses(expenses, d),
-            })
+            get().calculateTotalHourlyExpenses(
+              {
+                ...d,
+                expensesMap: mapExpenses(expenses, d),
+              },
+              true
+            )
           )
           .filter((ex) => ex > 0);
 
