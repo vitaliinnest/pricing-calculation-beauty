@@ -34,8 +34,8 @@ const storage = buildStorage<EquipmentWearStore>();
 export const useEquipmentWearStore = create<EquipmentWearStore>()(
   persist(
     (set, get) => ({
-      equipmentWears: [],
-      averageClientsNumberPerDay: 0,
+      equipmentWears: seedEquipmentWears(),
+      averageClientsNumberPerDay: 4,
 
       addEquipmentWear: (equipmentWear) => {
         const newEquipmentWear = { ...equipmentWear, id: uuidv4() };
@@ -85,3 +85,60 @@ export const useEquipmentWearStore = create<EquipmentWearStore>()(
     }
   )
 );
+
+const seedEquipmentWears = (): EquipmentWear[] => [
+  {
+    id: uuidv4(),
+    name: "Лампа для гель-лака",
+    price: 15.0,
+    serviceLifeInDays: 360,
+  },
+  {
+    id: uuidv4(),
+    name: "Сухожар",
+    price: 35.29,
+    serviceLifeInDays: 360,
+  },
+  {
+    id: uuidv4(),
+    name: "УЗ-мийка",
+    price: 52.94,
+    serviceLifeInDays: 360,
+  },
+  {
+    id: uuidv4(),
+    name: "Апарат для манікюра",
+    price: 158.82,
+    serviceLifeInDays: 360,
+  },
+  {
+    id: uuidv4(),
+    name: "Пилосмок для манікюра",
+    price: 50.59,
+    serviceLifeInDays: 360,
+  },
+  {
+    id: uuidv4(),
+    name: "Підставка для рук",
+    price: 14.12,
+    serviceLifeInDays: 360,
+  },
+  {
+    id: uuidv4(),
+    name: "Стіл",
+    price: 141.18,
+    serviceLifeInDays: 360,
+  },
+  {
+    id: uuidv4(),
+    name: "Стільці",
+    price: 35.29,
+    serviceLifeInDays: 360,
+  },
+  {
+    id: uuidv4(),
+    name: "Лампа настільна",
+    price: 9.41,
+    serviceLifeInDays: 360,
+  },
+];
