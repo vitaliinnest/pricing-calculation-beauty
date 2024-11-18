@@ -31,7 +31,7 @@ const storage = buildStorage<ToolProcessingStore>();
 export const useToolProcessingStore = create<ToolProcessingStore>()(
   persist(
     (set, get) => ({
-      tools: [],
+      tools: seedTools(),
 
       addTool: (tool) => {
         const newTool = { ...tool, id: uuidv4() };
@@ -66,3 +66,46 @@ export const useToolProcessingStore = create<ToolProcessingStore>()(
     }
   )
 );
+
+const seedTools = (): ToolProcessing[] => [
+  {
+    id: uuidv4(),
+    name: "Мистраль",
+    price: 9.9,
+    volume: 1000,
+    expenditurePerDay: 40,
+    clientsPerDay: 3,
+  },
+  {
+    id: uuidv4(),
+    name: "Актибор",
+    price: 6.59,
+    volume: 1000,
+    expenditurePerDay: 30,
+    clientsPerDay: 4,
+  },
+  {
+    id: uuidv4(),
+    name: "Проба",
+    price: 4.94,
+    volume: 100,
+    expenditurePerDay: 5,
+    clientsPerDay: 4,
+  },
+  {
+    id: uuidv4(),
+    name: "Тест-смужки",
+    price: 7.06,
+    volume: 100,
+    expenditurePerDay: 1,
+    clientsPerDay: 4,
+  },
+  {
+    id: uuidv4(),
+    name: "Індикатори",
+    price: 6.47,
+    volume: 500,
+    expenditurePerDay: 1,
+    clientsPerDay: 4,
+  },
+];
