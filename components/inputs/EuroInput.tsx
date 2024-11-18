@@ -42,7 +42,7 @@ export default function EuroInput({ label, name, control }: InputProps) {
 }
 
 function formatText(text: string) {
-  let formattedText = text.replace(/[^0-9.,]/g, "").replace(/,/g, ".");
+  let formattedText = text.replace(/,/g, ".").replace(/[^0-9.]/g, "");
   const parts = formattedText.split(".");
   if (parts.length > 2) {
     formattedText = parts[0] + "." + parts.slice(1).join("");

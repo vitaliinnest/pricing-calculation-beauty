@@ -98,7 +98,7 @@ export const useToolProcessingStore = create<ToolProcessingStore>()(
       getTotalForOneClient: () =>
         roundNumber(
           get().tools.reduce(
-            (acc, tool) => acc + calculateExpenditurePerClient(tool),
+            (acc, tool) => acc + calculateExpenditurePerClient(tool, true),
             0
           )
         ),

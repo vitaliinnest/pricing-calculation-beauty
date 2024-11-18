@@ -130,7 +130,8 @@ export const useEquipmentWearStore = create<EquipmentWearStore>()(
               acc +
               calculatePricePerClient(
                 equipmentWear,
-                get().averageClientsNumberPerDay
+                get().averageClientsNumberPerDay,
+                true
               ),
             0
           )
